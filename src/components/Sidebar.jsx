@@ -210,10 +210,10 @@ const Sidebar = () => {
       )}
 
       {/* Sidebar as Aside - hidden on mobile, visible on desktop */}
-      <aside className="sidebar fixed top-0 bottom-0 left-0 z-40 flex w-64 -translate-x-full transform flex-col overflow-y-auto bg-white shadow-xl transition-transform duration-300 ease-in-out md:static md:min-h-screen md:translate-x-0 md:shadow-md">
+      <aside className="sidebar fixed top-0 bottom-0 left-0 z-40 mt-5 flex w-64 -translate-x-full transform flex-col overflow-y-auto bg-white shadow-xl transition-transform duration-300 ease-in-out md:static md:mt-0 md:min-h-screen md:translate-x-0 md:shadow-md">
         {/* Sidebar Header */}
-        <div className="flex items-center justify-between border-b border-gray-200 p-4">
-          <Link to="/home" className="flex items-center">
+        <div className="flex items-center justify-between border-b border-gray-200">
+          {/* <Link to="/home" className="flex items-center">
             <div className="mr-2 rounded-full bg-gradient-to-r from-indigo-500 to-purple-600 p-2">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -225,7 +225,7 @@ const Sidebar = () => {
               </svg>
             </div>
             <span className="text-xl font-bold text-gray-800">EgyRailway</span>
-          </Link>
+          </Link> */}
           <button
             onClick={toggleSidebar}
             className="rounded-md p-2 text-gray-500 hover:bg-gray-100 md:hidden"
@@ -246,7 +246,7 @@ const Sidebar = () => {
         </div>
 
         {/* User Profile Section */}
-        <div className="border-b border-gray-200 px-4 py-5">
+        <div className="border-b border-gray-200 px-4 py-5 md:py-0">
           <div className="flex items-center">
             <div className="relative mr-3">
               <div className="h-10 w-10 overflow-hidden rounded-full bg-gradient-to-r from-indigo-400 to-purple-500">

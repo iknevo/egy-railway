@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router";
+import { logo } from "../assets";
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -41,9 +42,9 @@ const Header = () => {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5 }}
           >
-            <Link to="/home" className="flex items-center">
-              <div className="flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-r from-indigo-500 to-purple-600 text-white shadow">
-                <svg
+            <Link to="/home" className="flex items-center justify-center">
+              <div className="flex h-12 w-12 items-center justify-center rounded-full">
+                {/* <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="h-5 w-5"
                   viewBox="0 0 20 20"
@@ -54,7 +55,8 @@ const Header = () => {
                     d="M12 1.586l-4 4v12.828l4-4V1.586zM3.707 3.293A1 1 0 002 4v10a1 1 0 00.293.707L6 18.414V5.586L3.707 3.293zM17.707 5.293L14 1.586v12.828l2.293 2.293A1 1 0 0018 16V6a1 1 0 00-.293-.707z"
                     clipRule="evenodd"
                   />
-                </svg>
+                </svg> */}
+                <img src={logo} alt="egy railway logo" />
               </div>
               <span className="ml-2 bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-xl font-bold text-transparent">
                 EgyRailway
