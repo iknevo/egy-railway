@@ -69,14 +69,14 @@ const HomePage = () => {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-indigo-900 via-indigo-700 to-purple-700 py-24 text-white">
+      <section className="relative bg-gradient-to-br from-blue-900 via-cyan-700 to-cyan-700 py-24 text-white">
         <div className="absolute inset-0 overflow-hidden">
           <img
             src="https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80"
             alt="Egyptian train"
             className="h-full w-full object-cover opacity-30 mix-blend-overlay"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-indigo-900/60 to-purple-900/60"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-blue-900/60 to-cyan-900/60"></div>
         </div>
         <div className="relative container mx-auto px-4">
           <motion.div
@@ -112,9 +112,9 @@ const HomePage = () => {
             >
               <Link
                 to="/trains"
-                className="group relative inline-flex items-center justify-center overflow-hidden rounded-md bg-white px-8 py-4 font-medium text-indigo-600 shadow-lg transition duration-300 ease-out hover:scale-105"
+                className="group relative inline-flex items-center justify-center overflow-hidden rounded-md bg-white px-8 py-4 font-medium text-blue-600 shadow-lg transition duration-300 ease-out hover:scale-105"
               >
-                <span className="absolute top-0 left-0 h-full w-0 bg-gradient-to-r from-indigo-600 to-purple-600 transition-all duration-500 ease-out group-hover:w-full"></span>
+                <span className="absolute top-0 left-0 h-full w-0 bg-gradient-to-r from-cyan-600 to-blue-600 transition-all duration-500 ease-out group-hover:w-full"></span>
                 <span className="relative flex items-center gap-2 transition-colors duration-300 group-hover:text-white">
                   Find Your Train
                   <svg
@@ -162,7 +162,7 @@ const HomePage = () => {
                   <label className="absolute -top-2 left-3 inline-block bg-white px-1 text-xs font-medium text-gray-600">
                     From
                   </label>
-                  <select className="block w-full rounded-md border-gray-300 bg-gray-50 p-3 pl-4 shadow-sm transition-all group-hover:border-gray-400 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500">
+                  <select className="block w-full rounded-md border-gray-300 bg-gray-50 p-3 pl-4 shadow-sm transition-all group-hover:border-gray-400 focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500">
                     <option value="">Select departure station</option>
                     <option>Cairo</option>
                     <option>Alexandria</option>
@@ -175,7 +175,7 @@ const HomePage = () => {
                   <label className="absolute -top-2 left-3 inline-block bg-white px-1 text-xs font-medium text-gray-600">
                     To
                   </label>
-                  <select className="block w-full rounded-md border-gray-300 bg-gray-50 p-3 pl-4 shadow-sm transition-all group-hover:border-gray-400 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500">
+                  <select className="block w-full rounded-md border-gray-300 bg-gray-50 p-3 pl-4 shadow-sm transition-all group-hover:border-gray-400 focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500">
                     <option value="">Select arrival station</option>
                     <option>Cairo</option>
                     <option>Alexandria</option>
@@ -190,14 +190,14 @@ const HomePage = () => {
                   </label>
                   <input
                     type="date"
-                    className="block w-full rounded-md border-gray-300 bg-gray-50 p-3 shadow-sm transition-all group-hover:border-gray-400 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+                    className="block w-full rounded-md border-gray-300 bg-gray-50 p-3 shadow-sm transition-all group-hover:border-gray-400 focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500"
                   />
                 </div>
                 <div className="group relative">
                   <label className="absolute -top-2 left-3 inline-block bg-white px-1 text-xs font-medium text-gray-600">
                     Passengers
                   </label>
-                  <select className="block w-full rounded-md border-gray-300 bg-gray-50 p-3 pl-4 shadow-sm transition-all group-hover:border-gray-400 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500">
+                  <select className="block w-full rounded-md border-gray-300 bg-gray-50 p-3 pl-4 shadow-sm transition-all group-hover:border-gray-400 focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500">
                     <option>1</option>
                     <option>2</option>
                     <option>3</option>
@@ -209,7 +209,7 @@ const HomePage = () => {
               <div className="flex justify-center">
                 <button
                   type="submit"
-                  className="group relative inline-flex items-center justify-center overflow-hidden rounded-md bg-gradient-to-r from-indigo-600 to-purple-600 px-8 py-3 font-medium text-white shadow-lg transition duration-300 ease-out hover:scale-105"
+                  className="group relative inline-flex items-center justify-center overflow-hidden rounded-md bg-gradient-to-r from-cyan-600 to-blue-600 px-8 py-3 font-medium text-white shadow-lg transition duration-300 ease-out hover:scale-105"
                 >
                   <span className="absolute top-0 left-0 h-full w-full scale-0 rounded-md bg-white/20 transition-all duration-300 group-hover:scale-100"></span>
                   <span className="relative flex items-center">
@@ -244,7 +244,7 @@ const HomePage = () => {
             viewport={{ once: true }}
             className="mb-12 text-center"
           >
-            <span className="inline-block rounded-full bg-indigo-100 px-3 py-1 text-xs font-medium text-indigo-800">
+            <span className="inline-block rounded-full bg-cyan-100 px-3 py-1 text-xs font-medium text-cyan-800">
               WHY CHOOSE US
             </span>
             <h2 className="mt-4 text-3xl font-bold text-gray-900 md:text-4xl">
@@ -264,7 +264,7 @@ const HomePage = () => {
               transition={{ duration: 0.5, delay: 0.1 }}
               viewport={{ once: true }}
             >
-              <div className="mb-6 inline-flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-r from-indigo-500 to-purple-500 text-white shadow-lg">
+              <div className="mb-6 inline-flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-r from-cyan-500 to-blue-500 text-white shadow-lg">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="h-6 w-6"
@@ -294,7 +294,7 @@ const HomePage = () => {
               transition={{ duration: 0.5, delay: 0.2 }}
               viewport={{ once: true }}
             >
-              <div className="mb-6 inline-flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-r from-indigo-500 to-purple-500 text-white shadow-lg">
+              <div className="mb-6 inline-flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-r from-cyan-500 to-blue-500 text-white shadow-lg">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="h-6 w-6"
@@ -324,7 +324,7 @@ const HomePage = () => {
               transition={{ duration: 0.5, delay: 0.3 }}
               viewport={{ once: true }}
             >
-              <div className="mb-6 inline-flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-r from-indigo-500 to-purple-500 text-white shadow-lg">
+              <div className="mb-6 inline-flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-r from-cyan-500 to-blue-500 text-white shadow-lg">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="h-6 w-6"
@@ -354,7 +354,7 @@ const HomePage = () => {
               transition={{ duration: 0.5, delay: 0.4 }}
               viewport={{ once: true }}
             >
-              <div className="mb-6 inline-flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-r from-indigo-500 to-purple-500 text-white shadow-lg">
+              <div className="mb-6 inline-flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-r from-cyan-500 to-blue-500 text-white shadow-lg">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="h-6 w-6"
@@ -387,10 +387,10 @@ const HomePage = () => {
           >
             <button
               onClick={() => scrollToSection(routesRef)}
-              className="group inline-flex items-center gap-2 text-indigo-600 transition-all duration-300 hover:text-indigo-800"
+              className="group inline-flex items-center gap-2 text-cyan-600 transition-all duration-300 hover:text-cyan-800"
             >
               <span>View popular routes</span>
-              <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-indigo-100 transition-all duration-300 group-hover:bg-indigo-200">
+              <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-cyan-100 transition-all duration-300 group-hover:bg-cyan-200">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="h-4 w-4"
@@ -421,7 +421,7 @@ const HomePage = () => {
             viewport={{ once: true }}
             className="mb-12 text-center"
           >
-            <span className="inline-block rounded-full bg-indigo-100 px-3 py-1 text-xs font-medium text-indigo-800">
+            <span className="inline-block rounded-full bg-cyan-100 px-3 py-1 text-xs font-medium text-cyan-800">
               TRAVEL WITH EASE
             </span>
             <h2 className="mt-4 text-3xl font-bold text-gray-900 md:text-4xl">
@@ -469,7 +469,7 @@ const HomePage = () => {
                       {route.from} <span className="text-gray-400">→</span>{" "}
                       {route.to}
                     </h3>
-                    <span className="rounded-full bg-indigo-100 px-3 py-1 text-sm font-semibold text-indigo-800">
+                    <span className="rounded-full bg-cyan-100 px-3 py-1 text-sm font-semibold text-cyan-800">
                       ${route.price}
                     </span>
                   </div>
@@ -493,7 +493,7 @@ const HomePage = () => {
                     </div>
                     <Link
                       to="/trains"
-                      className="inline-flex items-center gap-1 text-sm font-medium text-indigo-600 transition-colors hover:text-indigo-800"
+                      className="inline-flex items-center gap-1 text-sm font-medium text-cyan-600 transition-colors hover:text-cyan-800"
                     >
                       View Schedule
                       <svg
@@ -526,10 +526,10 @@ const HomePage = () => {
           >
             <Link
               to="/trains"
-              className="group inline-flex items-center gap-2 rounded-full bg-indigo-50 px-6 py-3 text-indigo-600 transition-all duration-300 hover:bg-indigo-100"
+              className="group inline-flex items-center gap-2 rounded-full bg-cyan-50 px-6 py-3 text-cyan-600 transition-all duration-300 hover:bg-cyan-100"
             >
               <span>View all routes</span>
-              <span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-indigo-100 transition-all duration-300 group-hover:bg-indigo-200">
+              <span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-cyan-100 transition-all duration-300 group-hover:bg-cyan-200">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="h-3 w-3"
@@ -551,14 +551,14 @@ const HomePage = () => {
       </section>
 
       {/* Call-to-Action Section */}
-      <section className="relative bg-gradient-to-br from-indigo-900 via-indigo-700 to-purple-700 py-24 text-white">
+      <section className="relative bg-gradient-to-br from-cyan-900 via-cyan-700 to-blue-700 py-24 text-white">
         <div className="absolute inset-0 overflow-hidden">
           <img
             src="https://images.unsplash.com/photo-1589551514088-5338efeed04e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80"
             alt="Egyptian landscape"
             className="h-full w-full object-cover opacity-20 mix-blend-overlay"
           />
-          <div className="absolute inset-0 bg-gradient-to-br from-indigo-800/80 to-purple-800/80"></div>
+          <div className="absolute inset-0 bg-gradient-to-br from-cyan-800/80 to-blue-800/80"></div>
         </div>
 
         <div className="relative container mx-auto px-4">
@@ -583,9 +583,9 @@ const HomePage = () => {
             <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
               <Link
                 to="/trains"
-                className="group relative inline-flex items-center justify-center overflow-hidden rounded-md bg-white px-8 py-4 font-medium text-indigo-600 shadow-lg transition duration-300 ease-out hover:scale-105"
+                className="group relative inline-flex items-center justify-center overflow-hidden rounded-md bg-white px-8 py-4 font-medium text-cyan-600 shadow-lg transition duration-300 ease-out hover:scale-105"
               >
-                <span className="absolute top-0 left-0 h-full w-0 bg-gradient-to-r from-indigo-600 to-purple-600 transition-all duration-500 ease-out group-hover:w-full"></span>
+                <span className="absolute top-0 left-0 h-full w-0 bg-gradient-to-r from-cyan-600 to-blue-600 transition-all duration-500 ease-out group-hover:w-full"></span>
                 <span className="relative flex items-center gap-2 transition-colors duration-300 group-hover:text-white">
                   Find Your Train
                   <svg

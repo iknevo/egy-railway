@@ -429,7 +429,7 @@ export const trainLines = [
     name: "Cairo-Damietta Line",
     arabicName: "خط القاهرة-دمياط",
     stations: [1, 6, 15],
-    color: "#9370DB", // MediumPurple
+    color: "#9370DB", // Mediumblue
     distanceKm: 185,
   },
   {

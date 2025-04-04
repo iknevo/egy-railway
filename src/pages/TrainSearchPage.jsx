@@ -13,7 +13,7 @@ const TrainSearchPage = () => {
               </label>
               <input
                 type="text"
-                className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 focus:outline-none"
+                className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-cyan-500 focus:ring-cyan-500 focus:outline-none"
                 placeholder="Departure station"
               />
             </div>
@@ -23,7 +23,7 @@ const TrainSearchPage = () => {
               </label>
               <input
                 type="text"
-                className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 focus:outline-none"
+                className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-cyan-500 focus:ring-cyan-500 focus:outline-none"
                 placeholder="Arrival station"
               />
             </div>
@@ -35,14 +35,14 @@ const TrainSearchPage = () => {
               </label>
               <input
                 type="date"
-                className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 focus:outline-none"
+                className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-cyan-500 focus:ring-cyan-500 focus:outline-none"
               />
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700">
                 Passengers
               </label>
-              <select className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 focus:outline-none">
+              <select className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-cyan-500 focus:ring-cyan-500 focus:outline-none">
                 <option>1</option>
                 <option>2</option>
                 <option>3</option>
@@ -53,7 +53,7 @@ const TrainSearchPage = () => {
           </div>
           <button
             type="submit"
-            className="w-full rounded-md bg-indigo-600 px-4 py-2 text-white hover:bg-indigo-700 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:outline-none"
+            className="w-full rounded-md bg-cyan-600 px-4 py-2 text-white hover:bg-cyan-700 focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 focus:outline-none"
           >
             Search
           </button>
@@ -76,8 +76,8 @@ const TrainSearchPage = () => {
               </div>
             </div>
             <div className="mt-4 flex items-center justify-between">
-              <p className="font-bold text-indigo-600">$45.00</p>
-              <button className="rounded bg-indigo-600 px-4 py-1 text-white hover:bg-indigo-700">
+              <p className="font-bold text-cyan-600">$45.00</p>
+              <button className="rounded bg-cyan-600 px-4 py-1 text-white hover:bg-cyan-700">
                 Select
               </button>
             </div>

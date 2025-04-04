@@ -118,7 +118,7 @@ const DashboardPage = () => {
           />
         </svg>
       ),
-      color: "bg-purple-500",
+      color: "bg-blue-500",
     },
   ];
 
@@ -130,7 +130,7 @@ const DashboardPage = () => {
         </StaggerItem>
 
         <StaggerItem>
-          <div className="mb-8 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 p-6 text-white shadow-lg">
+          <div className="mb-8 rounded-xl bg-gradient-to-r from-cyan-600 to-blue-600 p-6 text-white shadow-lg">
             <div className="flex items-center justify-between">
               <div>
                 <p className="font-medium opacity-75">Welcome back</p>
@@ -175,7 +175,7 @@ const DashboardPage = () => {
               </h2>
               <Link
                 to="/reservations"
-                className="text-sm font-medium text-indigo-600 hover:text-indigo-800"
+                className="text-sm font-medium text-cyan-600 hover:text-cyan-800"
               >
                 View All
               </Link>
@@ -194,7 +194,7 @@ const DashboardPage = () => {
                   <div className="flex items-center justify-between">
                     <div className="flex items-center">
                       <div className="mr-4">
-                        <div className="flex h-12 w-12 items-center justify-center rounded-full bg-indigo-100 text-indigo-600">
+                        <div className="flex h-12 w-12 items-center justify-center rounded-full bg-cyan-100 text-cyan-600">
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             className="h-6 w-6"
@@ -230,7 +230,7 @@ const DashboardPage = () => {
                       </div>
                       <Link
                         to={`/reservations/${trip.id}`}
-                        className="rounded-md bg-indigo-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-indigo-700"
+                        className="rounded-md bg-cyan-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-cyan-700"
                       >
                         Details
                       </Link>
@@ -291,7 +291,7 @@ const DashboardPage = () => {
             <div className="mt-8 text-center">
               <Link
                 to="/trains"
-                className="inline-flex items-center rounded-lg bg-gradient-to-r from-indigo-600 to-purple-600 px-8 py-3 font-medium text-white transition-transform hover:scale-105"
+                className="inline-flex items-center rounded-lg bg-gradient-to-r from-cyan-600 to-blue-600 px-8 py-3 font-medium text-white transition-transform hover:scale-105"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -344,7 +344,7 @@ const DashboardPage = () => {
               </div>
 
               <div className="flex items-start">
-                <div className="mr-4 flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-indigo-100 text-indigo-600">
+                <div className="mr-4 flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-cyan-100 text-cyan-600">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     className="h-6 w-6"

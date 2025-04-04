@@ -21,8 +21,8 @@ const Header = () => {
 
   const isActive = (path) => {
     return location.pathname.startsWith(path)
-      ? "text-indigo-600 font-medium"
-      : "text-gray-700 hover:text-indigo-600";
+      ? "text-blue-600 font-medium"
+      : "text-gray-700 hover:text-blue-600";
   };
 
   return (
@@ -58,7 +58,7 @@ const Header = () => {
                 </svg> */}
                 <img src={logo} alt="egy railway logo" />
               </div>
-              <span className="ml-2 bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-xl font-bold text-transparent">
+              <span className="ml-2 bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-xl font-bold text-transparent">
                 EgyRailway
               </span>
             </Link>
@@ -116,12 +116,12 @@ const Header = () => {
           >
             <Link
               to="/profile"
-              className="group hidden h-10 w-10 overflow-hidden rounded-full bg-indigo-100 p-0.5 text-indigo-600 transition-all duration-300 hover:bg-indigo-200 md:block"
+              className="group hidden h-10 w-10 overflow-hidden rounded-full bg-blue-100 p-0.5 text-cyan-600 transition-all duration-300 hover:bg-blue-200 md:block"
             >
               <div className="h-full w-full overflow-hidden rounded-full bg-white">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="h-full w-full p-1.5 text-indigo-600 transition-all duration-300 group-hover:scale-110"
+                  className="h-full w-full p-1.5 text-blue-600 transition-all duration-300 group-hover:scale-110"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"

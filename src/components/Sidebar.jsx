@@ -165,7 +165,7 @@ const Sidebar = () => {
       {/* Mobile Sidebar Toggle Button */}
       <button
         onClick={toggleSidebar}
-        className="fixed top-20 right-4 z-40 block rounded-full bg-indigo-600 p-2 text-white shadow-lg transition-transform duration-300 hover:scale-105 hover:bg-indigo-700 md:hidden"
+        className="fixed top-20 right-4 z-40 block rounded-full bg-cyan-600 p-2 text-white shadow-lg transition-transform duration-300 hover:scale-105 hover:bg-cyan-700 md:hidden"
         aria-label="Toggle sidebar"
       >
         {isOpen ? (
@@ -214,7 +214,7 @@ const Sidebar = () => {
         {/* Sidebar Header */}
         <div className="flex items-center justify-between border-b border-gray-200">
           {/* <Link to="/home" className="flex items-center">
-            <div className="mr-2 rounded-full bg-gradient-to-r from-indigo-500 to-purple-600 p-2">
+            <div className="mr-2 rounded-full bg-gradient-to-r from-cyan-500 to-blue-600 p-2">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-5 w-5 text-white"
@@ -249,12 +249,12 @@ const Sidebar = () => {
         <div className="border-b border-gray-200 px-4 py-5 md:py-0">
           <div className="flex items-center">
             <div className="relative mr-3">
-              <div className="h-10 w-10 overflow-hidden rounded-full bg-gradient-to-r from-indigo-400 to-purple-500">
+              <div className="h-10 w-10 overflow-hidden rounded-full bg-gradient-to-r from-cyan-400 to-blue-500">
                 <div className="h-full w-full p-1">
                   <div className="h-full w-full rounded-full bg-white p-1">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      className="h-full w-full text-indigo-600"
+                      className="h-full w-full text-cyan-600"
                       viewBox="0 0 20 20"
                       fill="currentColor"
                     >
@@ -292,9 +292,9 @@ const Sidebar = () => {
               <div className="text-lg font-bold text-blue-700">12</div>
               <div className="text-xs text-blue-600">Trips Completed</div>
             </div>
-            <div className="rounded-lg bg-purple-50 p-2.5 text-center">
-              <div className="text-lg font-bold text-purple-700">1,845</div>
-              <div className="text-xs text-purple-600">Km Traveled</div>
+            <div className="rounded-lg bg-blue-50 p-2.5 text-center">
+              <div className="text-lg font-bold text-blue-700">1,845</div>
+              <div className="text-xs text-blue-600">Km Traveled</div>
             </div>
             <div className="rounded-lg bg-green-50 p-2.5 text-center">
               <div className="text-lg font-bold text-green-700">4</div>
@@ -312,21 +312,21 @@ const Sidebar = () => {
           <h4 className="mb-3 text-xs font-semibold text-gray-500 uppercase">
             Upcoming Trip
           </h4>
-          <div className="rounded-lg border border-indigo-100 bg-gradient-to-b from-indigo-50 to-white p-3">
+          <div className="rounded-lg border border-cyan-100 bg-gradient-to-b from-cyan-50 to-white p-3">
             <div className="flex items-start justify-between">
               <div>
-                <div className="text-xs font-medium text-indigo-800">
+                <div className="text-xs font-medium text-cyan-800">
                   Cairo → Alexandria
                 </div>
                 <div className="text-xs text-gray-500">Booking #EGR-12345</div>
               </div>
-              <span className="rounded-full bg-indigo-100 px-2 py-0.5 text-xs text-indigo-800">
+              <span className="rounded-full bg-cyan-100 px-2 py-0.5 text-xs text-cyan-800">
                 Tomorrow
               </span>
             </div>
 
             <div className="mt-3 flex">
-              <div className="mr-3 flex h-8 w-8 items-center justify-center rounded-full bg-indigo-100 text-indigo-600">
+              <div className="mr-3 flex h-8 w-8 items-center justify-center rounded-full bg-cyan-100 text-cyan-600">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="h-4 w-4"
@@ -351,7 +351,7 @@ const Sidebar = () => {
             <div className="mt-3 text-center">
               <Link
                 to="/reservations/EGR-12345"
-                className="inline-block rounded-md bg-indigo-600 px-3 py-1.5 text-xs font-medium text-white transition-colors hover:bg-indigo-700"
+                className="inline-block rounded-md bg-cyan-600 px-3 py-1.5 text-xs font-medium text-white transition-colors hover:bg-cyan-700"
               >
                 View Details
               </Link>
@@ -374,7 +374,7 @@ const Sidebar = () => {
                   {item.icon}
                   <span>{item.name}</span>
                   {item.path === "/reservations" && (
-                    <span className="ml-auto inline-flex h-5 w-5 items-center justify-center rounded-full bg-indigo-600 text-xs font-medium text-white">
+                    <span className="ml-auto inline-flex h-5 w-5 items-center justify-center rounded-full bg-cyan-600 text-xs font-medium text-white">
                       2
                     </span>
                   )}
@@ -386,9 +386,9 @@ const Sidebar = () => {
 
         {/* Sidebar Footer */}
         <div className="border-t border-gray-200 p-4">
-          <div className="rounded-lg bg-indigo-50 p-4">
+          <div className="rounded-lg bg-cyan-50 p-4">
             <div className="mb-2 flex items-center">
-              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-indigo-100 text-indigo-600">
+              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-cyan-100 text-cyan-600">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="h-5 w-5"
@@ -402,14 +402,12 @@ const Sidebar = () => {
                   />
                 </svg>
               </div>
-              <span className="ml-2 font-medium text-indigo-800">
-                Need Help?
-              </span>
+              <span className="ml-2 font-medium text-cyan-800">Need Help?</span>
             </div>
             <p className="text-sm text-gray-600">
               Contact our support team for assistance with your travel needs.
             </p>
-            <button className="mt-2 w-full rounded-md bg-indigo-600 px-3 py-2 text-sm font-medium text-white hover:bg-indigo-700">
+            <button className="mt-2 w-full rounded-md bg-cyan-600 px-3 py-2 text-sm font-medium text-white hover:bg-cyan-700">
               Contact Support
             </button>
           </div>

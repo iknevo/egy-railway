@@ -62,7 +62,7 @@ const BookingConfirmationPage = () => {
             <div className="mr-4 flex-shrink-0">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6 text-indigo-600"
+                className="h-6 w-6 text-cyan-600"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -84,7 +84,7 @@ const BookingConfirmationPage = () => {
             <div className="mr-4 flex-shrink-0">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6 text-indigo-600"
+                className="h-6 w-6 text-cyan-600"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -111,7 +111,7 @@ const BookingConfirmationPage = () => {
             <div className="mr-4 flex-shrink-0">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6 text-indigo-600"
+                className="h-6 w-6 text-cyan-600"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -142,7 +142,7 @@ const BookingConfirmationPage = () => {
             <div className="mr-4 flex-shrink-0">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6 text-indigo-600"
+                className="h-6 w-6 text-cyan-600"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -169,13 +169,13 @@ const BookingConfirmationPage = () => {
         <div className="mt-8 flex flex-col justify-center space-y-3 sm:flex-row sm:space-y-0 sm:space-x-4">
           <Link
             to="/reservations"
-            className="rounded-md bg-indigo-600 px-6 py-2 text-center text-white hover:bg-indigo-700 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:outline-none"
+            className="rounded-md bg-cyan-600 px-6 py-2 text-center text-white hover:bg-cyan-700 focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 focus:outline-none"
           >
             View My Reservations
           </Link>
           <Link
             to="/home"
-            className="rounded-md border border-gray-300 px-6 py-2 text-center text-gray-700 hover:bg-gray-50 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:outline-none"
+            className="rounded-md border border-gray-300 px-6 py-2 text-center text-gray-700 hover:bg-gray-50 focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 focus:outline-none"
           >
             Return to Home
           </Link>

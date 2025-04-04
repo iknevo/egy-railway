@@ -37,7 +37,7 @@ const ProfilePage = () => {
       <div className="mx-auto max-w-2xl rounded-lg bg-white p-6 shadow-md">
         <div className="mb-6 flex items-center justify-between">
           <div className="flex items-center">
-            <div className="flex h-16 w-16 items-center justify-center rounded-full bg-indigo-100 text-xl font-bold text-indigo-600">
+            <div className="flex h-16 w-16 items-center justify-center rounded-full bg-cyan-100 text-xl font-bold text-cyan-600">
               {user.firstName.charAt(0)}
               {user.lastName.charAt(0)}
             </div>
@@ -52,7 +52,7 @@ const ProfilePage = () => {
           {!isEditing && (
             <button
               onClick={() => setIsEditing(true)}
-              className="rounded-md bg-indigo-600 px-4 py-2 text-white hover:bg-indigo-700 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:outline-none"
+              className="rounded-md bg-cyan-600 px-4 py-2 text-white hover:bg-cyan-700 focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 focus:outline-none"
             >
               Edit Profile
             </button>
@@ -71,7 +71,7 @@ const ProfilePage = () => {
                   name="firstName"
                   value={formData.firstName}
                   onChange={handleChange}
-                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 focus:outline-none"
+                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-cyan-500 focus:ring-cyan-500 focus:outline-none"
                   required
                 />
               </div>
@@ -84,7 +84,7 @@ const ProfilePage = () => {
                   name="lastName"
                   value={formData.lastName}
                   onChange={handleChange}
-                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 focus:outline-none"
+                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-cyan-500 focus:ring-cyan-500 focus:outline-none"
                   required
                 />
               </div>
@@ -99,7 +99,7 @@ const ProfilePage = () => {
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
-                className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 focus:outline-none"
+                className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-cyan-500 focus:ring-cyan-500 focus:outline-none"
                 required
               />
             </div>
@@ -113,7 +113,7 @@ const ProfilePage = () => {
                 name="phone"
                 value={formData.phone}
                 onChange={handleChange}
-                className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 focus:outline-none"
+                className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-cyan-500 focus:ring-cyan-500 focus:outline-none"
                 required
               />
             </div>
@@ -127,7 +127,7 @@ const ProfilePage = () => {
                 name="nationalId"
                 value={formData.nationalId}
                 onChange={handleChange}
-                className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 focus:outline-none"
+                className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-cyan-500 focus:ring-cyan-500 focus:outline-none"
                 required
               />
             </div>
@@ -141,7 +141,7 @@ const ProfilePage = () => {
                 value={formData.address}
                 onChange={handleChange}
                 rows="3"
-                className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 focus:outline-none"
+                className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-cyan-500 focus:ring-cyan-500 focus:outline-none"
                 required
               />
             </div>
@@ -149,7 +149,7 @@ const ProfilePage = () => {
             <div className="flex space-x-4">
               <button
                 type="submit"
-                className="rounded-md bg-indigo-600 px-4 py-2 text-white hover:bg-indigo-700 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:outline-none"
+                className="rounded-md bg-cyan-600 px-4 py-2 text-white hover:bg-cyan-700 focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 focus:outline-none"
               >
                 Save Changes
               </button>
@@ -185,7 +185,7 @@ const ProfilePage = () => {
 
             <div className="mt-6 border-t pt-4">
               <h3 className="mb-2 text-lg font-semibold">Account Security</h3>
-              <button className="text-indigo-600 hover:text-indigo-800">
+              <button className="text-cyan-600 hover:text-cyan-800">
                 Change Password
               </button>
             </div>

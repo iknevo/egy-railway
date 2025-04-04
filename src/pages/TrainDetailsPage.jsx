@@ -26,7 +26,7 @@ const TrainDetailsPage = () => {
     <div className="container mx-auto p-4">
       <Link
         to="/trains"
-        className="mb-4 inline-block text-indigo-600 hover:text-indigo-800"
+        className="mb-4 inline-block text-cyan-600 hover:text-cyan-800"
       >
         &larr; Back to search results
       </Link>
@@ -44,7 +44,7 @@ const TrainDetailsPage = () => {
             </p>
           </div>
           <div className="mt-4 md:mt-0">
-            <p className="text-xl font-bold text-indigo-600">
+            <p className="text-xl font-bold text-cyan-600">
               ${train.price.toFixed(2)}
             </p>
           </div>
@@ -82,7 +82,7 @@ const TrainDetailsPage = () => {
 
         <Link
           to="/booking"
-          className="block w-full rounded-md bg-indigo-600 px-4 py-2 text-center text-white hover:bg-indigo-700 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:outline-none"
+          className="block w-full rounded-md bg-cyan-600 px-4 py-2 text-center text-white hover:bg-cyan-700 focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 focus:outline-none"
         >
           Continue to Booking
         </Link>

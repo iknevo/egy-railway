@@ -17,7 +17,7 @@ const BookingPage = () => {
                   </label>
                   <input
                     type="text"
-                    className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 focus:outline-none"
+                    className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-cyan-500 focus:ring-cyan-500 focus:outline-none"
                     required
                   />
                 </div>
@@ -27,7 +27,7 @@ const BookingPage = () => {
                   </label>
                   <input
                     type="text"
-                    className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 focus:outline-none"
+                    className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-cyan-500 focus:ring-cyan-500 focus:outline-none"
                     required
                   />
                 </div>
@@ -39,7 +39,7 @@ const BookingPage = () => {
                 </label>
                 <input
                   type="email"
-                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 focus:outline-none"
+                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-cyan-500 focus:ring-cyan-500 focus:outline-none"
                   required
                 />
               </div>
@@ -50,7 +50,7 @@ const BookingPage = () => {
                 </label>
                 <input
                   type="tel"
-                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 focus:outline-none"
+                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-cyan-500 focus:ring-cyan-500 focus:outline-none"
                   required
                 />
               </div>
@@ -61,7 +61,7 @@ const BookingPage = () => {
                 </label>
                 <input
                   type="text"
-                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 focus:outline-none"
+                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-cyan-500 focus:ring-cyan-500 focus:outline-none"
                   required
                 />
               </div>
@@ -77,7 +77,7 @@ const BookingPage = () => {
                 </label>
                 <input
                   type="text"
-                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 focus:outline-none"
+                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-cyan-500 focus:ring-cyan-500 focus:outline-none"
                   placeholder="XXXX XXXX XXXX XXXX"
                   required
                 />
@@ -90,7 +90,7 @@ const BookingPage = () => {
                   </label>
                   <input
                     type="text"
-                    className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 focus:outline-none"
+                    className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-cyan-500 focus:ring-cyan-500 focus:outline-none"
                     placeholder="MM/YY"
                     required
                   />
@@ -101,7 +101,7 @@ const BookingPage = () => {
                   </label>
                   <input
                     type="text"
-                    className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 focus:outline-none"
+                    className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-cyan-500 focus:ring-cyan-500 focus:outline-none"
                     placeholder="123"
                     required
                   />
@@ -114,7 +114,7 @@ const BookingPage = () => {
                 </label>
                 <input
                   type="text"
-                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 focus:outline-none"
+                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-cyan-500 focus:ring-cyan-500 focus:outline-none"
                   required
                 />
               </div>
@@ -156,7 +156,7 @@ const BookingPage = () => {
 
             <Link
               to="/booking/confirmation"
-              className="mt-6 block w-full rounded-md bg-indigo-600 px-4 py-2 text-center text-white hover:bg-indigo-700 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:outline-none"
+              className="mt-6 block w-full rounded-md bg-cyan-600 px-4 py-2 text-center text-white hover:bg-cyan-700 focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 focus:outline-none"
             >
               Complete Booking
             </Link>

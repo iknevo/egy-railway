@@ -139,7 +139,7 @@ const HelpSupportPage = () => {
             <button
               className={`mr-4 border-b-2 px-4 py-2 font-medium transition-colors ${
                 activeTab === "faq"
-                  ? "border-indigo-600 text-indigo-600"
+                  ? "border-cyan-600 text-cyan-600"
                   : "border-transparent text-gray-500 hover:text-gray-700"
               }`}
               onClick={() => setActiveTab("faq")}
@@ -149,7 +149,7 @@ const HelpSupportPage = () => {
             <button
               className={`mr-4 border-b-2 px-4 py-2 font-medium transition-colors ${
                 activeTab === "contact"
-                  ? "border-indigo-600 text-indigo-600"
+                  ? "border-cyan-600 text-cyan-600"
                   : "border-transparent text-gray-500 hover:text-gray-700"
               }`}
               onClick={() => setActiveTab("contact")}
@@ -168,7 +168,7 @@ const HelpSupportPage = () => {
                     key={category.id}
                     className={`rounded-lg px-4 py-2 text-center text-sm font-medium transition-colors ${
                       activeCategory === category.id
-                        ? "bg-indigo-600 text-white"
+                        ? "bg-cyan-600 text-white"
                         : "bg-gray-100 text-gray-600 hover:bg-gray-200"
                     }`}
                     onClick={() => setActiveCategory(category.id)}
@@ -229,8 +229,8 @@ const HelpSupportPage = () => {
               </h2>
 
               <div className="mb-8 grid grid-cols-1 gap-6 md:grid-cols-3">
-                <div className="rounded-lg bg-indigo-50 p-4 text-center">
-                  <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-indigo-100 text-indigo-600">
+                <div className="rounded-lg bg-cyan-50 p-4 text-center">
+                  <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-cyan-100 text-cyan-600">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       className="h-6 w-6"
@@ -246,11 +246,11 @@ const HelpSupportPage = () => {
                       />
                     </svg>
                   </div>
-                  <h3 className="mb-1 font-medium text-indigo-900">
+                  <h3 className="mb-1 font-medium text-cyan-900">
                     Phone Support
                   </h3>
-                  <p className="text-sm text-indigo-700">+20 (2) 2575-3555</p>
-                  <p className="mt-1 text-xs text-indigo-600">
+                  <p className="text-sm text-cyan-700">+20 (2) 2575-3555</p>
+                  <p className="mt-1 text-xs text-cyan-600">
                     Available 8AM - 10PM, 7 days
                   </p>
                 </div>
@@ -281,8 +281,8 @@ const HelpSupportPage = () => {
                   </p>
                 </div>
 
-                <div className="rounded-lg bg-purple-50 p-4 text-center">
-                  <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-purple-100 text-purple-600">
+                <div className="rounded-lg bg-blue-50 p-4 text-center">
+                  <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-blue-100 text-blue-600">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       className="h-6 w-6"
@@ -298,13 +298,11 @@ const HelpSupportPage = () => {
                       />
                     </svg>
                   </div>
-                  <h3 className="mb-1 font-medium text-purple-900">
-                    Live Chat
-                  </h3>
-                  <p className="text-sm text-purple-700">
+                  <h3 className="mb-1 font-medium text-blue-900">Live Chat</h3>
+                  <p className="text-sm text-blue-700">
                     Chat with our support team
                   </p>
-                  <p className="mt-1 text-xs text-purple-600">
+                  <p className="mt-1 text-xs text-blue-600">
                     Available 9AM - 8PM, 7 days
                   </p>
                 </div>
@@ -322,7 +320,7 @@ const HelpSupportPage = () => {
                     <input
                       type="text"
                       id="name"
-                      className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 focus:outline-none"
+                      className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 focus:outline-none"
                       placeholder="Your name"
                     />
                   </div>
@@ -336,7 +334,7 @@ const HelpSupportPage = () => {
                     <input
                       type="email"
                       id="email"
-                      className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 focus:outline-none"
+                      className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 focus:outline-none"
                       placeholder="your.email@example.com"
                     />
                   </div>
@@ -352,7 +350,7 @@ const HelpSupportPage = () => {
                   <input
                     type="text"
                     id="subject"
-                    className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 focus:outline-none"
+                    className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 focus:outline-none"
                     placeholder="How can we help you?"
                   />
                 </div>
@@ -367,7 +365,7 @@ const HelpSupportPage = () => {
                   <textarea
                     id="message"
                     rows={5}
-                    className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 focus:outline-none"
+                    className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 focus:outline-none"
                     placeholder="Please describe your issue or question in detail..."
                   ></textarea>
                 </div>
@@ -376,7 +374,7 @@ const HelpSupportPage = () => {
                   <input
                     id="terms"
                     type="checkbox"
-                    className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                    className="h-4 w-4 rounded border-gray-300 text-cyan-600 focus:ring-cyan-500"
                   />
                   <label
                     htmlFor="terms"
@@ -389,7 +387,7 @@ const HelpSupportPage = () => {
                 <div>
                   <button
                     type="submit"
-                    className="rounded-lg bg-indigo-600 px-6 py-3 font-medium text-white transition-colors hover:bg-indigo-700 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:outline-none"
+                    className="rounded-lg bg-cyan-600 px-6 py-3 font-medium text-white transition-colors hover:bg-cyan-700 focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 focus:outline-none"
                   >
                     Send Message
                   </button>
@@ -400,16 +398,16 @@ const HelpSupportPage = () => {
         )}
 
         <StaggerItem>
-          <div className="mt-8 rounded-xl bg-gradient-to-r from-indigo-100 to-purple-100 p-6">
+          <div className="mt-8 rounded-xl bg-gradient-to-r from-cyan-100 to-blue-100 p-6">
             <div className="text-center">
-              <h3 className="mb-2 text-lg font-semibold text-indigo-900">
+              <h3 className="mb-2 text-lg font-semibold text-cyan-900">
                 Need Immediate Assistance?
               </h3>
-              <p className="mb-4 text-indigo-700">
+              <p className="mb-4 text-cyan-700">
                 Our support team is available 24/7 for urgent issues related to
                 your bookings.
               </p>
-              <button className="pulse-button rounded-full bg-indigo-600 px-6 py-3 font-medium text-white transition-all hover:bg-indigo-700">
+              <button className="pulse-button rounded-full bg-cyan-600 px-6 py-3 font-medium text-white transition-all hover:bg-cyan-700">
                 Start Live Chat Now
               </button>
             </div>

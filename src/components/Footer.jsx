@@ -19,22 +19,22 @@ const Footer = () => {
             <h3 className="mb-4 text-lg font-semibold">Quick Links</h3>
             <ul className="space-y-2 text-gray-300">
               <li>
-                <Link to="/home" className="hover:text-indigo-400">
+                <Link to="/home" className="hover:text-cyan-400">
                   Home
                 </Link>
               </li>
               <li>
-                <Link to="/trains" className="hover:text-indigo-400">
+                <Link to="/trains" className="hover:text-cyan-400">
                   Find Trains
                 </Link>
               </li>
               <li>
-                <Link to="/reservations" className="hover:text-indigo-400">
+                <Link to="/reservations" className="hover:text-cyan-400">
                   My Bookings
                 </Link>
               </li>
               <li>
-                <Link to="/profile" className="hover:text-indigo-400">
+                <Link to="/profile" className="hover:text-cyan-400">
                   Profile
                 </Link>
               </li>
@@ -45,22 +45,22 @@ const Footer = () => {
             <h3 className="mb-4 text-lg font-semibold">Support</h3>
             <ul className="space-y-2 text-gray-300">
               <li>
-                <a href="#" className="hover:text-indigo-400">
+                <a href="#" className="hover:text-cyan-400">
                   Help Center
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:text-indigo-400">
+                <a href="#" className="hover:text-cyan-400">
                   FAQs
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:text-indigo-400">
+                <a href="#" className="hover:text-cyan-400">
                   Contact Us
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:text-indigo-400">
+                <a href="#" className="hover:text-cyan-400">
                   Terms of Service
                 </a>
               </li>
@@ -72,7 +72,7 @@ const Footer = () => {
             <div className="flex space-x-4">
               <a
                 href="#"
-                className="rounded-full bg-gray-600 p-2 hover:bg-indigo-600"
+                className="rounded-full bg-gray-600 p-2 hover:bg-cyan-600"
               >
                 <svg
                   className="h-5 w-5"
@@ -89,7 +89,7 @@ const Footer = () => {
               </a>
               <a
                 href="#"
-                className="rounded-full bg-gray-600 p-2 hover:bg-indigo-600"
+                className="rounded-full bg-gray-600 p-2 hover:bg-cyan-600"
               >
                 <svg
                   className="h-5 w-5"
@@ -106,7 +106,7 @@ const Footer = () => {
               </a>
               <a
                 href="#"
-                className="rounded-full bg-gray-600 p-2 hover:bg-indigo-600"
+                className="rounded-full bg-gray-600 p-2 hover:bg-cyan-600"
               >
                 <svg
                   className="h-5 w-5"
