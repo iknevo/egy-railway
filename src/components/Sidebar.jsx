@@ -28,6 +28,43 @@ const Sidebar = () => {
     },
   };
 
+  // Add CSS for sidebar links
+  useEffect(() => {
+    // Add CSS for sidebar links if not already in stylesheet
+    const style = document.createElement("style");
+    style.textContent = `
+      .sidebar-link {
+        display: flex;
+        align-items: center;
+        padding: 0.75rem 0.75rem;
+        border-radius: 0.375rem;
+        color: #4b5563;
+        font-size: 0.875rem;
+        transition: all 0.2s;
+      }
+
+      .sidebar-link svg {
+        margin-right: 0.75rem;
+      }
+
+      .sidebar-link:hover {
+        background-color: #f3f4f6;
+        color: #4f46e5;
+      }
+
+      .sidebar-link.active {
+        background-color: #eef2ff;
+        color: #4f46e5;
+        font-weight: 500;
+      }
+    `;
+    document.head.appendChild(style);
+
+    return () => {
+      document.head.removeChild(style);
+    };
+  }, []);
+
   // Early return if on home page
   if (isHomePath) {
     return null;
@@ -128,7 +165,7 @@ const Sidebar = () => {
       {/* Mobile Sidebar Toggle Button */}
       <button
         onClick={toggleSidebar}
-        className="fixed top-20 right-4 z-40 block rounded-full bg-indigo-600 p-2 text-white shadow-lg transition-transform duration-300 hover:scale-105 hover:bg-indigo-700 md:hidden"
+        className="fixed top-20 left-4 z-40 block rounded-full bg-indigo-600 p-2 text-white shadow-lg transition-transform duration-300 hover:scale-105 hover:bg-indigo-700 md:hidden"
         aria-label="Toggle sidebar"
       >
         {isOpen ? (
@@ -173,9 +210,22 @@ const Sidebar = () => {
       )}
 
       {/* Sidebar as Aside - hidden on mobile, visible on desktop */}
-      <aside className="sidebar fixed top-0 bottom-0 left-0 z-40 flex w-64 -translate-x-full transform flex-col bg-white shadow-xl transition-transform duration-300 ease-in-out md:static md:min-h-screen md:translate-x-0 md:shadow-md">
+      <aside className="sidebar fixed top-0 bottom-0 left-0 z-40 flex w-64 -translate-x-full transform flex-col overflow-y-auto bg-white shadow-xl transition-transform duration-300 ease-in-out md:static md:min-h-screen md:translate-x-0 md:shadow-md">
         {/* Sidebar Header */}
-        <div className="flex items-center justify-between border-b border-gray-200 px-4">
+        <div className="flex items-center justify-between border-b border-gray-200 p-4">
+          <Link to="/home" className="flex items-center">
+            <div className="mr-2 rounded-full bg-gradient-to-r from-indigo-500 to-purple-600 p-2">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-5 w-5 text-white"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path d="M11 17a1 1 0 001.447.894l4-2A1 1 0 0017 15V9.236a1 1 0 00-1.447-.894l-4 2a1 1 0 00-.553.894V17zM15.211 6.276a1 1 0 000-1.788l-4.764-2.382a1 1 0 00-.894 0L4.789 4.488a1 1 0 000 1.788l4.764 2.382a1 1 0 00.894 0l4.764-2.382zM4.447 8.342A1 1 0 003 9.236V15a1 1 0 00.553.894l4 2A1 1 0 009 17v-5.764a1 1 0 00-.553-.894l-4-2z" />
+              </svg>
+            </div>
+            <span className="text-xl font-bold text-gray-800">EgyRailway</span>
+          </Link>
           <button
             onClick={toggleSidebar}
             className="rounded-md p-2 text-gray-500 hover:bg-gray-100 md:hidden"
@@ -310,7 +360,7 @@ const Sidebar = () => {
         </div>
 
         {/* Sidebar Navigation */}
-        <nav className="flex-1 overflow-y-auto p-4">
+        <nav className="flex-grow p-4">
           <h4 className="mb-2 text-xs font-semibold text-gray-500 uppercase">
             Main Menu
           </h4>
