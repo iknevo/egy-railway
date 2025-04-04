@@ -165,7 +165,7 @@ const Sidebar = () => {
       {/* Mobile Sidebar Toggle Button */}
       <button
         onClick={toggleSidebar}
-        className="fixed top-20 left-4 z-40 block rounded-full bg-indigo-600 p-2 text-white shadow-lg transition-transform duration-300 hover:scale-105 hover:bg-indigo-700 md:hidden"
+        className="fixed top-20 right-4 z-40 block rounded-full bg-indigo-600 p-2 text-white shadow-lg transition-transform duration-300 hover:scale-105 hover:bg-indigo-700 md:hidden"
         aria-label="Toggle sidebar"
       >
         {isOpen ? (
