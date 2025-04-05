@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { motion } from "motion/react";
+import { motion } from "framer-motion";
 import { useRef } from "react";
 import { Link } from "react-router";
 

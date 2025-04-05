@@ -1,5 +1,5 @@
 // eslint-disable-next-line no-unused-vars
-import { motion } from "motion/react";
+import { motion } from "framer-motion";
 import React, { useEffect } from "react";
 import { Link } from "react-router";
 import { StaggerContainer, StaggerItem } from "../components/MotionWrapper";

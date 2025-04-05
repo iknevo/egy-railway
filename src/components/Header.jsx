@@ -1,5 +1,5 @@
 // eslint-disable-next-line no-unused-vars
-import { motion } from "motion/react";
+import { motion } from "framer-motion";
 import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router";
 import { logo } from "../assets";
