@@ -1,4 +1,5 @@
-import { motion } from "framer-motion";
+// eslint-disable-next-line no-unused-vars
+import { motion } from "motion/react";
 import React, { useEffect } from "react";
 import { Link } from "react-router";
 import { StaggerContainer, StaggerItem } from "../components/MotionWrapper";
@@ -147,7 +148,7 @@ const DashboardPage = () => {
 
         <StaggerItem>
           <div className="mb-8 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
-            {quickStats.map((stat, index) => (
+            {quickStats.map((stat) => (
               <motion.div
                 key={stat.label}
                 className="flex items-center rounded-lg bg-white p-6 shadow"

@@ -3,16 +3,17 @@ import { Outlet, useLocation } from "react-router";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import MotionWrapper from "../components/MotionWrapper";
-import ScrollTop from "../components/ScrollTop";
 import Sidebar from "../components/Sidebar";
+import useScrollToTop from "../hooks/useScrollToTop";
 
 const DefaultLayout = () => {
   const location = useLocation();
   const isHomePage = location.pathname === "/home" || location.pathname === "/";
+  useScrollToTop();
 
   return (
     <div className="flex min-h-screen flex-col">
-      <ScrollTop />
+      {/* <ScrollTop /> */}
       <Header />
 
       {isHomePage ? (

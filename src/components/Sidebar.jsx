@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import React, { useEffect, useState } from "react";
 import { LuSettings } from "react-icons/lu";
 import { Link, useLocation } from "react-router";

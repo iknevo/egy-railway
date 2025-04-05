@@ -1,4 +1,5 @@
-import { motion } from "framer-motion";
+// eslint-disable-next-line no-unused-vars
+import { motion } from "motion/react";
 import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router";
 import { logo } from "../assets";
@@ -27,7 +28,7 @@ const Header = () => {
 
   return (
     <motion.header
-      className={`sticky top-0 z-50 bg-white ${
+      className={`sticky top-0 z-50 bg-white/80 backdrop-blur-2xl ${
         scrolled ? "shadow-md" : "shadow-sm"
       } transition-all duration-300`}
       initial={{ y: -100 }}

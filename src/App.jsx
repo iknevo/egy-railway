@@ -17,7 +17,6 @@ function App() {
   // }, []);
 
   useEffect(() => {
-    // Initialize Lenis smooth scrolling with enhanced settings
     const lenis = new Lenis({
       duration: 1.2,
       easing: (t) => (t === 1 ? 1 : 1 - Math.pow(2, -10 * t)),
@@ -27,11 +26,10 @@ function App() {
       smoothTouch: false,
       touchMultiplier: 2,
       wheelMultiplier: 1.2,
-      normalizeWheel: true, // Normalize wheel speeds
+      normalizeWheel: true,
       infinite: false,
     });
 
-    // Handle links with hash for smooth scrolling to anchors
     document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
       anchor.addEventListener("click", function (e) {
         e.preventDefault();
@@ -42,22 +40,16 @@ function App() {
       });
     });
 
-    // Create a RAF loop for Lenis
     function raf(time) {
       lenis.raf(time);
       requestAnimationFrame(raf);
     }
-
-    // Start the animation frame
     requestAnimationFrame(raf);
 
     return () => {
-      // Clean up Lenis when component unmounts
       lenis.destroy();
     };
   }, []);
-
-  console.log("Router:", router);
 
   return <RouterProvider router={router} />;
 }

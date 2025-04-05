@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import { useRef } from "react";
 import { Link } from "react-router";
 
@@ -34,7 +34,7 @@ const HomePage = () => {
       price: 120,
       duration: "8h 45m",
       image:
-        "https://images.unsplash.com/photo-1589809250893-b5a7b7a5a397?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=80",
+        "https://images.unsplash.com/photo-1544815521-80841127c00f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=80",
     },
     {
       id: 3,
@@ -43,7 +43,7 @@ const HomePage = () => {
       price: 150,
       duration: "10h 15m",
       image:
-        "https://images.unsplash.com/photo-1568322953432-0d581db3474f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=80",
+        "https://images.unsplash.com/photo-1544815521-80841127c00f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=80",
     },
     {
       id: 4,
@@ -52,7 +52,7 @@ const HomePage = () => {
       price: 85,
       duration: "6h 10m",
       image:
-        "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=80",
+        "https://images.unsplash.com/photo-1544815521-80841127c00f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=80",
     },
   ];
 
