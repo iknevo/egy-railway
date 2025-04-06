@@ -86,7 +86,7 @@ function App() {
         }}
       >
         <SmoothScrollingConfig />
-        <RouterProvider router={router} />;
+        <RouterProvider router={router} />
         <Toaster
           position="bottom-left"
           gutter={12}
