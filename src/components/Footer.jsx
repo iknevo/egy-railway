@@ -3,8 +3,8 @@ import { Link } from "react-router";
 
 const Footer = () => {
   return (
-    <footer className="bg-gray-800 text-white">
-      <div className="container mx-auto px-4 py-10">
+    <footer className="bg-gray-800 py-5 text-white">
+      <div className="container mx-auto px-4 pt-10">
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
           <div>
             <h3 className="mb-4 text-lg font-semibold">About EgyRailway</h3>
@@ -121,7 +121,7 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="mt-8 border-t border-gray-700 pt-8 text-center text-sm text-gray-400">
+        <div className="mt-8 border-t border-gray-700 pt-5 text-center text-sm text-gray-400">
           <p>&copy; 2025 EgyRailway. All rights reserved.</p>
         </div>
       </div>

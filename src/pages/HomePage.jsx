@@ -153,7 +153,7 @@ const HomePage = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.2 }}
           >
-            <h2 className="mb-6 text-center text-2xl font-bold text-gray-800">
+            <h2 className="mb-12 text-center text-2xl font-bold text-gray-800">
               Find Your Train
             </h2>
             <form className="space-y-6">
@@ -209,10 +209,10 @@ const HomePage = () => {
               <div className="flex justify-center">
                 <button
                   type="submit"
-                  className="group relative inline-flex items-center justify-center overflow-hidden rounded-md bg-gradient-to-r from-cyan-600 to-blue-600 px-8 py-3 font-medium text-white shadow-lg transition duration-300 ease-out hover:scale-105"
+                  className="group relative inline-flex cursor-pointer items-center justify-center overflow-hidden rounded-md bg-gradient-to-r from-cyan-600 to-blue-600 px-8 py-3 font-medium text-white shadow-lg transition duration-300 ease-out hover:scale-105"
                 >
                   <span className="absolute top-0 left-0 h-full w-full scale-0 rounded-md bg-white/20 transition-all duration-300 group-hover:scale-100"></span>
-                  <span className="relative flex items-center">
+                  <button className="relative flex items-center">
                     Search
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -226,7 +226,7 @@ const HomePage = () => {
                         clipRule="evenodd"
                       />
                     </svg>
-                  </span>
+                  </button>
                 </button>
               </div>
             </form>
@@ -387,7 +387,7 @@ const HomePage = () => {
           >
             <button
               onClick={() => scrollToSection(routesRef)}
-              className="group inline-flex items-center gap-2 text-cyan-600 transition-all duration-300 hover:text-cyan-800"
+              className="group inline-flex cursor-pointer items-center gap-2 text-cyan-600 transition-all duration-300 hover:text-cyan-800"
             >
               <span>View popular routes</span>
               <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-cyan-100 transition-all duration-300 group-hover:bg-cyan-200">
@@ -569,7 +569,7 @@ const HomePage = () => {
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
           >
-            <h2 className="mb-6 text-4xl font-bold tracking-tight md:text-5xl">
+            <h2 className="my-6 text-4xl leading-15 font-bold tracking-tight md:text-5xl">
               Ready to Experience{" "}
               <span className="bg-gradient-to-r from-pink-300 to-orange-300 bg-clip-text text-transparent">
                 Egypt by Train?
