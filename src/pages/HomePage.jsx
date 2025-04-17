@@ -10,7 +10,7 @@ const HomePage = () => {
   const scrollToSection = (ref) => {
     if (ref && ref.current) {
       window.scrollTo({
-        top: ref.current.offsetTop - 80, // Offset for header
+        top: ref.current.offsetTop - 64, // Offset for header
         behavior: "smooth",
       });
     }
@@ -212,7 +212,7 @@ const HomePage = () => {
                   className="group relative inline-flex cursor-pointer items-center justify-center overflow-hidden rounded-md bg-gradient-to-r from-cyan-600 to-blue-600 px-8 py-3 font-medium text-white shadow-lg transition duration-300 ease-out hover:scale-105"
                 >
                   <span className="absolute top-0 left-0 h-full w-full scale-0 rounded-md bg-white/20 transition-all duration-300 group-hover:scale-100"></span>
-                  <button className="relative flex items-center">
+                  <span className="relative flex items-center">
                     Search
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -226,7 +226,7 @@ const HomePage = () => {
                         clipRule="evenodd"
                       />
                     </svg>
-                  </button>
+                  </span>
                 </button>
               </div>
             </form>

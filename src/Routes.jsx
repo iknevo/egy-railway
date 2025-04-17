@@ -34,9 +34,9 @@ const router = createBrowserRouter([
       },
       { path: "profile", element: <ProfilePage /> },
       { path: "help", element: <HelpSupportPage /> },
-      { path: "*", element: <NotFoundPage /> },
     ],
   },
+  { path: "*", element: <NotFoundPage /> },
 ]);
 
 export default router;

@@ -1,7 +1,7 @@
 import React from "react";
 import { Outlet, useLocation } from "react-router";
 import Footer from "../components/Footer";
-import Header from "../components/Header";
+import Header from "../components/Header/Header";
 import MotionWrapper from "../components/MotionWrapper";
 import Sidebar from "../components/Sidebar";
 import useScrollToTop from "../hooks/useScrollToTop";

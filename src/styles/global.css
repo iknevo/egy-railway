@@ -1,4 +1,5 @@
 @reference "./index.css"
+
 /* Custom animations */
 @keyframes float {
   0% {
@@ -36,7 +37,6 @@
 /* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
-  height: 8px;
 }
 
 ::-webkit-scrollbar-track {
@@ -44,12 +44,9 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #c7d2fe;
+  background: var(--color-blue-400);
   border-radius: 10px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #818cf8;
+  cursor: pointer;
 }
 
 /* Custom utility classes */
