@@ -1,9 +1,14 @@
+import { motion } from "framer-motion";
 import { Link } from "react-router";
 import { logoSvg } from "../assets";
 
 export default function Logo() {
   return (
-    <div>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5, delay: 0.1 }}
+    >
       <Link to="/home">
         <div className="flex items-center gap-2">
           <img
@@ -16,6 +21,6 @@ export default function Logo() {
           </span>
         </div>
       </Link>
-    </div>
+    </motion.div>
   );
 }

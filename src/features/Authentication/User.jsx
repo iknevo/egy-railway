@@ -6,6 +6,7 @@ import { toggle } from "../../state/slices/headerSlice";
 export default function User() {
   const mobileMenuOpen = useSelector((state) => state.header.mobileMenuOpen);
   const dispatch = useDispatch();
+
   function handleToggle() {
     dispatch(toggle());
   }
@@ -15,7 +16,7 @@ export default function User() {
       className="flex items-center gap-2"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      transition={{ duration: 0.5, delay: 0.2 }}
+      transition={{ duration: 0.5, delay: 0.1 }}
     >
       <Link
         to="/profile"

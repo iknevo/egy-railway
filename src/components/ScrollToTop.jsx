@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router";
 
-export default function useScrollToTop() {
+export default function ScrollToTop() {
   const { pathname, search } = useLocation();
 
   useEffect(() => {
@@ -11,7 +11,6 @@ export default function useScrollToTop() {
     if (pathname !== window.lastPathname && !preventScroll) {
       window.scrollTo({
         top: 0,
-        behavior: "smooth",
       });
     }
 

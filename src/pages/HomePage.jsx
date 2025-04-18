@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { useRef } from "react";
 import { Link } from "react-router";
 
-const HomePage = () => {
+export default function HomePage() {
   const featuresRef = useRef(null);
   const routesRef = useRef(null);
 
@@ -68,6 +68,8 @@ const HomePage = () => {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
+
+      {/* <Hero featuresRef={featuresRef} /> */}
       <section className="relative bg-gradient-to-br from-blue-900 via-cyan-700 to-cyan-700 py-24 text-white">
         <div className="absolute inset-0 overflow-hidden">
           <img
@@ -616,6 +618,4 @@ const HomePage = () => {
       </section>
     </div>
   );
-};
-
-export default HomePage;
+}

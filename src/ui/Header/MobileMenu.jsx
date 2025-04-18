@@ -53,7 +53,7 @@ export default function MobileMenu({ isActive }) {
     >
       <motion.div className="space-y-1 pt-2 pb-5">
         {mobileMenuLinks.map((item) => (
-          <motion.div variants={itemVariants}>
+          <motion.div key={item.title} variants={itemVariants}>
             <Link
               to={item.to}
               className={`block rounded-md px-3 py-2 ${isActive(item.to)}`}

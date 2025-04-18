@@ -5,7 +5,6 @@ import { useEffect } from "react";
 import { Toaster } from "react-hot-toast";
 import { RouterProvider } from "react-router";
 import router from "./Routes";
-import "./styles/global.css";
 import "./styles/index.css";
 import "./styles/lenis.css";
 

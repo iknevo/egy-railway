@@ -1,8 +1,8 @@
 import { motion } from "framer-motion";
 import { useLocation } from "react-router";
 import User from "../../features/Authentication/User";
-import Logo from "../../ui/Logo";
-import DesktopNav from "./DesktopNav";
+import { Logo } from "../../ui";
+import DesktopNav from "./DeskTopNav";
 import MobileMenu from "./MobileMenu";
 
 export default function Header() {
@@ -15,11 +15,8 @@ export default function Header() {
   }
 
   return (
-    <motion.header
+    <header
       className={`sticky top-0 z-50 bg-white/80 shadow-md backdrop-blur-2xl transition-all duration-300`}
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ type: "spring", stiffness: 300, damping: 30 }}
     >
       <div className="container mx-auto px-4">
         <div className="flex h-16 items-center justify-between">
@@ -31,6 +28,6 @@ export default function Header() {
         {/* mobile nav menu */}
         <MobileMenu isActive={isActive} />
       </div>
-    </motion.header>
+    </header>
   );
 }
