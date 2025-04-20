@@ -36,7 +36,7 @@ function SmoothScrollingConfig() {
   return null;
 }
 
-function App() {
+export default function App() {
   // !for development only
   // useEffect(() => {
   // async function upload() {
@@ -73,7 +73,7 @@ function App() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <ReactLenis
+      {/* <ReactLenis
         root
         options={{
           duration: 1.2,
@@ -83,33 +83,31 @@ function App() {
           wheelMultiplier: 1.2,
           infinite: false,
         }}
-      >
-        <SmoothScrollingConfig />
-        <RouterProvider router={router} />
-        <Toaster
-          position="bottom-left"
-          gutter={12}
-          containerStyle={{ marginLeft: "10px" }}
-          toastOptions={{
-            success: {
-              duration: 3 * 1000,
-            },
-            error: {
-              duration: 5 * 1000,
-            },
-            style: {
-              fontSize: "16px",
-              maxWidth: "700px",
-              padding: "16px 24px",
-              backgroundColor: "var(--color-grey-100)",
-              color: "var(--color-grey-800)",
-            },
-          }}
-        />
-        <ReactQueryDevtools initialIsOpen={false} />
-      </ReactLenis>
+      > */}
+      {/* <SmoothScrollingConfig /> */}
+      <RouterProvider router={router} />
+      <Toaster
+        position="bottom-left"
+        gutter={12}
+        containerStyle={{ marginLeft: "10px" }}
+        toastOptions={{
+          success: {
+            duration: 3 * 1000,
+          },
+          error: {
+            duration: 5 * 1000,
+          },
+          style: {
+            fontSize: "16px",
+            maxWidth: "700px",
+            padding: "16px 24px",
+            backgroundColor: "var(--color-grey-100)",
+            color: "var(--color-grey-800)",
+          },
+        }}
+      />
+      <ReactQueryDevtools initialIsOpen={false} />
+      {/* </ReactLenis> */}
     </QueryClientProvider>
   );
 }
-
-export default App;

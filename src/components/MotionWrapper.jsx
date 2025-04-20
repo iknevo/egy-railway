@@ -1,19 +1,14 @@
-// eslint-disable-next-line no-unused-vars
 import { motion } from "framer-motion";
-import React, { useEffect } from "react";
 import { useLocation } from "react-router";
 
-// Enhanced page transitions with multiple animation options
 const pageVariants = {
   initial: {
     opacity: 0,
     y: 15,
-    scale: 0.98,
   },
   animate: {
     opacity: 1,
     y: 0,
-    scale: 1,
     transition: {
       duration: 0.4,
       ease: [0.22, 1, 0.36, 1],
@@ -22,7 +17,6 @@ const pageVariants = {
   exit: {
     opacity: 0,
     y: -15,
-    scale: 0.98,
     transition: {
       duration: 0.3,
       ease: [0.22, 1, 0.36, 1],
@@ -47,11 +41,6 @@ const containerVariants = {
 const MotionWrapper = ({ children }) => {
   const location = useLocation();
   const isHomePage = location.pathname === "/home" || location.pathname === "/";
-
-  // Add scroll restoration
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [location.pathname]);
 
   return (
     <motion.div

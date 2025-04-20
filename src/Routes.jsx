@@ -1,4 +1,6 @@
 import { createBrowserRouter, Navigate } from "react-router";
+import LoginForm from "./features/Authentication/LoginForm";
+import OAuthCallback from "./features/Authentication/OAuthCallback";
 import DefaultLayout from "./layouts/DefaultLayout";
 import BookingConfirmationPage from "./pages/BookingConfirmationPage";
 import BookingPage from "./pages/BookingPage";
@@ -14,7 +16,6 @@ import TrainSearchPage from "./pages/TrainSearchPage";
 
 const router = createBrowserRouter([
   {
-    path: "/",
     element: <DefaultLayout />,
     children: [
       { index: true, element: <Navigate to="/home" replace /> },
@@ -36,6 +37,11 @@ const router = createBrowserRouter([
       { path: "help", element: <HelpSupportPage /> },
     ],
   },
+  {
+    path: "auth/callback",
+    element: <OAuthCallback />,
+  },
+  { path: "login", element: <LoginForm /> },
   { path: "*", element: <NotFoundPage /> },
 ]);
 
