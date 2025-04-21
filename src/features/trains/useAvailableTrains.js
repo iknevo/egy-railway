@@ -5,7 +5,7 @@ export function useAvailableTrains({ fromId, toId }) {
   const { data, isLoading, error } = useQuery({
     queryKey: ["availableTrains"],
     queryFn: () => getAvailabelTrainsApi({ fromId, toId }),
-    enabled: Boolean(fromId) && Boolean(toId),
+    enabled: !!fromId && !!toId,
   });
   return { data, isLoading, error };
 }

@@ -4,7 +4,7 @@ import Sidebar from "../components/Sidebar";
 import useScrollToTop from "../hooks/useScrollToTop";
 import { Footer, Header } from "../ui";
 
-const DefaultLayout = () => {
+export default function DefaultLayout() {
   const location = useLocation();
   const isHomePage = location.pathname === "/home" || location.pathname === "/";
   useScrollToTop();
@@ -32,6 +32,4 @@ const DefaultLayout = () => {
       <Footer />
     </div>
   );
-};
-
-export default DefaultLayout;
+}
