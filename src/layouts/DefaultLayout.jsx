@@ -1,7 +1,7 @@
 import { Outlet, useLocation } from "react-router";
-import useScrollToTop from "../../../green-shop/src/hooks/useScrollToTop";
 import MotionWrapper from "../components/MotionWrapper";
 import Sidebar from "../components/Sidebar";
+import useScrollToTop from "../hooks/useScrollToTop";
 import { Footer, Header } from "../ui";
 
 const DefaultLayout = () => {
