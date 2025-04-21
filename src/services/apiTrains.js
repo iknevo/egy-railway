@@ -1,3 +1,38 @@
+import supabase from "./supabase";
+
+export async function getAllTrains() {
+  const { data, error } = await supabase.from("trains").select("*");
+  if (error) {
+    console.error(error);
+    throw new Error(error.message);
+  }
+  return data;
+}
+
+export async function getAvailabelTrains({ fromId, toId }) {
+  const { data, error } = await supabase.from("trains").select("*");
+  if (error) {
+    console.error(error);
+    throw new Error(error.message);
+  }
+
+  const availableTrains = data.filter((train) => {
+    const fromIndex = train.stations.findIndex(
+      (station) => station.stationId === fromId,
+    );
+    console.log(data);
+    console.log("fromId", fromId);
+    console.log("from index: ", fromIndex);
+    const toIndex = train.stations.indexOf(
+      (station) => station.stationId === toId,
+    );
+
+    return fromIndex !== -1 && toIndex !== -1 && fromIndex < toIndex;
+  });
+
+  return availableTrains;
+}
+
 export function getTrainsBetweenStations(fromStationId, toStationId, data) {
   const { lines, schedules, train_types } = data;
 

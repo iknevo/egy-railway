@@ -811,3 +811,68 @@ export const getTravelDuration = (trainId, fromStationId, toStationId) => {
 
   return { hours, minutes, totalMinutes: durationMinutes };
 };
+
+// Get available trains between two stations
+export const getAvailableTrains = (fromStationId, toStationId) => {
+  // Convert to numbers if they're passed as strings
+  fromStationId = Number(fromStationId);
+  toStationId = Number(toStationId);
+
+  // Return empty array if invalid input
+  if (!fromStationId || !toStationId || fromStationId === toStationId) {
+    return [];
+  }
+
+  // Find all trains that pass through both stations
+  const availableTrains = trains.filter((train) => {
+    // Get the station indexes in this train's route
+    const stationIds = train.stations.map((s) => s.stationId);
+    const fromIndex = stationIds.indexOf(fromStationId);
+    const toIndex = stationIds.indexOf(toStationId);
+
+    // Train is valid if both stations exist in its route and the 'from' station comes before the 'to' station
+    return fromIndex !== -1 && toIndex !== -1 && fromIndex < toIndex;
+  });
+
+  // Enhance train data with additional information
+  return availableTrains.map((train) => {
+    const fromStation = train.stations.find(
+      (s) => s.stationId === fromStationId,
+    );
+    const toStation = train.stations.find((s) => s.stationId === toStationId);
+    const trainType = trainTypes.find((type) => type.id === train.typeId);
+    const duration = getTravelDuration(train.id, fromStationId, toStationId);
+
+    return {
+      ...train,
+      departureTime: fromStation.departureTime,
+      departureDay: fromStation.day,
+      arrivalTime: toStation.arrivalTime,
+      arrivalDay: toStation.day,
+      duration,
+      trainTypeName: trainType.name,
+      trainTypeArabicName: trainType.arabicName,
+      firstClassPrice: calculateTicketPrice(
+        train.id,
+        fromStationId,
+        toStationId,
+        "firstClass",
+      ),
+      secondClassPrice: calculateTicketPrice(
+        train.id,
+        fromStationId,
+        toStationId,
+        "secondClass",
+      ),
+      sleeperPrice:
+        train.typeId === 5
+          ? calculateTicketPrice(
+              train.id,
+              fromStationId,
+              toStationId,
+              "sleeper",
+            )
+          : null,
+    };
+  });
+};

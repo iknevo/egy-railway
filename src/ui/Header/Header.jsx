@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import { useLocation } from "react-router";
 import User from "../../features/Authentication/User";
 import { Logo } from "../../ui";
@@ -15,10 +14,7 @@ export default function Header() {
   }
 
   return (
-    <motion.header
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ stiffness: 300, damping: 30 }}
+    <header
       className={`sticky top-0 z-50 w-full bg-white/80 shadow-md backdrop-blur-2xl transition-all duration-300`}
     >
       <div className="container mx-auto px-4">
@@ -30,6 +26,6 @@ export default function Header() {
 
         <MobileMenu isActive={isActive} />
       </div>
-    </motion.header>
+    </header>
   );
 }
