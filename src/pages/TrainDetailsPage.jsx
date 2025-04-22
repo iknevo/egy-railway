@@ -1,9 +1,16 @@
-import { Link, useParams } from "react-router";
+import { Link, useParams, useSearchParams } from "react-router";
+import { useStations } from "../features/stations/useStations";
+import { useTrain } from "../features/trains/useTrain";
+import Loader from "../ui/Loader";
 
-const TrainDetailsPage = () => {
+export default function TrainDetailsPage() {
   const { trainId } = useParams();
-
-  // In a real app, you would fetch train details based on the trainId
+  const [searchParams] = useSearchParams();
+  const fromId = searchParams.get("from");
+  const toId = searchParams.get("to");
+  const { data, isLoading: isLoadingTrain } = useTrain(trainId);
+  const { data: stations, isLoading: isLoadingStations } = useStations();
+  const isLoading = isLoadingTrain || isLoadingStations;
   const train = {
     id: trainId,
     number: "Express 123",
@@ -21,7 +28,8 @@ const TrainDetailsPage = () => {
       { id: 5, number: "B2", available: true, class: "Second" },
     ],
   };
-
+  if (isLoading) return <Loader />;
+  console.log(stations.find((st) => st.id == fromId));
   return (
     <div className="container mx-auto p-4">
       <Link
@@ -89,6 +97,4 @@ const TrainDetailsPage = () => {
       </div>
     </div>
   );
-};
-
-export default TrainDetailsPage;
+}

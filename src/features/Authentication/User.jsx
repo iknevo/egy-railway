@@ -9,7 +9,7 @@ export default function User() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { user } = useUser();
-  console.log(user);
+  // console.log(user);
 
   function handleToggle() {
     dispatch(toggle());

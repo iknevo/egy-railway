@@ -9,23 +9,29 @@ export async function getAllTrains() {
   return data;
 }
 
-export async function getAvailabelTrains({ fromId, toId }) {
-  const { data: trains, error } = await supabase.from("trains").select("*");
+export async function getTrain(id) {
+  const { data, error } = await supabase
+    .from("trains")
+    .select("*")
+    .eq("id", id)
+    .single();
   if (error) {
     console.error(error);
     throw new Error(error.message);
   }
+  return data;
+}
 
-  const availableTrains = trains.filter((train) => {
-    const fromIndex = train.stations.findIndex(
-      (station) => station.stationId === fromId,
-    );
-    const toIndex = train.stations.findIndex(
-      (station) => station.stationId === toId,
-    );
+export async function getTrainType(id) {
+  const { data, error } = await supabase
+    .from("trainTypes")
+    .select("*")
+    .eq("id", id)
+    .single();
 
-    return fromIndex !== -1 && toIndex !== -1 && fromIndex < toIndex;
-  });
-
-  return availableTrains;
+  if (error) {
+    console.error(error);
+    throw new Error(error.message);
+  }
+  return data;
 }
