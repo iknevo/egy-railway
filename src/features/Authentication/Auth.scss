@@ -1,0 +1,11 @@
+@reference '../../styles/index.css';
+
+.auth__or {
+  @apply relative block font-semibold text-gray-500 uppercase;
+  &::before {
+    @apply absolute top-1/2 left-0 h-[1px] w-[30%] bg-gray-300 content-[""];
+  }
+  &::after {
+    @apply absolute top-1/2 right-0 h-[1px] w-[30%] bg-gray-300 content-[""];
+  }
+}

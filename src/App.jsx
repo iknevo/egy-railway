@@ -101,8 +101,8 @@ export default function App() {
             fontSize: "16px",
             maxWidth: "700px",
             padding: "16px 24px",
-            backgroundColor: "var(--color-grey-100)",
-            color: "var(--color-grey-800)",
+            backgroundColor: "var(--color-gray-100)",
+            color: "var(--color-gray-800)",
           },
         }}
       />

@@ -1,13 +1,13 @@
 import { motion } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router";
+import { Link } from "react-router";
 import { toggle } from "../../state/slices/headerSlice";
+import LoginButton from "./LoginButton";
 import { useUser } from "./useUser";
 
 export default function User() {
   const mobileMenuOpen = useSelector((state) => state.header.mobileMenuOpen);
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const { user } = useUser();
   // console.log(user);
 
@@ -22,14 +22,13 @@ export default function User() {
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5, delay: 0.1 }}
     >
-      {!user && (
-        <button
+      {/* <button
           onClick={() => navigate("/login")}
           className="cursor-pointer rounded-md bg-gradient-to-r from-cyan-600 to-blue-600 px-4 py-1 font-semibold text-white"
         >
           Login
-        </button>
-      )}
+        </button> */}
+      {!user && <LoginButton />}
       {user && (
         <Link
           to="/profile"

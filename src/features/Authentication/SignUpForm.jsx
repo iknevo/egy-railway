@@ -6,19 +6,17 @@ import {
   OutlinedInput,
 } from "@mui/material";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
-import LoaderMini from "../../ui/LoaderMini.jsx";
 
 import { useState } from "react";
-import toast from "react-hot-toast";
-import { useLogin } from "./useLogin";
-import { useResetPassword } from "./useResetPassword.js";
+import LoaderMini from "./../../ui/LoaderMini.jsx";
+import { useSignup } from "./useSignUp.jsx";
 
-export default function LoginForm({ onCloseModal }) {
-  const { login, isPending: isPendingLogin } = useLogin();
+export default function SignUpForm({ onCloseModal }) {
+  const { signUp, isPending } = useSignup();
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const { resetPassword } = useResetPassword();
 
   function handleClickShowPassword() {
     setShowPassword((show) => !show);
@@ -26,19 +24,16 @@ export default function LoginForm({ onCloseModal }) {
 
   function handleResetPassword(e) {
     e.preventDefault();
-    if (!email) {
-      console.log(email);
-      toast.error("Please enter your email first!");
-      return;
-    }
-    resetPassword(email);
   }
 
-  function handleLogin(e) {
+  function handleSignup(e) {
     e.preventDefault();
-    if (!email || !password) return;
-    login(
-      { email, password },
+    signUp(
+      {
+        full_name: name,
+        email,
+        password,
+      },
       {
         onSuccess: () => {
           onCloseModal?.();
@@ -47,7 +42,31 @@ export default function LoginForm({ onCloseModal }) {
     );
   }
   return (
-    <form className="flex w-full flex-col gap-4" onSubmit={handleLogin}>
+    <form className="flex w-full flex-col gap-4" onSubmit={handleSignup}>
+      <FormControl variant="outlined">
+        <InputLabel
+          htmlFor="fullName"
+          sx={{
+            fontSize: "16px",
+            "&.Mui-focused": { color: "#7189FF" },
+          }}
+        >
+          Full Name
+        </InputLabel>
+        <OutlinedInput
+          required
+          id="fullName"
+          type="text"
+          onChange={(e) => setName(e.target.value)}
+          label="Full Name"
+          sx={{
+            fontSize: "16px",
+            "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+              borderColor: "#7189FF",
+            },
+          }}
+        />
+      </FormControl>
       <FormControl variant="outlined">
         <InputLabel
           htmlFor="email"
@@ -121,7 +140,7 @@ export default function LoginForm({ onCloseModal }) {
       </button>
 
       <button className="flex cursor-pointer items-center justify-center rounded-md bg-gradient-to-r from-cyan-600 to-blue-600 px-4 py-2 font-semibold text-white">
-        {isPendingLogin ? <LoaderMini /> : "Login"}
+        {isPending ? <LoaderMini /> : "Signup"}
       </button>
     </form>
   );
