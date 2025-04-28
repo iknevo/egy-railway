@@ -1,35 +1,22 @@
 import { Link, useParams, useSearchParams } from "react-router";
 import { useStations } from "../features/stations/useStations";
 import { useTrain } from "../features/trains/useTrain";
+import { useTrainType } from "../features/trains/useTrainType";
 import Loader from "../ui/Loader";
+import { USD_EGP } from "../utils/constants";
+import { formatToEGP, formatToUSD, getTimeDifference } from "../utils/helpers";
 
 export default function TrainDetailsPage() {
   const { trainId } = useParams();
   const [searchParams] = useSearchParams();
-  const fromId = searchParams.get("from");
-  const toId = searchParams.get("to");
-  const { data, isLoading: isLoadingTrain } = useTrain(trainId);
-  const { data: stations, isLoading: isLoadingStations } = useStations();
-  const isLoading = isLoadingTrain || isLoadingStations;
-  const train = {
-    id: trainId,
-    number: "Express 123",
-    from: "Cairo",
-    to: "Alexandria",
-    departureTime: "09:00",
-    arrivalTime: "11:30",
-    duration: "2h 30m",
-    price: 45.0,
-    seats: [
-      { id: 1, number: "A1", available: true, class: "First" },
-      { id: 2, number: "A2", available: true, class: "First" },
-      { id: 3, number: "A3", available: false, class: "First" },
-      { id: 4, number: "B1", available: true, class: "Second" },
-      { id: 5, number: "B2", available: true, class: "Second" },
-    ],
-  };
-  if (isLoading) return <Loader />;
-  console.log(stations.find((st) => st.id == fromId));
+  const fromId = +searchParams.get("fromId");
+  const toId = +searchParams.get("toId");
+  const { data: train, isLoading: isLoadingTrain } = useTrain(trainId);
+  const { data: trainType } = useTrainType(train.typeId);
+  const { data: stations, isLoading: isLoadingStatinos } = useStations();
+  if (isLoadingTrain || isLoadingStatinos) return <Loader />;
+  const fromStation = stations.find((st) => st.id === fromId);
+  const toStation = stations.find((st) => st.id === toId);
   return (
     <div className="container mx-auto p-4">
       <Link
@@ -39,53 +26,53 @@ export default function TrainDetailsPage() {
         &larr; Back to search results
       </Link>
 
-      <div className="mb-6 rounded-lg bg-white p-6 shadow-md">
-        <h1 className="mb-2 text-2xl font-bold">{train.number}</h1>
+      <div className="mb-6 flex flex-col gap-6 rounded-lg bg-white px-6 py-12 shadow-md">
+        <h1 className="mb-2 text-2xl font-bold">
+          {train.name} {train.trainNumber}
+        </h1>
         <div className="flex flex-col justify-between md:flex-row">
           <div>
             <p className="text-lg">
-              <span className="font-bold">{train.from}</span> &rarr;{" "}
-              <span className="font-bold">{train.to}</span>
+              <span className="font-bold">
+                {fromStation.governorate} ({fromStation.name})
+              </span>
+              &rarr;{" "}
+              <span className="font-bold">
+                {toStation.governorate}({toStation.name})
+              </span>
             </p>
-            <p className="text-gray-600">
-              {train.departureTime} - {train.arrivalTime} ({train.duration})
-            </p>
+            <div className="flex items-center gap-2 text-gray-600">
+              <span>
+                Departures at{" "}
+                {
+                  train.stations.find((st) => st.stationId === fromId)
+                    .departureTime
+                }
+              </span>
+              /
+              <span>
+                Arrives at{" "}
+                {train.stations.find((st) => st.stationId === toId).arrivalTime}
+              </span>
+              <span>
+                {getTimeDifference(
+                  train.stations.find((st) => st.stationId === fromId)
+                    .departureTime,
+                  train.stations.find((st) => st.stationId === toId)
+                    .arrivalTime,
+                )}
+              </span>
+            </div>
           </div>
           <div className="mt-4 md:mt-0">
             <p className="text-xl font-bold text-cyan-600">
-              ${train.price.toFixed(2)}
+              {/* ${train.price.toFixed(2)}{train.to} */}
+              {formatToEGP(train.basePrice * trainType.priceMultiplier)} OR{" "}
+              {formatToUSD(
+                (train.basePrice * trainType.priceMultiplier) / USD_EGP,
+              )}
             </p>
           </div>
-        </div>
-      </div>
-
-      <div className="rounded-lg bg-white p-6 shadow-md">
-        <h2 className="mb-4 text-xl font-semibold">Select Your Seat</h2>
-
-        <div className="mb-6">
-          <div className="mb-2 flex items-center space-x-4">
-            <div className="h-6 w-6 rounded border border-green-500 bg-green-100"></div>
-            <span>Available</span>
-            <div className="ml-4 h-6 w-6 rounded border border-red-500 bg-red-100"></div>
-            <span>Occupied</span>
-          </div>
-        </div>
-
-        <div className="mb-6 grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-5">
-          {train.seats.map((seat) => (
-            <button
-              key={seat.id}
-              disabled={!seat.available}
-              className={`rounded-md p-3 text-center ${
-                seat.available
-                  ? "cursor-pointer border border-green-500 bg-green-100 hover:bg-green-200"
-                  : "cursor-not-allowed border border-red-500 bg-red-100"
-              }`}
-            >
-              <div className="font-bold">{seat.number}</div>
-              <div className="text-xs">{seat.class}</div>
-            </button>
-          ))}
         </div>
 
         <Link

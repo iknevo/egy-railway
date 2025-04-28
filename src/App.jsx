@@ -1,7 +1,6 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { ReactLenis, useLenis } from "lenis/react";
-import { useEffect } from "react";
+import { ReactLenis } from "lenis/react";
 import { Toaster } from "react-hot-toast";
 import { RouterProvider } from "react-router";
 import router from "./Routes";
@@ -16,26 +15,6 @@ const queryClient = new QueryClient({
   },
 });
 
-function SmoothScrollingConfig() {
-  const lenis = useLenis();
-
-  useEffect(() => {
-    function handleResize() {
-      if (lenis) {
-        lenis.stop();
-      }
-      setTimeout(() => {
-        if (lenis) lenis.start();
-      }, 100);
-    }
-    window.addEventListener("resize", handleResize);
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, [lenis]);
-  return null;
-}
-
 export default function App() {
   // !for development only
   // useEffect(() => {
@@ -44,31 +23,6 @@ export default function App() {
   // }
   // upload();
   // console.log(trains.length);
-  // }, []);
-
-  // useEffect(() => {
-  //   const lenis = new Lenis({
-  //     duration: 1.2,
-  //     easing: (t) => (t === 1 ? 1 : 1 - Math.pow(2, -10 * t)),
-  //     direction: "vertical",
-  //     gestureDirection: "vertical",
-  //     smooth: true,
-  //     smoothTouch: false,
-  //     touchMultiplier: 2,
-  //     wheelMultiplier: 1.2,
-  //     normalizeWheel: true,
-  //     infinite: false,
-  //   });
-
-  //   function raf(time) {
-  //     lenis.raf(time);
-  //     requestAnimationFrame(raf);
-  //   }
-  //   requestAnimationFrame(raf);
-
-  //   return () => {
-  //     lenis.destroy();
-  //   };
   // }, []);
 
   return (
@@ -84,7 +38,6 @@ export default function App() {
           infinite: false,
         }}
       > */}
-      {/* <SmoothScrollingConfig /> */}
       <RouterProvider router={router} />
       <Toaster
         position="bottom-left"
@@ -106,7 +59,7 @@ export default function App() {
           },
         }}
       />
-      <ReactQueryDevtools initialIsOpen={false} />
+      <ReactQueryDevtools initialIsOpen={false} data-lenis-prevent="true" />
       {/* </ReactLenis> */}
     </QueryClientProvider>
   );

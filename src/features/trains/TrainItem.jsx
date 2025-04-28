@@ -11,7 +11,7 @@ import { useTrainType } from "./useTrainType";
 
 export default function TrainItem({ train }) {
   const navigate = useNavigate();
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const fromId = +searchParams.get("fromId");
   const toId = +searchParams.get("toId");
   const { data: fromStation, isLoading: isLoading1 } = useStation(fromId);
@@ -26,15 +26,13 @@ export default function TrainItem({ train }) {
   const time2 = train.stations.find((st) => st.stationId === toId).arrivalTime;
 
   function handleSelect() {
-    searchParams.set("from", fromId);
-    searchParams.set("to", toId);
-    setSearchParams(searchParams);
-    navigate(`/trains/${train.id}?${searchParams.toString()}`);
+    // searchParams.set("from", fromId);
+    // searchParams.set("to", toId);
+    // setSearchParams(searchParams);
+    navigate(`/trains/${train.id}?${searchParams}`);
   }
-  console.log(train);
 
   if (isLoading1 || isLoading2 || isLoadingType) return <Loader />;
-  console.log(trainType);
   return (
     <div className="rounded-lg bg-white p-4 shadow-md transition-shadow hover:shadow-lg">
       <div className="flex items-center justify-between">

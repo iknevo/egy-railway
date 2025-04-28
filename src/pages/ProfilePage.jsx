@@ -1,7 +1,9 @@
-import React, { useState } from "react";
-import { Link } from "react-router";
+import { useState } from "react";
+import { useUser } from "../features/Authentication/useUser";
+import Loader from "../ui/Loader";
 
-const ProfilePage = () => {
+export default function ProfilePage() {
+  const { user: { user_metadata } = {}, isLoading } = useUser();
   // In a real app, this would come from your authentication/user context
   const [user, setUser] = useState({
     firstName: "John",
@@ -30,6 +32,7 @@ const ProfilePage = () => {
     // In a real app, you would send this data to your backend
   };
 
+  if (isLoading) return <Loader />;
   return (
     <div className="container mx-auto p-4">
       <h1 className="mb-6 text-2xl font-bold">My Profile</h1>
@@ -37,15 +40,21 @@ const ProfilePage = () => {
       <div className="mx-auto max-w-2xl rounded-lg bg-white p-6 shadow-md">
         <div className="mb-6 flex items-center justify-between">
           <div className="flex items-center">
-            <div className="flex h-16 w-16 items-center justify-center rounded-full bg-cyan-100 text-xl font-bold text-cyan-600">
-              {user.firstName.charAt(0)}
-              {user.lastName.charAt(0)}
+            <div className="flex h-16 w-16 items-center justify-center overflow-hidden rounded-full bg-cyan-100 text-xl font-bold text-cyan-600">
+              {!user_metadata.avatar_url ? (
+                <span>
+                  {user.firstName.charAt(0)}
+                  {user.lastName.charAt(0)}
+                </span>
+              ) : (
+                <img src={user_metadata.avatar_url} alt="user's avatar" />
+              )}
             </div>
             <div className="ml-4">
               <h2 className="text-xl font-semibold">
-                {user.firstName} {user.lastName}
+                {user_metadata.full_name}
               </h2>
-              <p className="text-gray-600">{user.email}</p>
+              <p className="text-gray-600">{user_metadata.email}</p>
             </div>
           </div>
 
@@ -178,11 +187,6 @@ const ProfilePage = () => {
               </div>
             </div>
 
-            <div>
-              <p className="text-sm text-gray-600">Address</p>
-              <p className="font-medium">{user.address}</p>
-            </div>
-
             <div className="mt-6 border-t pt-4">
               <h3 className="mb-2 text-lg font-semibold">Account Security</h3>
               <button className="text-cyan-600 hover:text-cyan-800">
@@ -194,6 +198,4 @@ const ProfilePage = () => {
       </div>
     </div>
   );
-};
-
-export default ProfilePage;
+}

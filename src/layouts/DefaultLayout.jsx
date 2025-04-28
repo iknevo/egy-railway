@@ -12,7 +12,6 @@ export default function DefaultLayout() {
   return (
     <div className="min-h-screen">
       <Header />
-
       {isHomePage ? (
         <main className="bg-gray-50">
           <MotionWrapper key={location.pathname}>
