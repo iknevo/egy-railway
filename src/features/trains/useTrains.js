@@ -1,10 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
-import { getAllTrains as getAllTrainsApi } from "../../services/apiTrains";
+import { getTrains as getTrainsApi } from "../../services/apiTrains";
 
-export function useTrains() {
+export function useTrains({ trainFrom, trainTo, search }) {
   const { data, isLoading, error } = useQuery({
-    queryKey: ["trains"],
-    queryFn: getAllTrainsApi,
+    queryKey: ["trains", trainFrom, trainTo],
+    queryFn: () => getTrainsApi({ trainFrom, trainTo }),
+    enabled: search,
   });
   return { data, isLoading, error };
 }
