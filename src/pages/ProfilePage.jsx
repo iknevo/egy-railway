@@ -47,7 +47,11 @@ export default function ProfilePage() {
                   {user.lastName.charAt(0)}
                 </span>
               ) : (
-                <img src={user_metadata.avatar_url} alt="user's avatar" />
+                <img
+                  className="h-full w-full"
+                  src={user_metadata.avatar_url}
+                  alt="user's avatar"
+                />
               )}
             </div>
             <div className="ml-4">

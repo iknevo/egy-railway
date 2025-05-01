@@ -29,7 +29,8 @@ export default function TrainItem({ train }) {
     // searchParams.set("from", fromId);
     // searchParams.set("to", toId);
     // setSearchParams(searchParams);
-    navigate(`/trains/${train.id}?${searchParams}`);
+    // navigate(`/trains/${train.id}?${searchParams}`);
+    navigate(`/booking/${train.id}`);
   }
 
   if (isLoading1 || isLoading2 || isLoadingType) return <Loader />;

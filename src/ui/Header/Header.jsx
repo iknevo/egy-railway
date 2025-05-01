@@ -1,6 +1,7 @@
 import { useLocation } from "react-router";
 import User from "../../features/Authentication/User";
 import { Logo } from "../../ui";
+import DownloadTextFile from "../../utils/DownloadTextFile";
 import DesktopNav from "./DeskTopNav";
 import MobileMenu from "./MobileMenu";
 
@@ -17,7 +18,8 @@ export default function Header() {
     <header
       className={`sticky top-0 z-50 w-full bg-white/80 shadow-md backdrop-blur-2xl transition-all duration-300`}
     >
-      <div className="container mx-auto px-4">
+      <div className="mx-auto px-6">
+        {/* <DownloadTextFile /> */}
         <div className="flex h-16 items-center justify-between">
           <Logo />
           <DesktopNav isActive={isActive} />

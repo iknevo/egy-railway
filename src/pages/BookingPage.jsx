@@ -1,6 +1,8 @@
-import { Link } from "react-router";
+import { Link, useParams } from "react-router";
 
-const BookingPage = () => {
+export default function BookingPage() {
+  const { trainId } = useParams();
+  console.log(trainId);
   return (
     <div className="container mx-auto p-4">
       <h1 className="mb-4 text-2xl font-bold">Complete Your Booking</h1>
@@ -123,7 +125,7 @@ const BookingPage = () => {
         </div>
 
         <div className="lg:col-span-1">
-          <div className="sticky top-4 rounded-lg bg-white p-6 shadow-md">
+          <div className="sticky top-20 rounded-lg bg-white p-6 shadow-md">
             <h2 className="mb-4 text-xl font-semibold">Booking Summary</h2>
 
             <div className="mb-4 border-b pb-4">
@@ -165,6 +167,4 @@ const BookingPage = () => {
       </div>
     </div>
   );
-};
-
-export default BookingPage;
+}

@@ -4,11 +4,11 @@ import { useLocation } from "react-router";
 const pageVariants = {
   initial: {
     opacity: 0,
-    y: 15,
+    // y: 15,
   },
   animate: {
     opacity: 1,
-    y: 0,
+    // y: 0,
     transition: {
       duration: 0.4,
       ease: [0.22, 1, 0.36, 1],
@@ -16,7 +16,7 @@ const pageVariants = {
   },
   exit: {
     opacity: 0,
-    y: -15,
+    // y: -15,
     transition: {
       duration: 0.3,
       ease: [0.22, 1, 0.36, 1],
@@ -47,7 +47,7 @@ const MotionWrapper = ({ children }) => {
       key={location.pathname}
       initial="initial"
       animate="animate"
-      exit="exit"
+      // exit="exit"
       variants={pageVariants}
       className={isHomePage ? "" : "p-2"}
     >
