@@ -31,7 +31,7 @@ export default function Header() {
 
   return (
     <header
-      className={`sticky top-0 z-50 w-full bg-white/80 shadow-md backdrop-blur-2xl transition-all duration-300`}
+      className={`sticky top-0 z-9999 w-full bg-white/80 shadow-md backdrop-blur-2xl transition-all duration-300`}
     >
       <div className="mx-auto px-6">
         {/* <DownloadTextFile /> */}

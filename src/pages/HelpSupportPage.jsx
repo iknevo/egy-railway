@@ -1,4 +1,3 @@
-// eslint-disable-next-line no-unused-vars
 import { motion } from "framer-motion";
 import React, { useState } from "react";
 import { StaggerContainer, StaggerItem } from "../components/MotionWrapper";
