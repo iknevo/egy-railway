@@ -1,7 +1,7 @@
 import supabase from "./supabase";
 
 export async function getAllTrains() {
-  const { data, error } = await supabase.from("newTrains").select("*");
+  const { data, error } = await supabase.from("trains").select("*");
   if (error) {
     console.error(error);
     throw new Error(error.message);
@@ -11,7 +11,7 @@ export async function getAllTrains() {
 
 export async function getTrains({ trainFrom, trainTo }) {
   const { data, error } = await supabase
-    .from("newTrains")
+    .from("trains")
     .select("*")
     .eq("trainFrom", trainFrom)
     .eq("trainTo", trainTo);
@@ -24,7 +24,7 @@ export async function getTrains({ trainFrom, trainTo }) {
 
 export async function getTrainById(id) {
   const { data, error } = await supabase
-    .from("newTrains")
+    .from("trains")
     .select("*")
     .eq("id", id)
     .single();

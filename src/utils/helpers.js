@@ -25,12 +25,12 @@ export function getTimeDifference(time1, time2) {
   return parts.join(", ");
 }
 
-export function formatToEGP(amount) {
+export function formatToEGP(value) {
   return new Intl.NumberFormat("en-EG", {
     style: "currency",
     currency: "EGP",
     minimumFractionDigits: 0,
-  }).format(amount);
+  }).format(value);
 }
 
 export function formatToUSD(value) {

@@ -1,5 +1,7 @@
 import { useLocation } from "react-router";
+// import { newData } from "../../data/newData";
 import User from "../../features/Authentication/User";
+// import supabase from "../../services/supabase";
 import { Logo } from "../../ui";
 import DownloadTextFile from "../../utils/DownloadTextFile";
 import DesktopNav from "./DeskTopNav";
@@ -13,6 +15,19 @@ export default function Header() {
       ? "text-blue-600 font-medium"
       : "text-gray-700 hover:text-blue-600";
   }
+  // async function upload() {
+  //   const { error } = await supabase.from("trains").insert("*");
+  //   if (error) {
+  //     console.log(error);
+  //   }
+  // const x = newData.map((item) => item.trainFrom);
+  // const y = newData.map((item) => item.trainTo);
+  // const set = [...new Set(x), ...new Set(y)];
+  // const xx = set.map((item) => {
+  //   return { name: item };
+  // });
+  // await supabase.from("stations").insert(xx);
+  // }
 
   return (
     <header
@@ -20,6 +35,15 @@ export default function Header() {
     >
       <div className="mx-auto px-6">
         {/* <DownloadTextFile /> */}
+
+        {/* <button
+          onClick={() => {
+            upload();
+          }}
+          className="cursor-pointer bg-red-600 p-4"
+        >
+          click
+        </button> */}
         <div className="flex h-16 items-center justify-between">
           <Logo />
           <DesktopNav isActive={isActive} />

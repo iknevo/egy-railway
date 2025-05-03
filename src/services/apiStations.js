@@ -1,7 +1,7 @@
 import supabase from "./supabase";
 
 export async function getAllStations() {
-  const { data, error } = await supabase.from("newStations").select("*");
+  const { data, error } = await supabase.from("stations").select("*");
   if (error) {
     console.error(error);
     throw new Error(error.message);

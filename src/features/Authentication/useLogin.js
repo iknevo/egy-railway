@@ -10,7 +10,7 @@ export function useLogin() {
       queryClient.setQueryData(["user"], user);
     },
     onError: (error) => {
-      console.error(error.message);
+      console.error(error);
       toast.error("Provided email or password is incorrect!");
     },
   });
