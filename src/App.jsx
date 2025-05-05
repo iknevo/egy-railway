@@ -5,7 +5,6 @@ import { Toaster } from "react-hot-toast";
 import { RouterProvider } from "react-router";
 import router from "./Routes";
 import "./styles/index.css";
-import "./styles/lenis.css";
 
 const queryClient = new QueryClient({
   defaultOptions: {
