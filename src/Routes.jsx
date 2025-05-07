@@ -10,6 +10,7 @@ import HomePage from "./pages/HomePage";
 import MyReservationsPage from "./pages/MyReservationsPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import ProfilePage from "./pages/ProfilePage";
+import ProtectedRoute from "./pages/ProtectedRoute";
 import ReservationDetailsPage from "./pages/ReservationDetailsPage";
 import TrainDetailsPage from "./pages/TrainDetailsPage";
 import TrainSearchPage from "./pages/TrainSearchPage";
@@ -23,7 +24,14 @@ const router = createBrowserRouter([
       { path: "dashboard", element: <DashboardPage /> },
       { path: "trains", element: <TrainSearchPage /> },
       { path: "trains/:trainId", element: <TrainDetailsPage /> },
-      { path: "booking/:trainId", element: <BookingPage /> },
+      {
+        path: "booking/:trainId",
+        element: (
+          <ProtectedRoute>
+            <BookingPage />
+          </ProtectedRoute>
+        ),
+      },
       {
         path: "booking/confirmation/:bookingId",
         element: <BookingConfirmationPage />,

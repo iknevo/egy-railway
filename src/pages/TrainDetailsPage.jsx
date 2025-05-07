@@ -1,8 +1,8 @@
 import { Link, useParams } from "react-router";
 import { useTrain } from "../features/trains/useTrain";
 import Loader from "../ui/Loader";
-import { STATION_PRICE, USD_EGP } from "../utils/constants";
-import { formatToEGP, formatToUSD, getTimeDifference } from "../utils/helpers";
+import { STATION_PRICE } from "../utils/constants";
+import { formatToEGP } from "../utils/helpers";
 
 export default function TrainDetailsPage() {
   const { trainId } = useParams();
@@ -46,7 +46,7 @@ export default function TrainDetailsPage() {
         </div>
 
         <Link
-          to="/booking"
+          to={`/booking/${trainId}`}
           className="block w-full rounded-md bg-cyan-600 px-4 py-2 text-center text-white hover:bg-cyan-700 focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 focus:outline-none"
         >
           Continue to Booking

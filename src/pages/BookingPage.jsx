@@ -5,12 +5,12 @@ export default function BookingPage() {
   console.log(trainId);
   return (
     <div className="container mx-auto p-4">
-      <h1 className="mb-4 text-2xl font-bold">Complete Your Booking</h1>
+      <h1 className="mb-8 text-2xl font-bold">Complete Your Booking</h1>
 
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
         <div className="lg:col-span-2">
           <div className="mb-6 rounded-lg bg-white p-6 shadow-md">
-            <h2 className="mb-4 text-xl font-semibold">Passenger Details</h2>
+            <h2 className="mb-8 text-xl font-semibold">Passenger Details</h2>
             <form className="space-y-4">
               <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                 <div>
@@ -19,7 +19,7 @@ export default function BookingPage() {
                   </label>
                   <input
                     type="text"
-                    className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-cyan-500 focus:ring-cyan-500 focus:outline-none"
+                    className="mt-1 block w-full rounded-md border border-gray-100 px-3 py-2 shadow-xs focus:border-cyan-500 focus:ring-cyan-500 focus:outline-none"
                     required
                   />
                 </div>
@@ -29,7 +29,7 @@ export default function BookingPage() {
                   </label>
                   <input
                     type="text"
-                    className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-cyan-500 focus:ring-cyan-500 focus:outline-none"
+                    className="mt-1 block w-full rounded-md border border-gray-100 px-3 py-2 shadow-xs focus:border-cyan-500 focus:ring-cyan-500 focus:outline-none"
                     required
                   />
                 </div>
@@ -41,7 +41,7 @@ export default function BookingPage() {
                 </label>
                 <input
                   type="email"
-                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-cyan-500 focus:ring-cyan-500 focus:outline-none"
+                  className="mt-1 block w-full rounded-md border border-gray-100 px-3 py-2 shadow-xs focus:border-cyan-500 focus:ring-cyan-500 focus:outline-none"
                   required
                 />
               </div>
@@ -52,7 +52,7 @@ export default function BookingPage() {
                 </label>
                 <input
                   type="tel"
-                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-cyan-500 focus:ring-cyan-500 focus:outline-none"
+                  className="mt-1 block w-full rounded-md border border-gray-100 px-3 py-2 shadow-xs focus:border-cyan-500 focus:ring-cyan-500 focus:outline-none"
                   required
                 />
               </div>
@@ -63,7 +63,7 @@ export default function BookingPage() {
                 </label>
                 <input
                   type="text"
-                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-cyan-500 focus:ring-cyan-500 focus:outline-none"
+                  className="mt-1 block w-full rounded-md border border-gray-100 px-3 py-2 shadow-xs focus:border-cyan-500 focus:ring-cyan-500 focus:outline-none"
                   required
                 />
               </div>
@@ -79,7 +79,7 @@ export default function BookingPage() {
                 </label>
                 <input
                   type="text"
-                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-cyan-500 focus:ring-cyan-500 focus:outline-none"
+                  className="mt-1 block w-full rounded-md border border-gray-100 px-3 py-2 shadow-xs focus:border-cyan-500 focus:ring-cyan-500 focus:outline-none"
                   placeholder="XXXX XXXX XXXX XXXX"
                   required
                 />
@@ -92,7 +92,7 @@ export default function BookingPage() {
                   </label>
                   <input
                     type="text"
-                    className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-cyan-500 focus:ring-cyan-500 focus:outline-none"
+                    className="mt-1 block w-full rounded-md border border-gray-100 px-3 py-2 shadow-xs focus:border-cyan-500 focus:ring-cyan-500 focus:outline-none"
                     placeholder="MM/YY"
                     required
                   />
@@ -103,7 +103,7 @@ export default function BookingPage() {
                   </label>
                   <input
                     type="text"
-                    className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-cyan-500 focus:ring-cyan-500 focus:outline-none"
+                    className="mt-1 block w-full rounded-md border border-gray-100 px-3 py-2 shadow-xs focus:border-cyan-500 focus:ring-cyan-500 focus:outline-none"
                     placeholder="123"
                     required
                   />
@@ -116,7 +116,7 @@ export default function BookingPage() {
                 </label>
                 <input
                   type="text"
-                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-cyan-500 focus:ring-cyan-500 focus:outline-none"
+                  className="mt-1 block w-full rounded-md border border-gray-100 px-3 py-2 shadow-xs focus:border-cyan-500 focus:ring-cyan-500 focus:outline-none"
                   required
                 />
               </div>
