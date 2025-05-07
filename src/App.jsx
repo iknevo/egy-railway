@@ -1,6 +1,5 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { ReactLenis } from "lenis/react";
 import { Toaster } from "react-hot-toast";
 import { RouterProvider } from "react-router";
 import router from "./Routes";
@@ -17,17 +16,6 @@ const queryClient = new QueryClient({
 export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      {/* <ReactLenis
-        root
-        options={{
-          duration: 1.2,
-          easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-          smoothTouch: false,
-          touchMultiplier: 2,
-          wheelMultiplier: 1.2,
-          infinite: false,
-        }}
-      > */}
       <RouterProvider router={router} />
       <Toaster
         position="bottom-left"
@@ -50,7 +38,6 @@ export default function App() {
         }}
       />
       <ReactQueryDevtools initialIsOpen={false} />
-      {/* </ReactLenis> */}
     </QueryClientProvider>
   );
 }

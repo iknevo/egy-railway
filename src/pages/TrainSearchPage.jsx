@@ -42,6 +42,7 @@ export default function TrainSearchPage() {
             </div>
             <div>
               <Autocomplete
+                data-lenis-prevent="true"
                 disablePortal
                 value={toStation}
                 onChange={(_, newValue) => setToStation(newValue)}
@@ -55,6 +56,11 @@ export default function TrainSearchPage() {
                 renderInput={(params) => <TextField {...params} label="To" />}
               />
             </div>
+
+            {/* <div className="relative">
+              <input type="text" name="to" id="to" placeholder="xxx" />
+              <div className="absolute top-full left-0 w-full">asdfsadf</div>
+            </div> */}
           </div>
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2"></div>
           <button
