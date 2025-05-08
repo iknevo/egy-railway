@@ -1,15 +1,17 @@
 import { useEffect } from "react";
-import { useNavigate } from "react-router";
+import { useSearchParams } from "react-router";
 import { useUser } from "../features/Authentication/useUser";
 import Loader from "../ui/Loader";
 
 export default function ProtectedRoute({ children }) {
-  const navigate = useNavigate();
   const { isAuthenticated, isLoading } = useUser();
+  const [_, setSearchParams] = useSearchParams();
 
   useEffect(() => {
-    if (!isAuthenticated && !isLoading) navigate("/login", { replace: true });
-  }, [isAuthenticated, isLoading, navigate]);
+    if (!isAuthenticated && !isLoading) {
+      setSearchParams({ modal: "auth" });
+    }
+  }, [isAuthenticated, isLoading, setSearchParams]);
 
   if (isLoading)
     return (

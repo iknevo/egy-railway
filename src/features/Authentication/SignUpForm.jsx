@@ -41,6 +41,7 @@ export default function SignUpForm({ onCloseModal }) {
       },
     );
   }
+
   return (
     <form className="flex w-full flex-col gap-4" onSubmit={handleSignup}>
       <FormControl variant="outlined">

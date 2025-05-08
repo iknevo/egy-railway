@@ -20,7 +20,7 @@ export default function DefaultLayout() {
         </main>
       ) : (
         <div className="flex flex-col md:flex-row">
-          <Sidebar />
+          {/* <Sidebar /> */}
           <main className="flex-1 bg-gray-50 p-4 md:p-6">
             <MotionWrapper key={location.pathname}>
               <Outlet />

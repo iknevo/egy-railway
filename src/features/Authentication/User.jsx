@@ -2,14 +2,16 @@ import { motion } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router";
 import { toggle } from "../../state/slices/headerSlice";
+import LoaderMini from "../../ui/LoaderMini";
 import LoginButton from "./LoginButton";
 import { useUser } from "./useUser";
 
 export default function User() {
   const mobileMenuOpen = useSelector((state) => state.header.mobileMenuOpen);
   const dispatch = useDispatch();
-  const { user } = useUser();
-  // console.log(user);
+  const { user, isLoading } = useUser();
+
+  const avatarUrl = user?.user_metadata?.avatar_url || null;
 
   function handleToggle() {
     dispatch(toggle());
@@ -28,27 +30,37 @@ export default function User() {
         >
           Login
         </button> */}
-      {!user && <LoginButton />}
+      {isLoading && <LoaderMini />}
+      {!user && !isLoading && <LoginButton />}
+
       {user && (
         <Link
           to="/profile"
           className="group hidden h-10 w-10 overflow-hidden rounded-full bg-blue-100 p-0.5 text-cyan-600 transition-all duration-300 hover:bg-blue-200 md:block"
         >
           <div className="h-full w-full overflow-hidden rounded-full bg-white">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-full w-full p-1.5 text-blue-600 transition-all duration-300 group-hover:scale-110"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+            {avatarUrl ? (
+              <img
+                src={avatarUrl}
+                className="h-full w-full"
+                alt="user's avatar"
               />
-            </svg>
+            ) : (
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-full w-full p-1.5 text-blue-600 transition-all duration-300 group-hover:scale-110"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                />
+              </svg>
+            )}
           </div>
         </Link>
       )}

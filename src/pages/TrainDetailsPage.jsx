@@ -1,13 +1,25 @@
-import { Link, useParams } from "react-router";
+import toast from "react-hot-toast";
+import { Link, useNavigate, useParams } from "react-router";
+import { useUser } from "../features/Authentication/useUser";
 import { useTrain } from "../features/trains/useTrain";
 import Loader from "../ui/Loader";
 import { STATION_PRICE } from "../utils/constants";
 import { formatToEGP } from "../utils/helpers";
 
 export default function TrainDetailsPage() {
+  const navigate = useNavigate();
   const { trainId } = useParams();
   const { data: train, isLoading: isLoadingTrain } = useTrain(trainId);
-  if (isLoadingTrain) return <Loader />;
+  const { isAuthenticated, isLoading } = useUser();
+  // `/booking/${trainId}`
+  function handleClick() {
+    if (isAuthenticated) {
+      navigate(`/booking/${trainId}`);
+    } else {
+      toast.error("Please Login first to continue!");
+    }
+  }
+  if (isLoading || isLoadingTrain) return <Loader />;
   return (
     <div className="container mx-auto p-4">
       <Link
@@ -45,12 +57,12 @@ export default function TrainDetailsPage() {
           </div>
         </div>
 
-        <Link
-          to={`/booking/${trainId}`}
-          className="block w-full rounded-md bg-cyan-600 px-4 py-2 text-center text-white hover:bg-cyan-700 focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 focus:outline-none"
+        <button
+          onClick={handleClick}
+          className="block w-full cursor-pointer rounded-md bg-cyan-600 px-4 py-2 text-center text-white hover:bg-cyan-700 focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 focus:outline-none"
         >
           Continue to Booking
-        </Link>
+        </button>
       </div>
     </div>
   );

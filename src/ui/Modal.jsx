@@ -7,17 +7,14 @@ import { useOutsideClick } from "../hooks/useOutsideClick";
 const ModalContext = createContext();
 
 function Modal({ children }) {
-  // const [openName, setOpenName] = useState("");
-
-  // const close = () => setOpenName("");
-  // const open = setOpenName;
   const [searchParams, setSearchParams] = useSearchParams();
   const openName = searchParams.get("modal") || "";
 
-  const close = () =>
+  const close = () => {
     setSearchParams((prev) => {
       prev.delete("modal");
     });
+  };
 
   const open = (name) => setSearchParams({ modal: name });
 

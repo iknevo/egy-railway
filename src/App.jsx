@@ -18,7 +18,7 @@ export default function App() {
     <QueryClientProvider client={queryClient}>
       <RouterProvider router={router} />
       <Toaster
-        position="bottom-left"
+        position="bottom-center"
         gutter={12}
         containerStyle={{ marginLeft: "10px" }}
         toastOptions={{
