@@ -1,5 +1,4 @@
 import { motion } from "framer-motion";
-import { useLocation } from "react-router";
 
 const pageVariants = {
   initial: {
@@ -39,17 +38,13 @@ const containerVariants = {
 };
 
 const MotionWrapper = ({ children }) => {
-  const location = useLocation();
-  const isHomePage = location.pathname === "/home" || location.pathname === "/";
-
   return (
     <motion.div
       key={location.pathname}
       initial="initial"
       animate="animate"
-      // exit="exit"
+      exit="exit"
       variants={pageVariants}
-      className={isHomePage ? "" : "p-2"}
     >
       {children}
     </motion.div>

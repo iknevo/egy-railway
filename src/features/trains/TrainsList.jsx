@@ -24,7 +24,7 @@ export default function TrainsList({ fromStation, toStation, search }) {
         <h2 className="mb-4 text-xl font-semibold">Available Trips</h2>
         <div className="space-y-4"></div>
       </div>
-      <div className="grid grid-cols-1 gap-2 md:grid-cols-2 md:gap-4 lg:grid-cols-3">
+      <div className="grid grid-cols-1 gap-2 md:grid-cols-3 md:gap-4 lg:grid-cols-4">
         {trains.map((train) => (
           <TrainItem key={train.id} train={train} />
         ))}
