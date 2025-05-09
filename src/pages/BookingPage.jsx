@@ -4,7 +4,7 @@ export default function BookingPage() {
   const { trainId } = useParams();
   console.log(trainId);
   return (
-    <div className="container mx-auto p-4">
+    <div className="mx-auto p-4">
       <h1 className="mb-8 text-2xl font-bold">Complete Your Booking</h1>
 
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">

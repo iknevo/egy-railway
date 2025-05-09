@@ -1,10 +1,9 @@
-import React from "react";
 import { Link } from "react-router";
 
 export default function Footer() {
   return (
     <footer className="bg-gray-800 py-5 text-white">
-      <div className="container mx-auto px-4 pt-10">
+      <div className="mx-auto px-4 pt-10">
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
           <div>
             <h3 className="mb-4 text-lg font-semibold">About EgyRailway</h3>

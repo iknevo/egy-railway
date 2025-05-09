@@ -19,7 +19,7 @@ const BookingConfirmationPage = () => {
   };
 
   return (
-    <div className="container mx-auto p-4">
+    <div className="mx-auto p-4">
       <div className="mx-auto max-w-2xl rounded-lg bg-white p-6 shadow-md">
         <div className="mb-6 text-center">
           <div className="inline-flex h-16 w-16 items-center justify-center rounded-full bg-green-100">

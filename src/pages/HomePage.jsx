@@ -79,7 +79,7 @@ export default function HomePage() {
           />
           <div className="absolute inset-0 bg-gradient-to-r from-blue-900/60 to-cyan-900/60"></div>
         </div>
-        <div className="relative container mx-auto px-4">
+        <div className="relative mx-auto px-4">
           <motion.div
             className="mx-auto max-w-2xl text-center"
             initial="initial"
@@ -146,7 +146,7 @@ export default function HomePage() {
       </section>
       {/* Features Section */}
       <section ref={featuresRef} className="scroll-mt-20 bg-gray-50 py-20">
-        <div className="container mx-auto px-4">
+        <div className="mx-auto px-4">
           <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
@@ -322,7 +322,7 @@ export default function HomePage() {
 
       {/* Popular Routes Section */}
       <section ref={routesRef} className="scroll-mt-20 py-20">
-        <div className="container mx-auto px-4">
+        <div className="mx-auto px-4">
           <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
@@ -470,7 +470,7 @@ export default function HomePage() {
           <div className="absolute inset-0 bg-gradient-to-br from-cyan-800/80 to-blue-800/80"></div>
         </div>
 
-        <div className="relative container mx-auto px-4">
+        <div className="relative mx-auto px-4">
           <motion.div
             className="mx-auto max-w-3xl text-center"
             initial={{ opacity: 0, y: 20 }}

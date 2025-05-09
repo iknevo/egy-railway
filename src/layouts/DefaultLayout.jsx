@@ -7,9 +7,9 @@ export default function DefaultLayout() {
   useScrollToTop();
 
   return (
-    <div className="min-h-screen">
+    <div className="flex min-h-screen flex-col">
       <Header />
-      <main className="bg-gray-50">
+      <main className="flex-1 shrink-0 bg-gray-50">
         <MotionWrapper key={location.pathname}>
           <Outlet />
         </MotionWrapper>

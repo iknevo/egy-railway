@@ -21,7 +21,7 @@ export default function TrainDetailsPage() {
   }
   if (isLoading || isLoadingTrain) return <Loader />;
   return (
-    <div className="container mx-auto p-4">
+    <div className="mx-auto p-4">
       <Link
         to="/trains"
         className="mb-4 inline-block text-cyan-600 hover:text-cyan-800"
