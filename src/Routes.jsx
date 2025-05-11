@@ -26,11 +26,19 @@ const router = createBrowserRouter([
       { path: "trains/:trainId", element: <TrainDetailsPage /> },
       {
         path: "booking/:trainId",
-        element: <BookingPage />,
+        element: (
+          <ProtectedRoute>
+            <BookingPage />,
+          </ProtectedRoute>
+        ),
       },
       {
         path: "booking/confirmation/:bookingId",
-        element: <BookingConfirmationPage />,
+        element: (
+          <ProtectedRoute>
+            <BookingConfirmationPage />
+          </ProtectedRoute>
+        ),
       },
       {
         path: "reservations",
@@ -42,7 +50,11 @@ const router = createBrowserRouter([
       },
       {
         path: "reservations/:reservationId",
-        element: <ReservationDetailsPage />,
+        element: (
+          <ProtectedRoute>
+            <ReservationDetailsPage />
+          </ProtectedRoute>
+        ),
       },
       {
         path: "profile",
