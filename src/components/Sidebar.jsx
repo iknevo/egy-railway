@@ -1,10 +1,10 @@
-/* eslint-disable no-unused-vars */
-import { motion } from "framer-motion";
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 import { LuSettings } from "react-icons/lu";
 import { Link, useLocation } from "react-router";
+import { useUser } from "../features/Authentication/useUser";
 
-const Sidebar = () => {
+export default function Sidebar() {
+  const { user } = useUser();
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
 
@@ -17,58 +17,6 @@ const Sidebar = () => {
   };
 
   const isActive = (path) => location.pathname.startsWith(path);
-  const isHomePath = location.pathname === "/" || location.pathname === "/home";
-
-  // Animation variants
-  const sidebarVariants = {
-    open: { x: 0, transition: { type: "spring", stiffness: 300, damping: 24 } },
-    closed: {
-      x: "-100%",
-      transition: { type: "spring", stiffness: 300, damping: 24 },
-    },
-  };
-
-  // Add CSS for sidebar links
-  useEffect(() => {
-    // Add CSS for sidebar links if not already in stylesheet
-    const style = document.createElement("style");
-    style.textContent = `
-      .sidebar-link {
-        display: flex;
-        align-items: center;
-        padding: 0.75rem 0.75rem;
-        border-radius: 0.375rem;
-        color: #4b5563;
-        font-size: 0.875rem;
-        transition: all 0.2s;
-      }
-
-      .sidebar-link svg {
-        margin-right: 0.75rem;
-      }
-
-      .sidebar-link:hover {
-        background-color: #f3f4f6;
-        color: #4f46e5;
-      }
-
-      .sidebar-link.active {
-        background-color: #eef2ff;
-        color: #4f46e5;
-        font-weight: 500;
-      }
-    `;
-    document.head.appendChild(style);
-
-    return () => {
-      document.head.removeChild(style);
-    };
-  }, []);
-
-  // Early return if on home page
-  if (isHomePath) {
-    return null;
-  }
 
   const navItems = [
     {
@@ -162,7 +110,6 @@ const Sidebar = () => {
 
   return (
     <>
-      {/* Mobile Sidebar Toggle Button */}
       <button
         onClick={toggleSidebar}
         className="fixed top-20 right-4 z-40 block rounded-full bg-cyan-600 p-2 text-white shadow-lg transition-transform duration-300 hover:scale-105 hover:bg-cyan-700 md:hidden"
@@ -201,7 +148,6 @@ const Sidebar = () => {
         )}
       </button>
 
-      {/* Sidebar Backdrop (Mobile) */}
       {isOpen && (
         <div
           onClick={toggleSidebar}
@@ -213,19 +159,6 @@ const Sidebar = () => {
       <aside className="sidebar fixed top-0 bottom-0 left-0 z-40 mt-5 flex w-64 -translate-x-full transform flex-col overflow-y-auto bg-white shadow-xl transition-transform duration-300 ease-in-out md:static md:mt-0 md:min-h-screen md:translate-x-0 md:shadow-md">
         {/* Sidebar Header */}
         <div className="flex items-center justify-between border-b border-gray-200">
-          {/* <Link to="/home" className="flex items-center">
-            <div className="mr-2 rounded-full bg-gradient-to-r from-cyan-500 to-blue-600 p-2">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5 text-white"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-              >
-                <path d="M11 17a1 1 0 001.447.894l4-2A1 1 0 0017 15V9.236a1 1 0 00-1.447-.894l-4 2a1 1 0 00-.553.894V17zM15.211 6.276a1 1 0 000-1.788l-4.764-2.382a1 1 0 00-.894 0L4.789 4.488a1 1 0 000 1.788l4.764 2.382a1 1 0 00.894 0l4.764-2.382zM4.447 8.342A1 1 0 003 9.236V15a1 1 0 00.553.894l4 2A1 1 0 009 17v-5.764a1 1 0 00-.553-.894l-4-2z" />
-              </svg>
-            </div>
-            <span className="text-xl font-bold text-gray-800">EgyRailway</span>
-          </Link> */}
           <button
             onClick={toggleSidebar}
             className="rounded-md p-2 text-gray-500 hover:bg-gray-100 md:hidden"
@@ -249,60 +182,34 @@ const Sidebar = () => {
         <div className="border-b border-gray-200 px-4 py-5 md:py-0">
           <div className="flex items-center">
             <div className="relative mr-3">
-              <div className="h-10 w-10 overflow-hidden rounded-full bg-gradient-to-r from-cyan-400 to-blue-500">
-                <div className="h-full w-full p-1">
-                  <div className="h-full w-full rounded-full bg-white p-1">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="h-full w-full text-cyan-600"
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                  </div>
+              <div className="h-10 w-10">
+                <div className="h-full w-full overflow-hidden rounded-full bg-white">
+                  {!user.user_metadata.avatar_url ? (
+                    <span>
+                      {user.firstName.charAt(0)}
+                      {user.lastName.charAt(0)}
+                    </span>
+                  ) : (
+                    <img
+                      className="h-full w-full"
+                      src={user.user_metadata.avatar_url}
+                      alt="user's avatar"
+                    />
+                  )}
                 </div>
               </div>
+
               <div className="absolute -right-1 -bottom-1 h-4 w-4 rounded-full border-2 border-white bg-green-500"></div>
             </div>
             <div>
               <h4 className="text-sm font-medium text-gray-800">
-                Ahmed Hassan
+                {user.user_metadata.full_name}
               </h4>
             </div>
             <div className="ml-auto">
               <Link to="/profile" className="rounded-full p-1.5 text-gray-600">
                 <LuSettings />
               </Link>
-            </div>
-          </div>
-        </div>
-
-        {/* Stats */}
-        <div className="border-b border-gray-200 px-4 py-4">
-          <h4 className="mb-3 text-xs font-semibold text-gray-500 uppercase">
-            Travel Statistics
-          </h4>
-          <div className="grid grid-cols-2 gap-2">
-            <div className="rounded-lg bg-blue-50 p-2.5 text-center">
-              <div className="text-lg font-bold text-blue-700">12</div>
-              <div className="text-xs text-blue-600">Trips Completed</div>
-            </div>
-            <div className="rounded-lg bg-blue-50 p-2.5 text-center">
-              <div className="text-lg font-bold text-blue-700">1,845</div>
-              <div className="text-xs text-blue-600">Km Traveled</div>
-            </div>
-            <div className="rounded-lg bg-green-50 p-2.5 text-center">
-              <div className="text-lg font-bold text-green-700">4</div>
-              <div className="text-xs text-green-600">Cities Visited</div>
-            </div>
-            <div className="rounded-lg bg-amber-50 p-2.5 text-center">
-              <div className="text-lg font-bold text-amber-700">15%</div>
-              <div className="text-xs text-amber-600">Avg. Discount</div>
             </div>
           </div>
         </div>
@@ -360,7 +267,7 @@ const Sidebar = () => {
         </div>
 
         {/* Sidebar Navigation */}
-        <nav className="flex-grow p-4">
+        <nav className="p-4">
           <h4 className="mb-2 text-xs font-semibold text-gray-500 uppercase">
             Main Menu
           </h4>
@@ -415,6 +322,4 @@ const Sidebar = () => {
       </aside>
     </>
   );
-};
-
-export default Sidebar;
+}

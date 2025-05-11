@@ -9,7 +9,7 @@ export default function TrainsList({ fromStation, toStation, search }) {
     search,
   });
   if (isLoadingTrains) return <Loader />;
-  if (!trains?.length)
+  if (!trains?.length && (fromStation || toStation || search))
     return (
       <div className="py-8">
         <h2 className="text-center text-3xl font-semibold">
@@ -21,11 +21,18 @@ export default function TrainsList({ fromStation, toStation, search }) {
   return (
     <div>
       <div className="mt-8">
-        <h2 className="mb-4 text-xl font-semibold">Available Trips</h2>
+        {!trains && (
+          <h2 className="text-center text-3xl font-semibold">
+            Start By Searching your destination!
+          </h2>
+        )}
+        {trains && (
+          <h2 className="mb-4 text-xl font-semibold">Available Trips</h2>
+        )}
         <div className="space-y-4"></div>
       </div>
       <div className="grid grid-cols-1 gap-2 md:grid-cols-3 md:gap-4 lg:grid-cols-4">
-        {trains.map((train) => (
+        {trains?.map((train) => (
           <TrainItem key={train.id} train={train} />
         ))}
       </div>

@@ -48,7 +48,7 @@ export default function ProfilePage() {
       <main className="flex-1 bg-gray-50 p-4 md:p-6">
         <h1 className="mb-6 text-2xl font-bold">My Profile</h1>
 
-        <div className="mx-auto max-w-2xl rounded-lg bg-white p-6 shadow-md">
+        <div className="mx-auto rounded-lg bg-white p-6 shadow-md">
           <div className="mb-6 flex items-center justify-between">
             <div className="flex items-center">
               <div className="flex h-16 w-16 items-center justify-center overflow-hidden rounded-full bg-cyan-100 text-xl font-bold text-cyan-600">
@@ -72,15 +72,25 @@ export default function ProfilePage() {
                 <p className="text-gray-600">{user_metadata.email}</p>
               </div>
             </div>
+            <div className="flex items-center gap-4">
+              {!isEditing && (
+                <button
+                  onClick={() => setIsEditing(true)}
+                  className="rounded-md bg-cyan-600 px-4 py-2 text-white hover:bg-cyan-700 focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 focus:outline-none"
+                >
+                  Edit Profile
+                </button>
+              )}
 
-            {!isEditing && (
               <button
-                onClick={() => setIsEditing(true)}
-                className="rounded-md bg-cyan-600 px-4 py-2 text-white hover:bg-cyan-700 focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 focus:outline-none"
+                onClick={handleLogout}
+                disabled={isPending}
+                className="flex cursor-pointer items-center gap-4 rounded-md bg-gradient-to-r from-red-500 to-red-600 px-4 py-2 font-semibold text-white"
               >
-                Edit Profile
+                <span className="font-semibold">Logout</span>
+                <ImExit className="text-2xl" />
               </button>
-            )}
+            </div>
           </div>
 
           {isEditing ? (
@@ -208,14 +218,14 @@ export default function ProfilePage() {
                   <button className="text-cyan-600 hover:text-cyan-800">
                     Change Password
                   </button>
-                  <button
+                  {/* <button
                     onClick={handleLogout}
                     disabled={isPending}
                     className="flex cursor-pointer items-center gap-4 rounded-md bg-gradient-to-r from-red-500 to-red-600 px-4 py-2 font-semibold text-white"
                   >
                     <span className="font-semibold">Logout</span>
                     <ImExit className="text-2xl" />
-                  </button>
+                  </button> */}
                 </div>
               </div>
             </div>
