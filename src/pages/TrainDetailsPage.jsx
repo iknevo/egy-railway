@@ -24,12 +24,12 @@ export default function TrainDetailsPage() {
     <div className="mx-auto p-4">
       <Link
         to="/trains"
-        className="mb-4 inline-block text-cyan-600 hover:text-cyan-800"
+        className="mb-4 inline-block font-bold text-cyan-600 hover:text-cyan-800"
       >
         &larr; Back to search results
       </Link>
 
-      <div className="mb-6 flex flex-col gap-6 rounded-lg bg-white px-6 py-12 shadow-md">
+      <div className="mb-6 flex flex-col gap-6 rounded-lg bg-white px-6 py-6 shadow-md">
         <h1 className="mb-2 text-2xl font-bold">
           {train.level} {train.number}
         </h1>
@@ -39,7 +39,7 @@ export default function TrainDetailsPage() {
               <span className="font-bold">{train.trainFrom}</span>
               &rarr; <span className="font-bold">{train.trainTo}</span>
             </p>
-            <div className="flex flex-col text-gray-600">
+            <div className="flex flex-col gap-4 text-gray-600">
               <div>
                 <span>
                   Departures at {train.go} / Arrives at {train.arrive}
@@ -59,7 +59,7 @@ export default function TrainDetailsPage() {
 
         <button
           onClick={handleClick}
-          className="block w-full cursor-pointer rounded-md bg-cyan-600 px-4 py-2 text-center text-white hover:bg-cyan-700 focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 focus:outline-none"
+          className="block cursor-pointer self-end rounded-md bg-cyan-600 px-4 py-2 text-center text-white hover:bg-cyan-700 focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 focus:outline-none"
         >
           Continue to Booking
         </button>

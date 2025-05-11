@@ -1,8 +1,40 @@
-import { Link, useParams } from "react-router";
+import { useFormik } from "formik";
+import { Link } from "react-router";
+import * as Yup from "yup";
+import { useUser } from "../features/Authentication/useUser";
 
 export default function BookingPage() {
-  const { trainId } = useParams();
-  console.log(trainId);
+  const {
+    user: {
+      user_metadata: { full_name, email },
+    },
+  } = useUser();
+  const [firstName, lastName] = full_name.split(" ");
+
+  const bookingSchema = Yup.object({
+    email: Yup.string()
+      .email("Enter a valid email !")
+      .required("This field is required !"),
+    firstName: Yup.string().required("This field is required !"),
+    lastName: Yup.string().required("This field is required !"),
+    phone: Yup.string().matches(
+      /^\+?[1-9][0-9]{7,14}$/,
+      "Enter a valid phone number !",
+    ),
+  });
+
+  const formik = useFormik({
+    initialValues: {
+      email,
+      firstName,
+      lastName,
+    },
+    validationSchema: bookingSchema,
+    onSubmit: (data) => {
+      console.log(data);
+    },
+  });
+
   return (
     <div className="mx-auto p-4">
       <h1 className="mb-8 text-2xl font-bold">Complete Your Booking</h1>
@@ -11,53 +43,86 @@ export default function BookingPage() {
         <div className="lg:col-span-2">
           <div className="mb-6 rounded-lg bg-white p-6 shadow-md">
             <h2 className="mb-8 text-xl font-semibold">Passenger Details</h2>
-            <form className="space-y-4">
+            <form onSubmit={formik.handleSubmit} className="space-y-4">
               <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-                <div>
+                <div className="space-y-2">
                   <label className="block text-sm font-medium text-gray-700">
                     First Name
+                    <input
+                      type="text"
+                      name="firstName"
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      value={formik.values.firstName}
+                      className="mt-1 block w-full rounded-md border border-gray-100 px-3 py-2 shadow-xs focus:border-cyan-500 focus:ring-cyan-500 focus:outline-none"
+                    />
                   </label>
-                  <input
-                    type="text"
-                    className="mt-1 block w-full rounded-md border border-gray-100 px-3 py-2 shadow-xs focus:border-cyan-500 focus:ring-cyan-500 focus:outline-none"
-                    required
-                  />
+                  {formik.touched.firstName && formik.errors.firstName && (
+                    <p className="font-semibold text-red-700">
+                      {formik.errors.firstName}
+                    </p>
+                  )}
                 </div>
-                <div>
+                <div className="space-y-2">
                   <label className="block text-sm font-medium text-gray-700">
                     Last Name
+                    <input
+                      type="text"
+                      name="lastName"
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      value={formik.values.lastName}
+                      className="mt-1 block w-full rounded-md border border-gray-100 px-3 py-2 shadow-xs focus:border-cyan-500 focus:ring-cyan-500 focus:outline-none"
+                    />
                   </label>
-                  <input
-                    type="text"
-                    className="mt-1 block w-full rounded-md border border-gray-100 px-3 py-2 shadow-xs focus:border-cyan-500 focus:ring-cyan-500 focus:outline-none"
-                    required
-                  />
+
+                  {formik.touched.lastName && formik.errors.lastName && (
+                    <p className="font-semibold text-red-700">
+                      {formik.errors.lastName}
+                    </p>
+                  )}
                 </div>
               </div>
 
-              <div>
+              <div className="space-y-2">
                 <label className="block text-sm font-medium text-gray-700">
                   Email
+                  <input
+                    type="email"
+                    name="email"
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    value={formik.values.email}
+                    className="mt-1 block w-full rounded-md border border-gray-100 px-3 py-2 shadow-xs focus:border-cyan-500 focus:ring-cyan-500 focus:outline-none"
+                  />
                 </label>
-                <input
-                  type="email"
-                  className="mt-1 block w-full rounded-md border border-gray-100 px-3 py-2 shadow-xs focus:border-cyan-500 focus:ring-cyan-500 focus:outline-none"
-                  required
-                />
+
+                {formik.touched.email && formik.errors.email && (
+                  <p className="font-semibold text-red-700">
+                    {formik.errors.email}
+                  </p>
+                )}
               </div>
 
-              <div>
+              <div className="space-y-2">
                 <label className="block text-sm font-medium text-gray-700">
                   Phone
+                  <input
+                    type="tel"
+                    name="phone"
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    className="mt-1 block w-full rounded-md border border-gray-100 px-3 py-2 shadow-xs focus:border-cyan-500 focus:ring-cyan-500 focus:outline-none"
+                  />
                 </label>
-                <input
-                  type="tel"
-                  className="mt-1 block w-full rounded-md border border-gray-100 px-3 py-2 shadow-xs focus:border-cyan-500 focus:ring-cyan-500 focus:outline-none"
-                  required
-                />
+                {formik.touched.phone && formik.errors.phone && (
+                  <p className="font-semibold text-red-700">
+                    {formik.errors.phone}
+                  </p>
+                )}
               </div>
 
-              <div>
+              {/* <div>
                 <label className="block text-sm font-medium text-gray-700">
                   National ID
                 </label>
@@ -66,7 +131,7 @@ export default function BookingPage() {
                   className="mt-1 block w-full rounded-md border border-gray-100 px-3 py-2 shadow-xs focus:border-cyan-500 focus:ring-cyan-500 focus:outline-none"
                   required
                 />
-              </div>
+              </div> */}
             </form>
           </div>
 
