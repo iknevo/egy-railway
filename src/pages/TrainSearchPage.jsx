@@ -20,62 +20,113 @@ export default function TrainSearchPage() {
 
   if (isLoading) return <Loader />;
   return (
-    <div className="mx-auto p-4">
-      <div>
-        <h1 className="mb-4 text-2xl font-bold">Find Your Train</h1>
-        <div className="rounded-lg bg-white p-6 shadow-md">
-          <form className="space-y-4">
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-              <div>
-                <Autocomplete
-                  disablePortal
-                  value={fromStation}
-                  onChange={(_, newValue) => setFromStation(newValue)}
-                  options={[
-                    ...new Set(
-                      stations
-                        .sort((a, b) => a.name.localeCompare(b.name))
-                        .map((item) => item.name),
-                    ),
-                  ]}
-                  renderInput={(params) => (
-                    <TextField {...params} label="From" />
-                  )}
-                />
+    <div className="min-h-screen bg-gray-50 py-8">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <h1 className="mb-8 text-3xl font-bold text-gray-900">
+          Find Your Train
+        </h1>
+
+        <div className="overflow-hidden rounded-xl bg-white shadow-lg transition-all hover:shadow-xl">
+          <div className="border-b border-gray-100 bg-gray-50 px-6 py-4">
+            <h2 className="text-xl font-semibold text-gray-800">
+              Search Trains
+            </h2>
+          </div>
+          <div className="p-6">
+            <form className="space-y-6" onSubmit={handleSearch}>
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                <div>
+                  <Autocomplete
+                    disablePortal
+                    value={fromStation}
+                    onChange={(_, newValue) => setFromStation(newValue)}
+                    options={[
+                      ...new Set(
+                        stations
+                          .sort((a, b) => a.name.localeCompare(b.name))
+                          .map((item) => item.name),
+                      ),
+                    ]}
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        label="From Station"
+                        className="w-full"
+                        sx={{
+                          "& .MuiOutlinedInput-root": {
+                            "& fieldset": {
+                              borderColor: "#e5e7eb",
+                            },
+                            "&:hover fieldset": {
+                              borderColor: "#0891b2",
+                            },
+                            "&.Mui-focused fieldset": {
+                              borderColor: "#0891b2",
+                            },
+                          },
+                          "& .MuiInputLabel-root.Mui-focused": {
+                            color: "#0891b2",
+                          },
+                        }}
+                      />
+                    )}
+                  />
+                </div>
+                <div>
+                  <Autocomplete
+                    data-lenis-prevent="true"
+                    disablePortal
+                    value={toStation}
+                    onChange={(_, newValue) => setToStation(newValue)}
+                    options={[
+                      ...new Set(
+                        stations
+                          .sort((a, b) => a.name.localeCompare(b.name))
+                          .map((item) => item.name),
+                      ),
+                    ]}
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        label="To Station"
+                        className="w-full"
+                        sx={{
+                          "& .MuiOutlinedInput-root": {
+                            "& fieldset": {
+                              borderColor: "#e5e7eb",
+                            },
+                            "&:hover fieldset": {
+                              borderColor: "#0891b2",
+                            },
+                            "&.Mui-focused fieldset": {
+                              borderColor: "#0891b2",
+                            },
+                          },
+                          "& .MuiInputLabel-root.Mui-focused": {
+                            color: "#0891b2",
+                          },
+                        }}
+                      />
+                    )}
+                  />
+                </div>
               </div>
-              <div>
-                <Autocomplete
-                  data-lenis-prevent="true"
-                  disablePortal
-                  value={toStation}
-                  onChange={(_, newValue) => setToStation(newValue)}
-                  options={[
-                    ...new Set(
-                      stations
-                        .sort((a, b) => a.name.localeCompare(b.name))
-                        .map((item) => item.name),
-                    ),
-                  ]}
-                  renderInput={(params) => <TextField {...params} label="To" />}
-                />
-              </div>
-            </div>
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-2"></div>
-            <button
-              onClick={(e) => handleSearch(e)}
-              type="submit"
-              className="w-full cursor-pointer rounded-md bg-cyan-600 px-4 py-2 text-white hover:bg-cyan-700 focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 focus:outline-none"
-            >
-              Search
-            </button>
-          </form>
+              <button
+                type="submit"
+                className="w-full rounded-lg bg-cyan-600 px-4 py-3 text-center font-medium text-white transition-colors hover:bg-cyan-700 focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 focus:outline-none"
+              >
+                Search Trains
+              </button>
+            </form>
+          </div>
         </div>
+
+        <TrainsList
+          fromStation={fromStation}
+          toStation={toStation}
+          search={search}
+        />
       </div>
-      <TrainsList
-        fromStation={fromStation}
-        toStation={toStation}
-        search={search}
-      />
     </div>
   );
 }

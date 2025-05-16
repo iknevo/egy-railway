@@ -8,34 +8,52 @@ export default function TrainsList({ fromStation, toStation, search }) {
     trainTo: toStation,
     search,
   });
+
   if (isLoadingTrains) return <Loader />;
+
   if (!trains?.length && (fromStation || toStation || search))
     return (
-      <div className="py-8">
-        <h2 className="text-center text-3xl font-semibold">
-          There's No available trains for your search
+      <div className="mt-8 overflow-hidden rounded-xl bg-white p-8 text-center shadow-lg">
+        <h2 className="text-2xl font-semibold text-gray-900">
+          No trains available for your search
         </h2>
+        <p className="mt-2 text-gray-600">
+          Please try different stations or check back later
+        </p>
       </div>
     );
 
   return (
-    <div>
-      <div className="mt-8">
-        {!trains && (
-          <h2 className="text-center text-3xl font-semibold">
-            Start By Searching your destination!
+    <div className="mt-8">
+      {!trains && (
+        <div className="overflow-hidden rounded-xl bg-white p-8 text-center shadow-lg">
+          <h2 className="text-2xl font-semibold text-gray-900">
+            Start Your Journey
           </h2>
-        )}
-        {trains && (
-          <h2 className="mb-4 text-xl font-semibold">Available Trips</h2>
-        )}
-        <div className="space-y-4"></div>
-      </div>
-      <div className="grid grid-cols-1 gap-2 md:grid-cols-3 md:gap-4 lg:grid-cols-4">
-        {trains?.map((train) => (
-          <TrainItem key={train.id} train={train} />
-        ))}
-      </div>
+          <p className="mt-2 text-gray-600">
+            Search for trains by selecting your departure and arrival stations
+          </p>
+        </div>
+      )}
+
+      {trains && (
+        <div className="space-y-6">
+          <div className="flex items-center justify-between">
+            <h2 className="text-2xl font-semibold text-gray-900">
+              Available Trains
+            </h2>
+            <span className="rounded-full bg-cyan-100 px-3 py-1 text-sm font-medium text-cyan-800">
+              {trains.length} trains found
+            </span>
+          </div>
+
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+            {trains?.map((train) => (
+              <TrainItem key={train.id} train={train} />
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
