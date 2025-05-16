@@ -113,7 +113,8 @@ export default function TrainSearchPage() {
               </div>
               <button
                 type="submit"
-                className="w-full rounded-lg bg-cyan-600 px-4 py-3 text-center font-medium text-white transition-colors hover:bg-cyan-700 focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 focus:outline-none"
+                disabled={!fromStation || !toStation}
+                className="w-full cursor-pointer rounded-lg bg-cyan-600 px-4 py-3 text-center font-medium text-white transition-colors hover:bg-cyan-700 focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 focus:outline-none disabled:cursor-not-allowed"
               >
                 Search Trains
               </button>

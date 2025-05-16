@@ -152,7 +152,7 @@ export default function TrainDetailsPage() {
                     <div className="flex justify-between">
                       <span className="text-gray-600">Stops</span>
                       <span className="font-medium text-gray-900">
-                        {train.stopin}
+                        {train.stopin > 0 ? train.stopin : 1}
                       </span>
                     </div>
                   </div>
@@ -188,7 +188,7 @@ export default function TrainDetailsPage() {
 
             <button
               onClick={handleClick}
-              className="w-full rounded-lg bg-cyan-600 px-4 py-3 text-center font-medium text-white transition-colors hover:bg-cyan-700 focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 focus:outline-none"
+              className="w-full cursor-pointer rounded-lg bg-cyan-600 px-4 py-3 text-center font-medium text-white transition-colors hover:bg-cyan-700 focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 focus:outline-none"
             >
               Continue to Booking
             </button>

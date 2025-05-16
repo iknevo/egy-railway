@@ -1,9 +1,15 @@
 import { useFormik } from "formik";
-import { Link } from "react-router";
+import { Link, useParams } from "react-router";
 import * as Yup from "yup";
 import { useUser } from "../features/Authentication/useUser";
+import { useTrain } from "../features/trains/useTrain";
+import Loader from "../ui/Loader";
+import { FEE, STATION_PRICE } from "../utils/constants";
+import { formatToEGP } from "../utils/helpers";
 
 export default function BookingPage() {
+  const { trainId } = useParams();
+  const { data: train, isLoading: isLoadingTrain } = useTrain(trainId);
   const {
     user: {
       user_metadata: { full_name, email },
@@ -16,11 +22,28 @@ export default function BookingPage() {
       .email("Enter a valid email !")
       .required("This field is required !"),
     firstName: Yup.string().required("This field is required !"),
+    date: Yup.string().required("This field is required !"),
     lastName: Yup.string().required("This field is required !"),
-    phone: Yup.string().matches(
-      /^\+?[1-9][0-9]{7,14}$/,
-      "Enter a valid phone number !",
-    ),
+    numPassengers: Yup.number()
+      .required("This field is required !")
+      .min(1, "Minimum 1 passenger required")
+      .max(6, "Maximum 6 passengers allowed"),
+    phone: Yup.string()
+      .matches(/^\+?[1-9][0-9]{7,14}$/, "Enter a valid phone number !")
+      .required("This field is required !"),
+    cardNumber: Yup.string()
+      .matches(/^[0-9]{16}$/, "Enter a valid 16-digit card number")
+      .required("Card number is required"),
+    expiryDate: Yup.string()
+      .matches(
+        /^(0[1-9]|1[0-2])\/([0-9]{2})$/,
+        "Enter a valid expiry date (MM/YY)",
+      )
+      .required("Expiry date is required"),
+    cvv: Yup.string()
+      .matches(/^[0-9]{3,4}$/, "Enter a valid CVV")
+      .required("CVV is required"),
+    cardholderName: Yup.string().required("Cardholder name is required"),
   });
 
   const formik = useFormik({
@@ -28,6 +51,12 @@ export default function BookingPage() {
       email,
       firstName,
       lastName,
+      numPassengers: 1,
+      phone: "",
+      cardNumber: "",
+      expiryDate: "",
+      cvv: "",
+      cardholderName: "",
     },
     validationSchema: bookingSchema,
     onSubmit: (data) => {
@@ -35,23 +64,48 @@ export default function BookingPage() {
     },
   });
 
-  return (
-    <div className="min-h-screen bg-gray-50 py-8">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <h1 className="mb-8 text-3xl font-bold text-gray-900">
-          Complete Your Booking
-        </h1>
+  if (isLoadingTrain) return <Loader />;
 
-        <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
+  return (
+    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white py-12">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="mb-8 flex items-center justify-between">
+          <h1 className="text-4xl font-bold text-gray-900">
+            Complete Your Booking
+          </h1>
+          <Link
+            to="/trains"
+            className="inline-flex items-center text-sm font-medium text-cyan-600 transition-colors hover:text-cyan-800"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="mr-2 h-5 w-5"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path
+                fillRule="evenodd"
+                d="M9.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L7.414 9H15a1 1 0 110 2H7.414l2.293 2.293a1 1 0 010 1.414z"
+                clipRule="evenodd"
+              />
+            </svg>
+            Back to search
+          </Link>
+        </div>
+
+        <form
+          onSubmit={formik.handleSubmit}
+          className="grid grid-cols-1 gap-8 lg:grid-cols-3"
+        >
           <div className="space-y-8 lg:col-span-2">
-            <div className="overflow-hidden rounded-xl bg-white shadow-lg transition-all hover:shadow-xl">
-              <div className="border-b border-gray-100 bg-gray-50 px-6 py-4">
+            <div className="overflow-hidden rounded-2xl bg-white shadow-lg transition-all hover:shadow-xl">
+              <div className="border-b border-gray-100 bg-gradient-to-r from-cyan-50 to-blue-50 px-6 py-4">
                 <h2 className="text-xl font-semibold text-gray-800">
                   Passenger Details
                 </h2>
               </div>
               <div className="p-6">
-                <form onSubmit={formik.handleSubmit} className="space-y-6">
+                <div className="space-y-6">
                   <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                     <div className="space-y-2">
                       <label className="block text-sm font-medium text-gray-700">
@@ -62,7 +116,7 @@ export default function BookingPage() {
                           onChange={formik.handleChange}
                           onBlur={formik.handleBlur}
                           value={formik.values.firstName}
-                          className="mt-1 block w-full rounded-lg border border-gray-200 px-4 py-2.5 text-gray-900 shadow-sm transition-colors focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 focus:outline-none"
+                          className="mt-1 block w-full rounded-lg border border-gray-200 px-4 py-2.5 text-gray-900 shadow-sm transition-all duration-200 focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 focus:outline-none"
                         />
                       </label>
                       {formik.touched.firstName && formik.errors.firstName && (
@@ -80,7 +134,7 @@ export default function BookingPage() {
                           onChange={formik.handleChange}
                           onBlur={formik.handleBlur}
                           value={formik.values.lastName}
-                          className="mt-1 block w-full rounded-lg border border-gray-200 px-4 py-2.5 text-gray-900 shadow-sm transition-colors focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 focus:outline-none"
+                          className="mt-1 block w-full rounded-lg border border-gray-200 px-4 py-2.5 text-gray-900 shadow-sm transition-all duration-200 focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 focus:outline-none"
                         />
                       </label>
                       {formik.touched.lastName && formik.errors.lastName && (
@@ -91,64 +145,134 @@ export default function BookingPage() {
                     </div>
                   </div>
 
-                  <div className="space-y-2">
-                    <label className="block text-sm font-medium text-gray-700">
-                      Email
-                      <input
-                        type="email"
-                        name="email"
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                        value={formik.values.email}
-                        className="mt-1 block w-full rounded-lg border border-gray-200 px-4 py-2.5 text-gray-900 shadow-sm transition-colors focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 focus:outline-none"
-                      />
-                    </label>
-                    {formik.touched.email && formik.errors.email && (
-                      <p className="text-sm font-medium text-red-600">
-                        {formik.errors.email}
-                      </p>
-                    )}
+                  <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                    <div className="space-y-2">
+                      <label className="block text-sm font-medium text-gray-700">
+                        Number Of Passengers
+                        <input
+                          type="number"
+                          name="numPassengers"
+                          onChange={formik.handleChange}
+                          onBlur={formik.handleBlur}
+                          value={formik.values.numPassengers}
+                          min="1"
+                          max="6"
+                          className="mt-1 block w-full rounded-lg border border-gray-200 px-4 py-2.5 text-gray-900 shadow-sm transition-all duration-200 focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 focus:outline-none"
+                        />
+                      </label>
+                      {formik.touched.numPassengers &&
+                        formik.errors.numPassengers && (
+                          <p className="text-sm font-medium text-red-600">
+                            {formik.errors.numPassengers}
+                          </p>
+                        )}
+                    </div>
+
+                    <div className="space-y-2">
+                      <label className="block text-sm font-medium text-gray-700">
+                        Date
+                        <input
+                          type="date"
+                          name="date"
+                          onChange={formik.handleChange}
+                          onBlur={formik.handleBlur}
+                          value={formik.values.date}
+                          className="mt-1 block w-full rounded-lg border border-gray-200 px-4 py-2.5 text-gray-900 shadow-sm transition-all duration-200 focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 focus:outline-none"
+                        />
+                      </label>
+                      {formik.touched.date && formik.errors.date && (
+                        <p className="text-sm font-medium text-red-600">
+                          {formik.errors.date}
+                        </p>
+                      )}
+                    </div>
                   </div>
 
-                  <div className="space-y-2">
-                    <label className="block text-sm font-medium text-gray-700">
-                      Phone
-                      <input
-                        type="tel"
-                        name="phone"
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                        className="mt-1 block w-full rounded-lg border border-gray-200 px-4 py-2.5 text-gray-900 shadow-sm transition-colors focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 focus:outline-none"
-                      />
-                    </label>
-                    {formik.touched.phone && formik.errors.phone && (
-                      <p className="text-sm font-medium text-red-600">
-                        {formik.errors.phone}
-                      </p>
-                    )}
+                  <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                    <div className="space-y-2">
+                      <label className="block text-sm font-medium text-gray-700">
+                        Email
+                        <input
+                          type="email"
+                          name="email"
+                          onChange={formik.handleChange}
+                          onBlur={formik.handleBlur}
+                          value={formik.values.email}
+                          className="mt-1 block w-full rounded-lg border border-gray-200 px-4 py-2.5 text-gray-900 shadow-sm transition-all duration-200 focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 focus:outline-none"
+                        />
+                      </label>
+                      {formik.touched.email && formik.errors.email && (
+                        <p className="text-sm font-medium text-red-600">
+                          {formik.errors.email}
+                        </p>
+                      )}
+                    </div>
+                    <div className="space-y-2">
+                      <label className="block text-sm font-medium text-gray-700">
+                        Phone
+                        <input
+                          type="tel"
+                          name="phone"
+                          onChange={formik.handleChange}
+                          onBlur={formik.handleBlur}
+                          value={formik.values.phone}
+                          className="mt-1 block w-full rounded-lg border border-gray-200 px-4 py-2.5 text-gray-900 shadow-sm transition-all duration-200 focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 focus:outline-none"
+                        />
+                      </label>
+                      {formik.touched.phone && formik.errors.phone && (
+                        <p className="text-sm font-medium text-red-600">
+                          {formik.errors.phone}
+                        </p>
+                      )}
+                    </div>
                   </div>
-                </form>
+                </div>
               </div>
             </div>
 
-            <div className="overflow-hidden rounded-xl bg-white shadow-lg transition-all hover:shadow-xl">
-              <div className="border-b border-gray-100 bg-gray-50 px-6 py-4">
+            <div className="overflow-hidden rounded-2xl bg-white shadow-lg transition-all hover:shadow-xl">
+              <div className="border-b border-gray-100 bg-gradient-to-r from-cyan-50 to-blue-50 px-6 py-4">
                 <h2 className="text-xl font-semibold text-gray-800">
                   Payment Information
                 </h2>
               </div>
               <div className="p-6">
-                <form className="space-y-6">
+                <div className="space-y-6">
                   <div>
                     <label className="block text-sm font-medium text-gray-700">
                       Card Number
                     </label>
-                    <input
-                      type="text"
-                      className="mt-1 block w-full rounded-lg border border-gray-200 px-4 py-2.5 text-gray-900 shadow-sm transition-colors focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 focus:outline-none"
-                      placeholder="XXXX XXXX XXXX XXXX"
-                      required
-                    />
+                    <div className="relative mt-1">
+                      <input
+                        type="text"
+                        name="cardNumber"
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        value={formik.values.cardNumber}
+                        className="block w-full rounded-lg border border-gray-200 px-4 py-2.5 pl-12 text-gray-900 shadow-sm transition-all duration-200 focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 focus:outline-none"
+                        placeholder="XXXX XXXX XXXX XXXX"
+                      />
+                      <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="h-5 w-5 text-gray-400"
+                          viewBox="0 0 20 20"
+                          fill="currentColor"
+                        >
+                          <path d="M4 4a2 2 0 00-2 2v1h16V6a2 2 0 00-2-2H4z" />
+                          <path
+                            fillRule="evenodd"
+                            d="M18 9H2v5a2 2 0 002 2h12a2 2 0 002-2V9zM4 13a1 1 0 011-1h1a1 1 0 110 2H5a1 1 0 01-1-1zm5-1a1 1 0 100 2h1a1 1 0 100-2H9z"
+                            clipRule="evenodd"
+                          />
+                        </svg>
+                      </div>
+                    </div>
+                    {formik.touched.cardNumber && formik.errors.cardNumber && (
+                      <p className="mt-1 text-sm font-medium text-red-600">
+                        {formik.errors.cardNumber}
+                      </p>
+                    )}
                   </div>
 
                   <div className="grid grid-cols-2 gap-6">
@@ -158,10 +282,19 @@ export default function BookingPage() {
                       </label>
                       <input
                         type="text"
-                        className="mt-1 block w-full rounded-lg border border-gray-200 px-4 py-2.5 text-gray-900 shadow-sm transition-colors focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 focus:outline-none"
+                        name="expiryDate"
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        value={formik.values.expiryDate}
+                        className="mt-1 block w-full rounded-lg border border-gray-200 px-4 py-2.5 text-gray-900 shadow-sm transition-all duration-200 focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 focus:outline-none"
                         placeholder="MM/YY"
-                        required
                       />
+                      {formik.touched.expiryDate &&
+                        formik.errors.expiryDate && (
+                          <p className="mt-1 text-sm font-medium text-red-600">
+                            {formik.errors.expiryDate}
+                          </p>
+                        )}
                     </div>
                     <div>
                       <label className="block text-sm font-medium text-gray-700">
@@ -169,10 +302,18 @@ export default function BookingPage() {
                       </label>
                       <input
                         type="text"
-                        className="mt-1 block w-full rounded-lg border border-gray-200 px-4 py-2.5 text-gray-900 shadow-sm transition-colors focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 focus:outline-none"
+                        name="cvv"
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        value={formik.values.cvv}
+                        className="mt-1 block w-full rounded-lg border border-gray-200 px-4 py-2.5 text-gray-900 shadow-sm transition-all duration-200 focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 focus:outline-none"
                         placeholder="123"
-                        required
                       />
+                      {formik.touched.cvv && formik.errors.cvv && (
+                        <p className="mt-1 text-sm font-medium text-red-600">
+                          {formik.errors.cvv}
+                        </p>
+                      )}
                     </div>
                   </div>
 
@@ -182,72 +323,111 @@ export default function BookingPage() {
                     </label>
                     <input
                       type="text"
-                      className="mt-1 block w-full rounded-lg border border-gray-200 px-4 py-2.5 text-gray-900 shadow-sm transition-colors focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 focus:outline-none"
-                      required
+                      name="cardholderName"
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      value={formik.values.cardholderName}
+                      className="mt-1 block w-full rounded-lg border border-gray-200 px-4 py-2.5 text-gray-900 shadow-sm transition-all duration-200 focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 focus:outline-none"
                     />
+                    {formik.touched.cardholderName &&
+                      formik.errors.cardholderName && (
+                        <p className="mt-1 text-sm font-medium text-red-600">
+                          {formik.errors.cardholderName}
+                        </p>
+                      )}
                   </div>
-                </form>
+                </div>
               </div>
             </div>
           </div>
 
           <div className="lg:col-span-1">
-            <div className="sticky top-20 overflow-hidden rounded-xl bg-white shadow-lg transition-all hover:shadow-xl">
-              <div className="border-b border-gray-100 bg-gray-50 px-6 py-4">
+            <div className="sticky top-20 overflow-hidden rounded-2xl bg-white shadow-lg transition-all hover:shadow-xl">
+              <div className="border-b border-gray-100 bg-gradient-to-r from-cyan-50 to-blue-50 px-6 py-4">
                 <h2 className="text-xl font-semibold text-gray-800">
                   Booking Summary
                 </h2>
               </div>
               <div className="p-6">
-                <div className="mb-6 space-y-4 border-b border-gray-100 pb-6">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="font-semibold text-gray-900">Express 123</p>
-                      <p className="text-sm text-gray-600">
-                        Cairo → Alexandria
-                      </p>
-                    </div>
-                    <div className="rounded-full bg-cyan-100 px-3 py-1 text-sm font-medium text-cyan-800">
-                      First Class
-                    </div>
-                  </div>
-                  <div className="space-y-1 text-sm text-gray-600">
-                    <p>Wed, 26 Jan 2023</p>
-                    <p>09:00 - 11:30 (2h 30m)</p>
-                    <p className="font-medium text-gray-900">Seat A1</p>
-                  </div>
+                <div>
+                  {isLoadingTrain ? (
+                    <Loader />
+                  ) : (
+                    <>
+                      <div className="mb-1 space-y-4 border-b border-gray-100 pb-6">
+                        <div className="flex items-center justify-between">
+                          <div>
+                            <p className="font-semibold text-gray-900">
+                              Train 123
+                            </p>
+                            <p className="text-sm text-gray-600">
+                              {train.trainFrom} → {train.trainTo}
+                            </p>
+                          </div>
+                          <div className="rounded-full bg-gradient-to-r from-cyan-500 to-blue-500 px-3 py-1 text-sm font-medium text-white">
+                            {train.level}
+                          </div>
+                        </div>
+                        <div className="space-y-1 text-sm text-gray-600">
+                          <p>Wed, 26 Jan 2023</p>
+                          <p>
+                            {train.go} - {train.arrive} (
+                            {train.time.replace(":00", "")} Hours)
+                          </p>
+                        </div>
+                      </div>
+
+                      <div className="mb-1 space-y-3 border-b border-gray-100 pb-6">
+                        <div className="flex justify-between text-sm">
+                          <span className="text-gray-600">Ticket Price</span>
+                          <span className="font-medium text-gray-900">
+                            {formatToEGP(
+                              train.stopin > 0
+                                ? train.stopin * STATION_PRICE
+                                : STATION_PRICE,
+                            )}
+                          </span>
+                        </div>
+                        <div className="flex justify-between text-sm">
+                          <span className="text-gray-600">Taxes</span>
+                          <span className="font-medium text-gray-900">
+                            {formatToEGP(
+                              train.stopin > 0
+                                ? train.stopin * STATION_PRICE * FEE
+                                : STATION_PRICE * FEE,
+                            )}
+                          </span>
+                        </div>
+                      </div>
+
+                      <div className="mb-1 flex justify-between text-lg">
+                        <span className="font-semibold text-gray-900">
+                          Total
+                        </span>
+                        <span className="font-bold text-gray-900">
+                          {formatToEGP(
+                            train.stopin > 0
+                              ? train.stopin * STATION_PRICE +
+                                  train.stopin * STATION_PRICE * FEE
+                              : STATION_PRICE + STATION_PRICE * FEE,
+                          )}
+                        </span>
+                      </div>
+                    </>
+                  )}
                 </div>
 
-                <div className="mb-6 space-y-3 border-b border-gray-100 pb-6">
-                  <div className="flex justify-between text-sm">
-                    <span className="text-gray-600">Ticket Price</span>
-                    <span className="font-medium text-gray-900">$45.00</span>
-                  </div>
-                  <div className="flex justify-between text-sm">
-                    <span className="text-gray-600">Booking Fee</span>
-                    <span className="font-medium text-gray-900">$2.50</span>
-                  </div>
-                  <div className="flex justify-between text-sm">
-                    <span className="text-gray-600">Taxes</span>
-                    <span className="font-medium text-gray-900">$3.75</span>
-                  </div>
-                </div>
-
-                <div className="mb-6 flex justify-between text-lg">
-                  <span className="font-semibold text-gray-900">Total</span>
-                  <span className="font-bold text-gray-900">$51.25</span>
-                </div>
-
-                <Link
-                  to="/booking/confirmation"
-                  className="block w-full rounded-lg bg-cyan-600 px-4 py-3 text-center font-medium text-white transition-colors hover:bg-cyan-700 focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 focus:outline-none"
+                <button
+                  type="submit"
+                  // disabled={formik.isSubmitting}
+                  className="block w-full cursor-pointer rounded-lg bg-gradient-to-r from-cyan-600 to-blue-600 px-4 py-3 text-center font-medium text-white transition-all duration-200 hover:from-cyan-700 hover:to-blue-700 focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
                 >
-                  Complete Booking
-                </Link>
+                  {formik.isSubmitting ? "Processing..." : "Complete Booking"}
+                </button>
               </div>
             </div>
           </div>
-        </div>
+        </form>
       </div>
     </div>
   );
