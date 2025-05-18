@@ -186,8 +186,9 @@ export default function Sidebar() {
                 <div className="h-full w-full overflow-hidden rounded-full bg-white">
                   {!user.user_metadata.avatar_url ? (
                     <span>
-                      {user.firstName.charAt(0)}
-                      {user.lastName.charAt(0)}
+                      am
+                      {/* {user.firstName.charAt(0)}
+                      {user.lastName.charAt(0)} */}
                     </span>
                   ) : (
                     <img

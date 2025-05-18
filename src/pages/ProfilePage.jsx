@@ -41,8 +41,9 @@ export default function ProfilePage() {
     // In a real app, you would send this data to your backend
   };
 
-  if (isLoading) return <Loader />;
-  return (
+  return isLoading ? (
+    <Loader />
+  ) : (
     <div className="flex flex-col md:flex-row">
       <Sidebar />
       <main className="flex-1 bg-gray-50 p-4 md:p-6">
@@ -54,8 +55,9 @@ export default function ProfilePage() {
               <div className="flex h-16 w-16 items-center justify-center overflow-hidden rounded-full bg-cyan-100 text-xl font-bold text-cyan-600">
                 {!user_metadata.avatar_url ? (
                   <span>
-                    {user.firstName.charAt(0)}
-                    {user.lastName.charAt(0)}
+                    im
+                    {/* {user.firstName.charAt(0)}
+                    {user.lastName.charAt(0)} */}
                   </span>
                 ) : (
                   <img
