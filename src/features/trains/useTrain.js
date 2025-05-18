@@ -5,6 +5,7 @@ export function useTrain(id) {
   const { data, isLoading, error } = useQuery({
     queryKey: ["train", id],
     queryFn: () => getTrainByIdApi(id),
+    enabled: !!id,
   });
   return { data, isLoading, error };
 }
