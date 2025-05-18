@@ -43,7 +43,7 @@ function Window({ children, name }) {
         ref={ref}
       >
         <button
-          className="absolute top-1 right-1 cursor-pointer rounded-lg border-none bg-none p-2 transition-all duration-200 hover:scale-110"
+          className="absolute top-20 right-1 cursor-pointer rounded-lg border-none bg-none p-2 transition-all duration-200 hover:scale-110 md:top-1"
           onClick={close}
         >
           <HiXMark className="text-4xl text-gray-500 transition-all duration-200 hover:text-red-500" />
