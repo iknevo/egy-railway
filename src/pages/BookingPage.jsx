@@ -1,19 +1,23 @@
 import { useFormik } from "formik";
-import { Link, useParams } from "react-router";
+import { Link, useNavigate, useParams } from "react-router";
 import * as Yup from "yup";
 import { useUser } from "../features/Authentication/useUser";
+import { useAddReservation } from "../features/reservations/useAddReservation";
 import { useTrain } from "../features/trains/useTrain";
 import Loader from "../ui/Loader";
 import { FEE, STATION_PRICE } from "../utils/constants";
 import { formatToEGP } from "../utils/helpers";
 
 export default function BookingPage() {
+  const navigate = useNavigate();
   const { trainId } = useParams();
   const { data: train, isLoading: isLoadingTrain } = useTrain(trainId);
+  const { mutate: addReservation, isPending } = useAddReservation();
   const {
     user: {
       user_metadata: { full_name, email },
     },
+    user,
   } = useUser();
   const [firstName, lastName] = full_name.split(" ");
 
@@ -24,25 +28,11 @@ export default function BookingPage() {
     firstName: Yup.string().required("This field is required !"),
     date: Yup.string().required("This field is required !"),
     lastName: Yup.string().required("This field is required !"),
-    numPassengers: Yup.number()
-      .required("This field is required !")
-      .min(1, "Minimum 1 passenger required")
-      .max(6, "Maximum 6 passengers allowed"),
-    phone: Yup.string()
-      .matches(/^\+?[1-9][0-9]{7,14}$/, "Enter a valid phone number !")
-      .required("This field is required !"),
-    cardNumber: Yup.string()
-      .matches(/^[0-9]{16}$/, "Enter a valid 16-digit card number")
-      .required("Card number is required"),
-    expiryDate: Yup.string()
-      .matches(
-        /^(0[1-9]|1[0-2])\/([0-9]{2})$/,
-        "Enter a valid expiry date (MM/YY)",
-      )
-      .required("Expiry date is required"),
-    cvv: Yup.string()
-      .matches(/^[0-9]{3,4}$/, "Enter a valid CVV")
-      .required("CVV is required"),
+    numPassengers: Yup.number().required("This field is required !"),
+    phone: Yup.string().required("This field is required !"),
+    cardNumber: Yup.string().required("Card number is required"),
+    expiryDate: Yup.string().required("Expiry date is required"),
+    cvv: Yup.string().required("CVV is required"),
     cardholderName: Yup.string().required("Cardholder name is required"),
   });
 
@@ -53,14 +43,35 @@ export default function BookingPage() {
       lastName,
       numPassengers: 1,
       phone: "",
-      cardNumber: "",
-      expiryDate: "",
-      cvv: "",
-      cardholderName: "",
+      date: "",
+      cardNumber: "4242 4242 4242 4242",
+      expiryDate: "12/25",
+      cvv: "123",
+      cardholderName: `${firstName} ${lastName}`,
     },
     validationSchema: bookingSchema,
     onSubmit: (data) => {
       console.log(data);
+      const reservation = {
+        firstName: data.firstName,
+        lastName: data.lastName,
+        numPassengers: data.numPassengers,
+        totalPrice:
+          train.stopin > 0
+            ? (train.stopin * STATION_PRICE +
+                train.stopin * STATION_PRICE * FEE) *
+              data.numPassengers
+            : STATION_PRICE + STATION_PRICE * FEE * data.numPassengers,
+        date: new Date(data.date).toISOString(),
+        trainId,
+        userId: user.id,
+      };
+      console.log(reservation);
+      addReservation(reservation, {
+        onSuccess: () => {
+          navigate("/reservations");
+        },
+      });
     },
   });
 
@@ -69,13 +80,18 @@ export default function BookingPage() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white py-12">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="mb-8 flex items-center justify-between">
-          <h1 className="text-4xl font-bold text-gray-900">
-            Complete Your Booking
-          </h1>
+        <div className="mb-12 flex items-center justify-between">
+          <div>
+            <h1 className="text-4xl font-bold text-gray-900">
+              Complete Your Booking
+            </h1>
+            <p className="mt-2 text-gray-600">
+              Please fill in your details to complete the booking
+            </p>
+          </div>
           <Link
             to="/trains"
-            className="inline-flex items-center text-sm font-medium text-cyan-600 transition-colors hover:text-cyan-800"
+            className="inline-flex items-center rounded-lg bg-white px-4 py-2 text-sm font-medium text-cyan-600 shadow-sm transition-all hover:bg-gray-50 hover:text-cyan-800"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -99,10 +115,13 @@ export default function BookingPage() {
         >
           <div className="space-y-8 lg:col-span-2">
             <div className="overflow-hidden rounded-2xl bg-white shadow-lg transition-all hover:shadow-xl">
-              <div className="border-b border-gray-100 bg-gradient-to-r from-cyan-50 to-blue-50 px-6 py-4">
+              <div className="border-b border-gray-100 bg-gradient-to-r from-cyan-50 to-blue-50 px-6 py-5">
                 <h2 className="text-xl font-semibold text-gray-800">
                   Passenger Details
                 </h2>
+                <p className="mt-1 text-sm text-gray-600">
+                  Enter your personal information
+                </p>
               </div>
               <div className="p-6">
                 <div className="space-y-6">
@@ -231,10 +250,13 @@ export default function BookingPage() {
             </div>
 
             <div className="overflow-hidden rounded-2xl bg-white shadow-lg transition-all hover:shadow-xl">
-              <div className="border-b border-gray-100 bg-gradient-to-r from-cyan-50 to-blue-50 px-6 py-4">
+              <div className="border-b border-gray-100 bg-gradient-to-r from-cyan-50 to-blue-50 px-6 py-5">
                 <h2 className="text-xl font-semibold text-gray-800">
                   Payment Information
                 </h2>
+                <p className="mt-1 text-sm text-gray-600">
+                  Enter your card details securely
+                </p>
               </div>
               <div className="p-6">
                 <div className="space-y-6">
@@ -343,10 +365,13 @@ export default function BookingPage() {
 
           <div className="lg:col-span-1">
             <div className="sticky top-20 overflow-hidden rounded-2xl bg-white shadow-lg transition-all hover:shadow-xl">
-              <div className="border-b border-gray-100 bg-gradient-to-r from-cyan-50 to-blue-50 px-6 py-4">
+              <div className="border-b border-gray-100 bg-gradient-to-r from-cyan-50 to-blue-50 px-6 py-5">
                 <h2 className="text-xl font-semibold text-gray-800">
                   Booking Summary
                 </h2>
+                <p className="mt-1 text-sm text-gray-600">
+                  Review your booking details
+                </p>
               </div>
               <div className="p-6">
                 <div>
@@ -354,11 +379,11 @@ export default function BookingPage() {
                     <Loader />
                   ) : (
                     <>
-                      <div className="mb-1 space-y-4 border-b border-gray-100 pb-6">
+                      <div className="mb-6 space-y-4 border-b border-gray-100 pb-6">
                         <div className="flex items-center justify-between">
                           <div>
                             <p className="font-semibold text-gray-900">
-                              Train 123
+                              Train {train.trainNumber}
                             </p>
                             <p className="text-sm text-gray-600">
                               {train.trainFrom} → {train.trainTo}
@@ -369,17 +394,25 @@ export default function BookingPage() {
                           </div>
                         </div>
                         <div className="space-y-1 text-sm text-gray-600">
-                          <p>Wed, 26 Jan 2023</p>
+                          <p>{formik.values.date}</p>
                           <p>
                             {train.go} - {train.arrive} (
                             {train.time.replace(":00", "")} Hours)
                           </p>
                         </div>
+
+                        <div className="space-y-1 text-sm text-gray-600">
+                          <p></p>
+                          <p>{formik.values.numPassengers} passenger</p>
+                        </div>
                       </div>
 
-                      <div className="mb-1 space-y-3 border-b border-gray-100 pb-6">
+                      <div className="mb-6 space-y-3 border-b border-gray-100 pb-6">
                         <div className="flex justify-between text-sm">
-                          <span className="text-gray-600">Ticket Price</span>
+                          <span className="font-semibold text-gray-600">
+                            Ticket Price{" "}
+                            <span className="text-cyan-500">for 1</span>
+                          </span>
                           <span className="font-medium text-gray-900">
                             {formatToEGP(
                               train.stopin > 0
@@ -389,7 +422,9 @@ export default function BookingPage() {
                           </span>
                         </div>
                         <div className="flex justify-between text-sm">
-                          <span className="text-gray-600">Taxes</span>
+                          <span className="font-semibold text-gray-600">
+                            Taxes <span className="text-cyan-500">for 1</span>
+                          </span>
                           <span className="font-medium text-gray-900">
                             {formatToEGP(
                               train.stopin > 0
@@ -400,30 +435,59 @@ export default function BookingPage() {
                         </div>
                       </div>
 
-                      <div className="mb-1 flex justify-between text-lg">
+                      <div className="mb-6 flex justify-between text-lg">
                         <span className="font-semibold text-gray-900">
                           Total
                         </span>
                         <span className="font-bold text-gray-900">
                           {formatToEGP(
                             train.stopin > 0
-                              ? train.stopin * STATION_PRICE +
-                                  train.stopin * STATION_PRICE * FEE
-                              : STATION_PRICE + STATION_PRICE * FEE,
+                              ? (train.stopin * STATION_PRICE +
+                                  train.stopin * STATION_PRICE * FEE) *
+                                  formik.values.numPassengers
+                              : STATION_PRICE +
+                                  STATION_PRICE *
+                                    FEE *
+                                    formik.values.numPassengers,
                           )}
                         </span>
                       </div>
+
+                      <button
+                        type="submit"
+                        disabled={isPending}
+                        className="block w-full cursor-pointer rounded-lg bg-gradient-to-r from-cyan-600 to-blue-600 px-4 py-3.5 text-center font-medium text-white transition-all duration-200 hover:from-cyan-700 hover:to-blue-700 focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+                      >
+                        {isPending ? (
+                          <span className="flex items-center justify-center">
+                            <svg
+                              className="mr-2 h-5 w-5 animate-spin"
+                              viewBox="0 0 24 24"
+                            >
+                              <circle
+                                className="opacity-25"
+                                cx="12"
+                                cy="12"
+                                r="10"
+                                stroke="currentColor"
+                                strokeWidth="4"
+                                fill="none"
+                              />
+                              <path
+                                className="opacity-75"
+                                fill="currentColor"
+                                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                              />
+                            </svg>
+                            Processing...
+                          </span>
+                        ) : (
+                          "Complete Booking"
+                        )}
+                      </button>
                     </>
                   )}
                 </div>
-
-                <button
-                  type="submit"
-                  // disabled={formik.isSubmitting}
-                  className="block w-full cursor-pointer rounded-lg bg-gradient-to-r from-cyan-600 to-blue-600 px-4 py-3 text-center font-medium text-white transition-all duration-200 hover:from-cyan-700 hover:to-blue-700 focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
-                >
-                  {formik.isSubmitting ? "Processing..." : "Complete Booking"}
-                </button>
               </div>
             </div>
           </div>
