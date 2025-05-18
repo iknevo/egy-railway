@@ -4,14 +4,14 @@ import { useUser } from "../features/Authentication/useUser";
 import Loader from "../ui/Loader";
 
 export default function ProtectedRoute({ children }) {
-  const { isAuthenticated, isLoading } = useUser();
+  const { user, isLoading } = useUser();
   const [_, setSearchParams] = useSearchParams();
 
   useEffect(() => {
-    if (!isAuthenticated && !isLoading) {
+    if (!user?.role === "authenticated" && !isLoading) {
       setSearchParams({ modal: "auth" });
     }
-  }, [isAuthenticated, isLoading, setSearchParams]);
+  }, [user, isLoading, setSearchParams]);
 
   if (isLoading)
     return (
@@ -20,5 +20,5 @@ export default function ProtectedRoute({ children }) {
       </div>
     );
 
-  if (isAuthenticated) return children;
+  if (user?.role === "authenticated") return children;
 }

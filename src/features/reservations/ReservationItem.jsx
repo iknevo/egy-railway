@@ -1,13 +1,35 @@
-import { format, formatDistance } from "date-fns";
+import { useQueryClient } from "@tanstack/react-query";
+import { format, isAfter } from "date-fns";
 import { Link } from "react-router";
+import { useUser } from "../../features/Authentication/useUser";
+import ConfirmDelete from "../../ui/ConfirmDelete";
 import Loader from "../../ui/Loader";
+import Modal from "../../ui/Modal";
 import { useTrain } from "../trains/useTrain";
+import { useDeleteReservation } from "./useDeleteReservation";
 
 export default function ReservationItem({ reservation }) {
-  console.log(reservation);
-  const { data: train, isLoading } = useTrain(reservation.trainId);
+  const queryClient = useQueryClient();
+  const { user, isLoading: isLoadingUser } = useUser();
+  const { data: train, isLoading: isLoadingTrain } = useTrain(
+    reservation.trainId,
+  );
+  const { mutate: deleteReservation, isPending: isDeleting } =
+    useDeleteReservation();
 
-  return isLoading ? (
+  const isUpcoming = isAfter(new Date(reservation.date), new Date());
+
+  function handleDelete() {
+    deleteReservation(reservation.id, {
+      onSuccess: () => {
+        queryClient.invalidateQueries({
+          queryKey: ["reservations", user.id],
+        });
+      },
+    });
+  }
+
+  return isLoadingUser || isLoadingTrain ? (
     <Loader />
   ) : (
     <div className="rounded-lg bg-white p-4 shadow-md transition-shadow hover:shadow-lg">
@@ -22,27 +44,12 @@ export default function ReservationItem({ reservation }) {
         </div>
         <div
           className={`rounded-full px-3 py-1 text-xs font-medium ${
-            reservation.status === "upcoming"
+            isUpcoming
               ? "bg-green-100 text-green-800"
               : "bg-gray-100 text-gray-800"
           }`}
         >
-          {/* {reservation.status === "upcoming" ? "Upcoming" : "Completed"} */}
-          {
-            formatDistance(new Date(reservation.date), new Date(), {
-              addSuffix: false,
-            })
-            // .replace("about ", "")
-            // .replace("in", "In")
-            // .replace("days", "")
-            // .replace("day", "")
-            // .replace("hours", "")
-            // .replace("hour", "")
-            // .replace("minutes", "")
-            // .replace("minute", "")
-            // .replace("seconds", "")
-            // .replace("second", "")
-          }
+          {isUpcoming ? "Upcoming" : "Completed"}
         </div>
       </div>
 
@@ -61,10 +68,7 @@ export default function ReservationItem({ reservation }) {
         </div>
         <div>
           <p className="text-xs text-gray-600">Class</p>
-          <p className="font-medium">
-            {/* {reservation.seat} ({reservation.class} Class) */}
-            {train.level}
-          </p>
+          <p className="font-medium">{train.level}</p>
         </div>
         <div>
           <p className="text-xs text-gray-600">Reservation ID</p>
@@ -80,10 +84,21 @@ export default function ReservationItem({ reservation }) {
           View Details
         </Link>
 
-        {reservation.status === "upcoming" && (
-          <button className="inline-flex items-center justify-center rounded-md border border-transparent bg-cyan-100 px-4 py-2 text-sm font-medium text-cyan-700 hover:bg-cyan-200 focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 focus:outline-none">
-            Cancel Booking
-          </button>
+        {isUpcoming && (
+          <Modal>
+            <Modal.Open opens="confirm-delete">
+              <button className="inline-flex cursor-pointer items-center justify-center rounded-md border border-transparent bg-red-100 px-4 py-2 text-sm font-medium text-red-700 hover:bg-red-200 focus:ring-2 focus:ring-red-500 focus:ring-offset-2 focus:outline-none disabled:cursor-not-allowed">
+                Cancel Booking
+              </button>
+            </Modal.Open>
+            <Modal.Window name="confirm-delete">
+              <ConfirmDelete
+                resourceName="reservation"
+                disabled={isDeleting}
+                onConfirm={handleDelete}
+              />
+            </Modal.Window>
+          </Modal>
         )}
       </div>
     </div>

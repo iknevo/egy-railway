@@ -10,10 +10,10 @@ export default function TrainDetailsPage() {
   const navigate = useNavigate();
   const { trainId } = useParams();
   const { data: train, isLoading: isLoadingTrain } = useTrain(trainId);
-  const { isAuthenticated, isLoading } = useUser();
+  const { user, isLoading } = useUser();
 
   function handleClick() {
-    if (isAuthenticated) {
+    if (user?.role === "authenticated" && !isLoading) {
       navigate(`/booking/${trainId}`);
     } else {
       toast.error("Please Login first to continue!");

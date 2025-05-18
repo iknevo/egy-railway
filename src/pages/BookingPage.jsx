@@ -56,6 +56,7 @@ export default function BookingPage() {
         firstName: data.firstName,
         lastName: data.lastName,
         numPassengers: data.numPassengers,
+        email: data.email,
         totalPrice:
           train.stopin > 0
             ? (train.stopin * STATION_PRICE +
@@ -65,6 +66,7 @@ export default function BookingPage() {
         date: new Date(data.date).toISOString(),
         trainId,
         userId: user.id,
+        phone: data.phone,
       };
       console.log(reservation);
       addReservation(reservation, {

@@ -25,6 +25,20 @@ export async function getReservations(userId) {
   return data;
 }
 
+export async function getReservation(id) {
+  const { data, error } = await supabase
+    .from("reservations")
+    .select("*")
+    .eq("id", id)
+    .single();
+
+  if (error) {
+    console.error(error);
+    throw new Error("Booking not found");
+  }
+  return data;
+}
+
 export async function deleteReservation(id) {
   const { data, error } = await supabase
     .from("reservations")

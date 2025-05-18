@@ -1,36 +1,45 @@
-import { Link, useParams } from "react-router";
+import { useQueryClient } from "@tanstack/react-query";
+import { format, isAfter } from "date-fns";
+import { Link, useNavigate, useParams } from "react-router";
+import { useUser } from "../features/Authentication/useUser";
+import { useDeleteReservation } from "../features/reservations/useDeleteReservation";
+import { useReservation } from "../features/reservations/useReservation";
+import { useTrain } from "../features/trains/useTrain";
+import ConfirmDelete from "../ui/ConfirmDelete";
+import Loader from "../ui/Loader";
+import Modal from "../ui/Modal";
+import { formatToEGP } from "../utils/helpers";
 
-const ReservationDetailsPage = () => {
+export default function ReservationDetailsPage() {
+  const navigate = useNavigate();
+  const queryClient = useQueryClient();
   const { reservationId } = useParams();
 
-  // In a real app, this would come from an API call using the reservationId
-  const reservation = {
-    id: reservationId,
-    train: "Express 123",
-    from: "Cairo",
-    to: "Alexandria",
-    date: "Wed, 26 Jan 2023",
-    departureTime: "09:00",
-    arrivalTime: "11:30",
-    duration: "2h 30m",
-    status: "upcoming",
-    seat: "A1",
-    class: "First",
-    platform: "3",
-    passenger: {
-      name: "John Doe",
-      nationalId: "12345678901234",
-      email: "john.doe@example.com",
-      phone: "+20 123 456 7890",
-    },
-    payment: {
-      amount: "$51.25",
-      method: "Visa **** 1234",
-      date: "22 Jan 2023",
-    },
-  };
+  const { user, isLoading: isLoadingUser } = useUser();
+  const { data: reservation = {}, isLoading: isLoadingReservation } =
+    useReservation(reservationId);
+  const { data: train = {}, isLoading: isLoadingTrain } = useTrain(
+    reservation.trainId,
+  );
 
-  return (
+  const { mutate: deleteReservation, isPending: isDeleting } =
+    useDeleteReservation();
+  const isUpcoming = isAfter(new Date(reservation.date), new Date());
+
+  function handleDelete() {
+    deleteReservation(reservation.id, {
+      onSuccess: () => {
+        queryClient.invalidateQueries({
+          queryKey: ["reservations", user.id],
+        });
+        navigate("/reservations");
+      },
+    });
+  }
+
+  return isLoadingReservation || isLoadingTrain || isLoadingUser ? (
+    <Loader />
+  ) : (
     <div className="mx-auto p-4">
       <Link
         to="/reservations"
@@ -48,21 +57,24 @@ const ReservationDetailsPage = () => {
               </h1>
               <div
                 className={`inline-block rounded-full px-3 py-1 text-xs font-medium ${
-                  reservation.status === "upcoming"
+                  isUpcoming
                     ? "bg-green-100 text-green-800"
-                    : reservation.status === "completed"
+                    : !isUpcoming
                       ? "bg-gray-100 text-gray-800"
                       : "bg-red-100 text-red-800"
                 }`}
               >
-                {reservation.status.charAt(0).toUpperCase() +
-                  reservation.status.slice(1)}
+                {isUpcoming ? "upcoming" : "completed"}
               </div>
             </div>
 
             <div className="text-right">
               <div className="mb-1 text-sm text-gray-600">Booked on</div>
-              <div className="font-medium">{reservation.payment.date}</div>
+              <div className="font-medium">
+                {/* {reservation.created_at} */}
+
+                {format(new Date(reservation.created_at), "EEE, MMM dd yyyy")}
+              </div>
             </div>
           </div>
         </div>
@@ -73,7 +85,9 @@ const ReservationDetailsPage = () => {
 
             <div className="mb-4">
               <div className="mb-1 text-sm text-gray-600">Train</div>
-              <div className="font-medium">{reservation.train}</div>
+              <div className="font-medium">
+                {train.number} {train.level}
+              </div>
             </div>
 
             <div className="mb-4 flex items-start">
@@ -101,10 +115,7 @@ const ReservationDetailsPage = () => {
               </div>
               <div>
                 <div className="mb-1 text-sm text-gray-600">From</div>
-                <div className="font-medium">{reservation.from}</div>
-                <div className="mt-1 text-sm text-gray-600">
-                  Platform {reservation.platform}
-                </div>
+                <div className="font-medium">{train.trainFrom}</div>
               </div>
             </div>
 
@@ -133,7 +144,7 @@ const ReservationDetailsPage = () => {
               </div>
               <div>
                 <div className="mb-1 text-sm text-gray-600">To</div>
-                <div className="font-medium">{reservation.to}</div>
+                <div className="font-medium">{train.trainTo}</div>
               </div>
             </div>
 
@@ -156,7 +167,9 @@ const ReservationDetailsPage = () => {
               </div>
               <div>
                 <div className="mb-1 text-sm text-gray-600">Date</div>
-                <div className="font-medium">{reservation.date}</div>
+                <div className="font-medium">
+                  {format(new Date(reservation.date), "EEE, MMM dd yyyy")}
+                </div>
               </div>
             </div>
 
@@ -180,10 +193,11 @@ const ReservationDetailsPage = () => {
               <div>
                 <div className="mb-1 text-sm text-gray-600">Time</div>
                 <div className="font-medium">
-                  {reservation.departureTime} - {reservation.arrivalTime}
+                  {train.go} - {train.arrive}
                 </div>
                 <div className="mt-1 text-sm text-gray-600">
-                  Duration: {reservation.duration}
+                  {/* Duration: {train.time} */}
+                  Duration: {train.time.replace(":00", "")} Hours
                 </div>
               </div>
             </div>
@@ -195,64 +209,71 @@ const ReservationDetailsPage = () => {
 
               <div className="mb-4">
                 <div className="mb-1 text-sm text-gray-600">Name</div>
-                <div className="font-medium">{reservation.passenger.name}</div>
-              </div>
-
-              <div className="mb-4">
-                <div className="mb-1 text-sm text-gray-600">National ID</div>
                 <div className="font-medium">
-                  {reservation.passenger.nationalId}
+                  {reservation.firstName} {reservation.lastName}
                 </div>
               </div>
 
               <div className="mb-4">
                 <div className="mb-1 text-sm text-gray-600">Email</div>
-                <div className="font-medium">{reservation.passenger.email}</div>
+                <div className="font-medium">{reservation.email}</div>
+              </div>
+
+              <div className="mb-4">
+                <div className="mb-1 text-sm text-gray-600">Phone</div>
+                <div className="font-medium">{reservation.phone}</div>
               </div>
 
               <div>
-                <div className="mb-1 text-sm text-gray-600">Phone</div>
-                <div className="font-medium">{reservation.passenger.phone}</div>
+                <div className="mb-1 text-sm text-gray-600">
+                  Number of passengers
+                </div>
+                <div className="font-medium">{reservation.numPassengers}</div>
               </div>
             </div>
 
             <div className="rounded-lg bg-white p-6 shadow-md">
               <h2 className="mb-4 text-lg font-semibold">Ticket Details</h2>
 
-              <div className="mb-4">
-                <div className="mb-1 text-sm text-gray-600">Class</div>
-                <div className="font-medium">{reservation.class} Class</div>
-              </div>
-
-              <div className="mb-4">
-                <div className="mb-1 text-sm text-gray-600">Seat</div>
-                <div className="font-medium">{reservation.seat}</div>
-              </div>
-
               <div>
                 <div className="mb-1 text-sm text-gray-600">Payment</div>
-                <div className="font-medium">{reservation.payment.amount}</div>
+                <div className="font-medium">
+                  {formatToEGP(reservation.totalPrice)}
+                </div>
                 <div className="mt-1 text-sm text-gray-600">
-                  Paid with {reservation.payment.method}
+                  Paid with Visa **** 2424
                 </div>
               </div>
             </div>
           </div>
         </div>
 
-        {reservation.status === "upcoming" && (
+        {isUpcoming && (
           <div className="flex justify-center space-x-4">
             <button className="cursor-pointer rounded-md bg-cyan-600 px-6 py-2 text-white hover:bg-cyan-700 focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 focus:outline-none">
               Download Ticket
             </button>
-            <button className="cursor-pointer rounded-md border border-red-300 px-6 py-2 text-red-700 hover:bg-red-50 focus:ring-2 focus:ring-red-500 focus:ring-offset-2 focus:outline-none">
+
+            <Modal>
+              <Modal.Open opens="confirm-delete">
+                <button className="inline-flex cursor-pointer items-center justify-center rounded-md border border-transparent bg-red-100 px-4 py-2 text-sm font-medium text-red-700 hover:bg-red-200 focus:ring-2 focus:ring-red-500 focus:ring-offset-2 focus:outline-none disabled:cursor-not-allowed">
+                  Cancel Booking
+                </button>
+              </Modal.Open>
+              <Modal.Window name="confirm-delete">
+                <ConfirmDelete
+                  resourceName="reservation"
+                  disabled={isDeleting}
+                  onConfirm={handleDelete}
+                />
+              </Modal.Window>
+            </Modal>
+            {/* <button className="cursor-pointer rounded-md border border-red-300 px-6 py-2 text-red-700 hover:bg-red-50 focus:ring-2 focus:ring-red-500 focus:ring-offset-2 focus:outline-none">
               Cancel Booking
-            </button>
+            </button> */}
           </div>
         )}
       </div>
     </div>
   );
-};
-
-export default ReservationDetailsPage;
+}
