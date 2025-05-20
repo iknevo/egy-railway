@@ -1,13 +1,57 @@
 import { useState } from "react";
+import { FaCalendarCheck, FaUser } from "react-icons/fa";
+import {
+  FaCircleQuestion,
+  FaLocationDot,
+  FaPenToSquare,
+} from "react-icons/fa6";
 import { LuSettings } from "react-icons/lu";
+import { RiLockPasswordFill } from "react-icons/ri";
 import { Link, useLocation } from "react-router";
+import { defaultUser } from "../assets";
 import { useUser } from "../features/Authentication/useUser";
+import { useUserReservations } from "../features/reservations/useUserReservations";
+import Loader from "../ui/Loader";
+import LoaderMini from "../ui/LoaderMini";
 
+const navItems = [
+  {
+    name: "My Profile",
+    path: "/user/profile",
+    icon: <FaUser className="text-lg" />,
+  },
+  {
+    name: "Edit Profile",
+    path: "/user/editProfile",
+    icon: <FaPenToSquare className="text-lg" />,
+  },
+  {
+    name: "Update Password",
+    path: "/user/password",
+    icon: <RiLockPasswordFill className="text-lg" />,
+  },
+  {
+    name: "Find Trains",
+    path: "/trains",
+    icon: <FaLocationDot className="text-lg" />,
+  },
+  {
+    name: "My Bookings",
+    path: "/reservations",
+    icon: <FaCalendarCheck className="text-lg" />,
+  },
+  {
+    name: "Help & Support",
+    path: "/help",
+    icon: <FaCircleQuestion className="text-lg" />,
+  },
+];
 export default function Sidebar() {
-  const { user } = useUser();
+  const { user, isLoading: isLoadingUser } = useUser();
+  const { data: reservations, isLoading: isLoadingReservations } =
+    useUserReservations(user.id);
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
-
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
     const sidebar = document.querySelector(".sidebar");
@@ -15,98 +59,7 @@ export default function Sidebar() {
       sidebar.classList.toggle("-translate-x-full");
     }
   };
-
-  const isActive = (path) => location.pathname.startsWith(path);
-
-  const navItems = [
-    {
-      name: "Dashboard",
-      path: "/dashboard",
-      icon: (
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="h-5 w-5"
-          viewBox="0 0 20 20"
-          fill="currentColor"
-        >
-          <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
-        </svg>
-      ),
-    },
-    {
-      name: "Find Trains",
-      path: "/trains",
-      icon: (
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="h-5 w-5"
-          viewBox="0 0 20 20"
-          fill="currentColor"
-        >
-          <path
-            fillRule="evenodd"
-            d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
-            clipRule="evenodd"
-          />
-        </svg>
-      ),
-    },
-    {
-      name: "My Bookings",
-      path: "/reservations",
-      icon: (
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="h-5 w-5"
-          viewBox="0 0 20 20"
-          fill="currentColor"
-        >
-          <path d="M4 3a2 2 0 100 4h12a2 2 0 100-4H4z" />
-          <path
-            fillRule="evenodd"
-            d="M3 8h14v7a2 2 0 01-2 2H5a2 2 0 01-2-2V8zm5 3a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z"
-            clipRule="evenodd"
-          />
-        </svg>
-      ),
-    },
-    {
-      name: "Profile",
-      path: "/profile",
-      icon: (
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="h-5 w-5"
-          viewBox="0 0 20 20"
-          fill="currentColor"
-        >
-          <path
-            fillRule="evenodd"
-            d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
-            clipRule="evenodd"
-          />
-        </svg>
-      ),
-    },
-    {
-      name: "Help & Support",
-      path: "/help",
-      icon: (
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="h-5 w-5"
-          viewBox="0 0 20 20"
-          fill="currentColor"
-        >
-          <path
-            fillRule="evenodd"
-            d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z"
-            clipRule="evenodd"
-          />
-        </svg>
-      ),
-    },
-  ];
+  const isActive = (path) => location.pathname === path;
 
   return (
     <>
@@ -184,19 +137,11 @@ export default function Sidebar() {
             <div className="relative mr-3">
               <div className="h-10 w-10">
                 <div className="h-full w-full overflow-hidden rounded-full bg-white">
-                  {!user.user_metadata.avatar_url ? (
-                    <span>
-                      am
-                      {/* {user.firstName.charAt(0)}
-                      {user.lastName.charAt(0)} */}
-                    </span>
-                  ) : (
-                    <img
-                      className="h-full w-full"
-                      src={user.user_metadata.avatar_url}
-                      alt="user's avatar"
-                    />
-                  )}
+                  <img
+                    className="h-full w-full"
+                    src={user.user_metadata.avatar_url || defaultUser}
+                    alt="user's avatar"
+                  />
                 </div>
               </div>
 
@@ -273,22 +218,31 @@ export default function Sidebar() {
             Main Menu
           </h4>
           <ul className="space-y-2">
-            {navItems.map((item) => (
-              <li key={item.path}>
-                <Link
-                  to={item.path}
-                  className={`sidebar-link ${isActive(item.path) ? "active" : ""}`}
-                >
-                  {item.icon}
-                  <span>{item.name}</span>
-                  {item.path === "/reservations" && (
-                    <span className="ml-auto inline-flex h-5 w-5 items-center justify-center rounded-full bg-cyan-600 text-xs font-medium text-white">
-                      2
-                    </span>
-                  )}
-                </Link>
-              </li>
-            ))}
+            {isLoadingReservations ? (
+              <Loader />
+            ) : (
+              navItems.map((item) => (
+                <li key={item.path}>
+                  <Link
+                    to={item.path}
+                    className={`sidebar-link ${isActive(item.path) ? "active" : ""}`}
+                  >
+                    {item.icon}
+                    <span>{item.name}</span>
+                    {item.path === "/reservations" &&
+                      reservations.length > 0 && (
+                        <span className="ml-auto inline-flex h-5 w-5 items-center justify-center rounded-full bg-cyan-600 text-xs font-medium text-white">
+                          {isLoadingReservations || isLoadingUser ? (
+                            <LoaderMini />
+                          ) : (
+                            reservations.length
+                          )}
+                        </span>
+                      )}
+                  </Link>
+                </li>
+              ))
+            )}
           </ul>
         </nav>
 

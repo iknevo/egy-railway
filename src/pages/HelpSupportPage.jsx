@@ -126,7 +126,7 @@ const HelpSupportPage = () => {
   };
 
   return (
-    <div className="mx-auto max-w-5xl">
+    <div className="mx-auto max-w-5xl py-8">
       <StaggerContainer>
         <StaggerItem>
           <h1 className="mb-8 text-2xl font-bold text-gray-800">

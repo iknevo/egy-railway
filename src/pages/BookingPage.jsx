@@ -410,10 +410,13 @@ export default function BookingPage() {
                       </div>
 
                       <div className="mb-6 space-y-3 border-b border-gray-100 pb-6">
+                        <p className="font-semibold">
+                          Price{" "}
+                          <span className="text-cyan-500">for 1 passenger</span>
+                        </p>
                         <div className="flex justify-between text-sm">
                           <span className="font-semibold text-gray-600">
-                            Ticket Price{" "}
-                            <span className="text-cyan-500">for 1</span>
+                            Ticket Price
                           </span>
                           <span className="font-medium text-gray-900">
                             {formatToEGP(
@@ -425,7 +428,7 @@ export default function BookingPage() {
                         </div>
                         <div className="flex justify-between text-sm">
                           <span className="font-semibold text-gray-600">
-                            Taxes <span className="text-cyan-500">for 1</span>
+                            Taxes
                           </span>
                           <span className="font-medium text-gray-900">
                             {formatToEGP(

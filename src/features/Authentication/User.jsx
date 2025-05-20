@@ -22,18 +22,12 @@ export default function User() {
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5, delay: 0.1 }}
     >
-      {/* <button
-          onClick={() => navigate("/login")}
-          className="cursor-pointer rounded-md bg-gradient-to-r from-cyan-600 to-blue-600 px-4 py-1 font-semibold text-white"
-        >
-          Login
-        </button> */}
       {isLoading && <LoaderMini />}
       {!user && !isLoading && <LoginButton />}
 
       {user && (
         <Link
-          to="/profile"
+          to="/user"
           className="group hidden h-10 w-10 overflow-hidden rounded-full bg-blue-100 p-0.5 text-cyan-600 transition-all duration-300 hover:bg-blue-200 md:block"
         >
           <div className="h-full w-full overflow-hidden rounded-full bg-white">

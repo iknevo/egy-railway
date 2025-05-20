@@ -1,6 +1,9 @@
 import { createBrowserRouter, Navigate } from "react-router";
 import LoginForm from "./features/Authentication/LoginForm";
 import OAuthCallback from "./features/Authentication/OAuthCallback";
+import EditProfile from "./features/profile/EditProfile";
+import Profile from "./features/profile/Profile";
+import ChangePassword from "./features/profile/UpdatePassword";
 import DefaultLayout from "./layouts/DefaultLayout";
 import BookingConfirmationPage from "./pages/BookingConfirmationPage";
 import BookingPage from "./pages/BookingPage";
@@ -57,12 +60,18 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "profile",
+        path: "user",
         element: (
           <ProtectedRoute>
             <ProfilePage />
           </ProtectedRoute>
         ),
+        children: [
+          { element: <Navigate to="profile" replace />, index: true },
+          { path: "profile", element: <Profile />, index: true },
+          { path: "editProfile", element: <EditProfile /> },
+          { path: "password", element: <ChangePassword /> },
+        ],
       },
       { path: "help", element: <HelpSupportPage /> },
     ],

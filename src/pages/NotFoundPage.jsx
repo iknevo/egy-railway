@@ -13,9 +13,9 @@ export default function NotFoundPage() {
         </p>
         <button
           onClick={() => navigate(-1)}
-          className="inline-flex items-center justify-center rounded-md border border-transparent bg-cyan-600 px-6 py-3 text-base font-medium text-white hover:bg-cyan-700 focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 focus:outline-none"
+          className="inline-flex cursor-pointer items-center justify-center rounded-md border border-transparent bg-cyan-600 px-6 py-3 text-base font-medium text-white hover:bg-cyan-700 focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 focus:outline-none"
         >
-          Go to Homepage
+          Go Back
         </button>
       </div>
     </div>

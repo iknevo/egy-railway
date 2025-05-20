@@ -5,7 +5,7 @@ export default function ConfirmDelete({
   onCloseModal,
 }) {
   return (
-    <div className="flex w-[40rem] flex-col gap-[1.2rem]">
+    <div className="flex w-full flex-col gap-[1.2rem] pt-40 md:w-[40rem] md:pt-0">
       <h3 className="text-[2rem] font-medium">Delete {resourceName}</h3>
       <p className="mb-[1.2rem] font-semibold text-gray-500">
         Are you sure you want to delete this {resourceName} permanently? This

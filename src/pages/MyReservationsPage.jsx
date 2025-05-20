@@ -29,8 +29,10 @@ export default function MyReservationsPage() {
 
         {upcomingReservations.length > 0 && (
           <div className="mb-8">
-            <h2 className="mb-4 text-xl font-semibold">Upcoming Trips</h2>
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+            <h2 className="mb-4 text-xl font-semibold">
+              Upcoming Trips ({upcomingReservations.length})
+            </h2>
+            <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
               {upcomingReservations.map((reservation) => (
                 <ReservationItem
                   key={reservation.id}
@@ -43,8 +45,10 @@ export default function MyReservationsPage() {
 
         {pastReservations.length > 0 && (
           <div>
-            <h2 className="mb-4 text-xl font-semibold">Past Trips</h2>
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+            <h2 className="mb-4 text-xl font-semibold">
+              Past Trips ({pastReservations.length})
+            </h2>
+            <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
               {pastReservations.map((reservation) => (
                 <ReservationItem
                   key={reservation.id}
