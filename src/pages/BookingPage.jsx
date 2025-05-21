@@ -15,7 +15,7 @@ export default function BookingPage() {
   const { mutate: addReservation, isPending } = useAddReservation();
   const {
     user: {
-      user_metadata: { full_name, email },
+      user_metadata: { full_name, email, phone },
     },
     user,
   } = useUser();
@@ -42,7 +42,7 @@ export default function BookingPage() {
       firstName,
       lastName,
       numPassengers: 1,
-      phone: "",
+      phone,
       date: "",
       cardNumber: "4242 4242 4242 4242",
       expiryDate: "12/25",

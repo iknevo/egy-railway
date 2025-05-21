@@ -87,11 +87,20 @@ export async function resetPassword(email) {
   return data;
 }
 
-export async function updateCurrentUser({ password, full_name, avatar }) {
-  // 1. update password or fullName
-  let updatedData;
-  if (password) updatedData = { password };
-  if (full_name) updatedData = { data: { full_name } };
+export async function updateCurrentUser({
+  password,
+  full_name,
+  avatar,
+  phone,
+}) {
+  // 1. update password || fullName || phone
+  const updatedData = {
+    ...(password && { password }),
+    data: {
+      ...(full_name && { full_name }),
+      ...(phone && { phone }),
+    },
+  };
   const { data, error } = await supabase.auth.updateUser(updatedData);
 
   if (error) {

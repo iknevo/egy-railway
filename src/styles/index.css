@@ -149,3 +149,7 @@ body {
   color: #4f46e5;
   font-weight: 500;
 }
+
+input::file-selector-button {
+  @apply mr-8 ml-4 cursor-pointer font-semibold text-cyan-700 hover:text-cyan-500/80;
+}

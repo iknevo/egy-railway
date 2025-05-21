@@ -8,6 +8,7 @@ import { useUser } from "../Authentication/useUser";
 
 export default function Profile() {
   const { user: { user_metadata } = {}, isLoading } = useUser();
+  const avatarUrl = user_metadata?.avatar_url || defaultUser;
   const { logout, isPending } = useLogout();
   const navigate = useNavigate();
   const [isChangingPassword, setIsChangingPassword] = useState(false);
@@ -96,7 +97,7 @@ export default function Profile() {
               <div className="flex h-24 w-24 items-center justify-center overflow-hidden rounded-full border-4 border-white bg-white shadow-lg sm:h-32 sm:w-32">
                 <img
                   className="h-full w-full object-cover"
-                  src={user_metadata.avatar_url || defaultUser}
+                  src={avatarUrl}
                   alt="user's avatar"
                 />
               </div>
