@@ -1,6 +1,18 @@
 import { motion } from "framer-motion";
 import React, { useState } from "react";
 import { StaggerContainer, StaggerItem } from "../components/MotionWrapper";
+import { Formik, Form, Field } from "formik";
+import * as Yup from "yup";
+
+const contactSchema = Yup.object().shape({
+  name: Yup.string().required("Name is required"),
+  email: Yup.string().email("Invalid email").required("Email is required"),
+  subject: Yup.string().required("Subject is required"),
+  message: Yup.string()
+    .required("Message is required")
+    .min(10, "Message must be at least 10 characters"),
+  terms: Yup.boolean().oneOf([true], "You must accept the terms"),
+});
 
 const HelpSupportPage = () => {
   const [activeTab, setActiveTab] = useState("faq");
@@ -120,24 +132,32 @@ const HelpSupportPage = () => {
   };
 
   const toggleFaq = (id) => {
-    setExpandedFaqs((prev) =>
-      prev.includes(id) ? prev.filter((faqId) => faqId !== id) : [...prev, id],
-    );
+    setExpandedFaqs((prev) => (prev.includes(id) ? [] : [id]));
+  };
+
+  const handleContactSubmit = (values, { resetForm }) => {
+    console.log(values);
+    resetForm();
   };
 
   return (
-    <div className="mx-auto max-w-5xl py-8">
+    <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
       <StaggerContainer>
         <StaggerItem>
-          <h1 className="mb-8 text-2xl font-bold text-gray-800">
-            Help & Support
-          </h1>
+          <div className="mb-8 text-center">
+            <h1 className="text-4xl font-bold text-gray-900 sm:text-5xl">
+              Help & Support
+            </h1>
+            <p className="mt-4 text-lg text-gray-600">
+              Find answers to common questions or contact our support team
+            </p>
+          </div>
         </StaggerItem>
 
         <StaggerItem>
-          <div className="mb-8 flex border-b border-gray-200">
+          <div className="mb-8 flex justify-center border-b border-gray-200">
             <button
-              className={`mr-4 border-b-2 px-4 py-2 font-medium transition-colors ${
+              className={`mr-4 border-b-2 px-6 py-3 text-lg font-medium transition-colors ${
                 activeTab === "faq"
                   ? "border-cyan-600 text-cyan-600"
                   : "border-transparent text-gray-500 hover:text-gray-700"
@@ -147,7 +167,7 @@ const HelpSupportPage = () => {
               Frequently Asked Questions
             </button>
             <button
-              className={`mr-4 border-b-2 px-4 py-2 font-medium transition-colors ${
+              className={`mr-4 border-b-2 px-6 py-3 text-lg font-medium transition-colors ${
                 activeTab === "contact"
                   ? "border-cyan-600 text-cyan-600"
                   : "border-transparent text-gray-500 hover:text-gray-700"
@@ -162,13 +182,13 @@ const HelpSupportPage = () => {
         {activeTab === "faq" && (
           <>
             <StaggerItem>
-              <div className="mb-8 grid grid-cols-1 gap-2 md:grid-cols-5">
+              <div className="mb-8 flex flex-wrap justify-center gap-3">
                 {faqCategories.map((category) => (
                   <button
                     key={category.id}
-                    className={`rounded-lg px-4 py-2 text-center text-sm font-medium transition-colors ${
+                    className={`rounded-full px-6 py-2.5 text-sm font-medium transition-all ${
                       activeCategory === category.id
-                        ? "bg-cyan-600 text-white"
+                        ? "bg-gradient-to-r from-cyan-500 to-blue-500 text-white shadow-lg"
                         : "bg-gray-100 text-gray-600 hover:bg-gray-200"
                     }`}
                     onClick={() => setActiveCategory(category.id)}
@@ -180,11 +200,11 @@ const HelpSupportPage = () => {
             </StaggerItem>
 
             <StaggerItem>
-              <div className="mb-8 space-y-4">
+              <div className="mx-auto max-w-3xl space-y-4">
                 {faqs[activeCategory]?.map((faq) => (
                   <motion.div
                     key={faq.id}
-                    className="overflow-hidden rounded-lg border border-gray-200 bg-white"
+                    className="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm transition-all hover:shadow-md"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.3 }}
@@ -193,7 +213,7 @@ const HelpSupportPage = () => {
                       className="flex w-full items-center justify-between px-6 py-4 text-left font-medium text-gray-800 focus:outline-none"
                       onClick={() => toggleFaq(faq.id)}
                     >
-                      <span>{faq.question}</span>
+                      <span className="text-lg">{faq.question}</span>
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         className={`h-5 w-5 text-gray-500 transition-transform ${
@@ -223,17 +243,13 @@ const HelpSupportPage = () => {
 
         {activeTab === "contact" && (
           <StaggerItem>
-            <div className="rounded-xl bg-white p-8 shadow-md">
-              <h2 className="mb-6 text-xl font-semibold text-gray-800">
-                Contact Our Support Team
-              </h2>
-
-              <div className="mb-8 grid grid-cols-1 gap-6 md:grid-cols-3">
-                <div className="rounded-lg bg-cyan-50 p-4 text-center">
-                  <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-cyan-100 text-cyan-600">
+            <div className="mx-auto max-w-4xl">
+              <div className="mb-8 grid grid-cols-1 gap-6 sm:grid-cols-3">
+                <div className="rounded-xl bg-gradient-to-br from-cyan-500 to-blue-500 p-6 text-center text-white shadow-lg">
+                  <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-white/20">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      className="h-6 w-6"
+                      className="h-7 w-7"
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
@@ -246,20 +262,18 @@ const HelpSupportPage = () => {
                       />
                     </svg>
                   </div>
-                  <h3 className="mb-1 font-medium text-cyan-900">
-                    Phone Support
-                  </h3>
-                  <p className="text-sm text-cyan-700">+20 (2) 2575-3555</p>
-                  <p className="mt-1 text-xs text-cyan-600">
+                  <h3 className="mb-2 text-lg font-semibold">Phone Support</h3>
+                  <p className="mb-1 text-lg">+20 (2) 2575-3555</p>
+                  <p className="text-sm text-white/80">
                     Available 8AM - 10PM, 7 days
                   </p>
                 </div>
 
-                <div className="rounded-lg bg-blue-50 p-4 text-center">
-                  <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-blue-100 text-blue-600">
+                <div className="rounded-xl bg-gradient-to-br from-blue-500 to-indigo-500 p-6 text-center text-white shadow-lg">
+                  <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-white/20">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      className="h-6 w-6"
+                      className="h-7 w-7"
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
@@ -272,20 +286,18 @@ const HelpSupportPage = () => {
                       />
                     </svg>
                   </div>
-                  <h3 className="mb-1 font-medium text-blue-900">
-                    Email Support
-                  </h3>
-                  <p className="text-sm text-blue-700">support@egyrailway.eg</p>
-                  <p className="mt-1 text-xs text-blue-600">
+                  <h3 className="mb-2 text-lg font-semibold">Email Support</h3>
+                  <p className="mb-1 text-lg">support@egyrailway.eg</p>
+                  <p className="text-sm text-white/80">
                     Response within 24 hours
                   </p>
                 </div>
 
-                <div className="rounded-lg bg-blue-50 p-4 text-center">
-                  <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-blue-100 text-blue-600">
+                <div className="rounded-xl bg-gradient-to-br from-indigo-500 to-purple-500 p-6 text-center text-white shadow-lg">
+                  <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-white/20">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      className="h-6 w-6"
+                      className="h-7 w-7"
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
@@ -298,119 +310,215 @@ const HelpSupportPage = () => {
                       />
                     </svg>
                   </div>
-                  <h3 className="mb-1 font-medium text-blue-900">Live Chat</h3>
-                  <p className="text-sm text-blue-700">
-                    Chat with our support team
-                  </p>
-                  <p className="mt-1 text-xs text-blue-600">
+                  <h3 className="mb-2 text-lg font-semibold">Live Chat</h3>
+                  <p className="mb-1 text-lg">Chat with our support team</p>
+                  <p className="text-sm text-white/80">
                     Available 9AM - 8PM, 7 days
                   </p>
                 </div>
               </div>
 
-              <form className="space-y-4">
-                <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-                  <div>
-                    <label
-                      htmlFor="name"
-                      className="mb-1 block text-sm font-medium text-gray-700"
-                    >
-                      Full Name
-                    </label>
-                    <input
-                      type="text"
-                      id="name"
-                      className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 focus:outline-none"
-                      placeholder="Your name"
-                    />
-                  </div>
-                  <div>
-                    <label
-                      htmlFor="email"
-                      className="mb-1 block text-sm font-medium text-gray-700"
-                    >
-                      Email Address
-                    </label>
-                    <input
-                      type="email"
-                      id="email"
-                      className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 focus:outline-none"
-                      placeholder="your.email@example.com"
-                    />
-                  </div>
-                </div>
+              <div className="rounded-2xl bg-white p-8 shadow-lg">
+                <h2 className="mb-6 text-2xl font-bold text-gray-900">
+                  Send us a Message
+                </h2>
 
-                <div>
-                  <label
-                    htmlFor="subject"
-                    className="mb-1 block text-sm font-medium text-gray-700"
-                  >
-                    Subject
-                  </label>
-                  <input
-                    type="text"
-                    id="subject"
-                    className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 focus:outline-none"
-                    placeholder="How can we help you?"
-                  />
-                </div>
+                <Formik
+                  initialValues={{
+                    name: "",
+                    email: "",
+                    subject: "",
+                    message: "",
+                    terms: false,
+                  }}
+                  validationSchema={contactSchema}
+                  onSubmit={handleContactSubmit}
+                >
+                  {({ errors, touched }) => (
+                    <Form className="space-y-6">
+                      <div className="grid gap-6 sm:grid-cols-2">
+                        <div>
+                          <label
+                            htmlFor="name"
+                            className="mb-2 block text-sm font-medium text-gray-700"
+                          >
+                            Full Name
+                          </label>
+                          <Field
+                            type="text"
+                            id="name"
+                            name="name"
+                            className="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-gray-900 shadow-sm transition-all duration-200 focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 focus:outline-none"
+                            placeholder="Your name"
+                          />
+                          {errors.name && touched.name && (
+                            <p className="mt-1 text-sm text-red-600">
+                              {errors.name}
+                            </p>
+                          )}
+                        </div>
+                        <div>
+                          <label
+                            htmlFor="email"
+                            className="mb-2 block text-sm font-medium text-gray-700"
+                          >
+                            Email Address
+                          </label>
+                          <Field
+                            type="email"
+                            id="email"
+                            name="email"
+                            className="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-gray-900 shadow-sm transition-all duration-200 focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 focus:outline-none"
+                            placeholder="your.email@example.com"
+                          />
+                          {errors.email && touched.email && (
+                            <p className="mt-1 text-sm text-red-600">
+                              {errors.email}
+                            </p>
+                          )}
+                        </div>
+                      </div>
 
-                <div>
-                  <label
-                    htmlFor="message"
-                    className="mb-1 block text-sm font-medium text-gray-700"
-                  >
-                    Message
-                  </label>
-                  <textarea
-                    id="message"
-                    rows={5}
-                    className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 focus:outline-none"
-                    placeholder="Please describe your issue or question in detail..."
-                  ></textarea>
-                </div>
+                      <div>
+                        <label
+                          htmlFor="subject"
+                          className="mb-2 block text-sm font-medium text-gray-700"
+                        >
+                          Subject
+                        </label>
+                        <Field
+                          type="text"
+                          id="subject"
+                          name="subject"
+                          className="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-gray-900 shadow-sm transition-all duration-200 focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 focus:outline-none"
+                          placeholder="How can we help you?"
+                        />
+                        {errors.subject && touched.subject && (
+                          <p className="mt-1 text-sm text-red-600">
+                            {errors.subject}
+                          </p>
+                        )}
+                      </div>
 
-                <div className="flex items-center">
-                  <input
-                    id="terms"
-                    type="checkbox"
-                    className="h-4 w-4 rounded border-gray-300 text-cyan-600 focus:ring-cyan-500"
-                  />
-                  <label
-                    htmlFor="terms"
-                    className="ml-2 block text-sm text-gray-600"
-                  >
-                    I agree to EgyRailway's privacy policy and terms of service
-                  </label>
-                </div>
+                      <div>
+                        <label
+                          htmlFor="message"
+                          className="mb-2 block text-sm font-medium text-gray-700"
+                        >
+                          Message
+                        </label>
+                        <Field
+                          as="textarea"
+                          id="message"
+                          name="message"
+                          rows={5}
+                          className="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-gray-900 shadow-sm transition-all duration-200 focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 focus:outline-none"
+                          placeholder="Please describe your issue or question in detail..."
+                        />
+                        {errors.message && touched.message && (
+                          <p className="mt-1 text-sm text-red-600">
+                            {errors.message}
+                          </p>
+                        )}
+                      </div>
 
-                <div>
-                  <button
-                    type="submit"
-                    className="rounded-lg bg-cyan-600 px-6 py-3 font-medium text-white transition-colors hover:bg-cyan-700 focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 focus:outline-none"
-                  >
-                    Send Message
-                  </button>
-                </div>
-              </form>
+                      <div className="flex items-start">
+                        <div className="flex h-5 items-center">
+                          <Field
+                            type="checkbox"
+                            id="terms"
+                            name="terms"
+                            className="h-4 w-4 rounded border-gray-300 text-cyan-600 focus:ring-cyan-500"
+                          />
+                        </div>
+                        <div className="ml-3">
+                          <label
+                            htmlFor="terms"
+                            className="text-sm text-gray-600"
+                          >
+                            I agree to EgyRailway's{" "}
+                            <a
+                              href="#"
+                              className="font-medium text-cyan-600 hover:text-cyan-500"
+                            >
+                              privacy policy
+                            </a>{" "}
+                            and{" "}
+                            <a
+                              href="#"
+                              className="font-medium text-cyan-600 hover:text-cyan-500"
+                            >
+                              terms of service
+                            </a>
+                          </label>
+                          {errors.terms && touched.terms && (
+                            <p className="mt-1 text-sm text-red-600">
+                              {errors.terms}
+                            </p>
+                          )}
+                        </div>
+                      </div>
+
+                      <div>
+                        <button
+                          type="submit"
+                          className="w-full rounded-lg bg-gradient-to-r from-cyan-500 to-blue-500 px-6 py-3 text-lg font-medium text-white shadow-lg transition-all hover:from-cyan-600 hover:to-blue-600 focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 focus:outline-none sm:w-auto"
+                        >
+                          Send Message
+                        </button>
+                      </div>
+                    </Form>
+                  )}
+                </Formik>
+              </div>
             </div>
           </StaggerItem>
         )}
 
         <StaggerItem>
-          <div className="mt-8 rounded-xl bg-gradient-to-r from-cyan-100 to-blue-100 p-6">
-            <div className="text-center">
-              <h3 className="mb-2 text-lg font-semibold text-cyan-900">
-                Need Immediate Assistance?
-              </h3>
-              <p className="mb-4 text-cyan-700">
-                Our support team is available 24/7 for urgent issues related to
-                your bookings.
-              </p>
-              <button className="pulse-button rounded-full bg-cyan-600 px-6 py-3 font-medium text-white transition-all hover:bg-cyan-700">
-                Start Live Chat Now
-              </button>
+          <div className="mx-auto mt-12 max-w-3xl rounded-2xl bg-gradient-to-r from-cyan-500 via-blue-500 to-indigo-500 p-8 text-center text-white shadow-lg">
+            <div className="mb-6 flex justify-center">
+              <div className="rounded-full bg-white/20 p-3">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-8 w-8"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
+                  />
+                </svg>
+              </div>
             </div>
+            <h3 className="mb-3 text-2xl font-bold">
+              Need Immediate Assistance?
+            </h3>
+            <p className="mb-6 text-lg text-white/90">
+              Our support team is available 24/7 for urgent issues related to
+              your bookings.
+            </p>
+            <button className="inline-flex items-center rounded-full bg-white px-6 py-2.5 text-base font-medium text-cyan-600 shadow-md transition-all hover:bg-gray-100 focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-cyan-500 focus:outline-none">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="mr-2 h-5 w-5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
+                />
+              </svg>
+              Start Live Chat Now
+            </button>
           </div>
         </StaggerItem>
       </StaggerContainer>

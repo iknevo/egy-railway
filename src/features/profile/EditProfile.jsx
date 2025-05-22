@@ -1,9 +1,16 @@
 import { FormControl, InputLabel, OutlinedInput } from "@mui/material";
-import { useState } from "react";
+import { Field, Form, Formik } from "formik";
 import { useNavigate } from "react-router";
+import * as Yup from "yup";
 import LoaderMini from "../../ui/LoaderMini";
 import { useUser } from "../Authentication/useUser";
 import { useUpdateUser } from "./useUpdateUser";
+
+const profileSchema = Yup.object().shape({
+  firstName: Yup.string().required("First name is required"),
+  lastName: Yup.string().required("Last name is required"),
+  phone: Yup.string().required("Phone number is required"),
+});
 
 export default function EditProfile() {
   const navigate = useNavigate();
@@ -11,20 +18,19 @@ export default function EditProfile() {
   const {
     user: { email, user_metadata: { full_name: currentFullName, phone } = {} },
   } = useUser();
-  const [firstName, setFirstName] = useState(
-    currentFullName?.split(" ").at(0) || "",
-  );
-  const [phoneNumber, setPhoneNumber] = useState(phone);
-  const [lastName, setLastName] = useState(
-    currentFullName?.split(" ").at(1) || "",
-  );
-  const [avatar, setAvatar] = useState(null);
-  const full_name = [firstName, lastName].join(" ");
-  function handleSubmit(e) {
-    e.preventDefault();
-    if (!full_name) return;
+
+  const initialValues = {
+    firstName: currentFullName?.split(" ").at(0) || "",
+    lastName: currentFullName?.split(" ").at(1) || "",
+    email: email || "",
+    phone: phone || "",
+    avatar: null,
+  };
+
+  function handleSubmit(values) {
+    const full_name = `${values.firstName} ${values.lastName}`;
     updateUser(
-      { full_name, avatar, phone: phoneNumber },
+      { full_name, avatar: values.avatar, phone: values.phone },
       {
         onSuccess: () => {
           navigate("/user/profile");
@@ -32,155 +38,194 @@ export default function EditProfile() {
       },
     );
   }
+
   return (
-    <form onSubmit={handleSubmit} className="space-y-8">
-      <div className="flex flex-col gap-10">
-        <p className="text-3xl font-semibold">Edit Profile</p>
-        <div className="grid grid-cols-2 items-start gap-10">
-          <FormControl variant="outlined">
-            <InputLabel
-              htmlFor="firstName"
-              sx={{
-                fontSize: "16px",
-                "&.Mui-focused": { color: "#46a358" },
-                "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-                  borderColor: "#46a358",
-                },
-              }}
-            >
-              First Name
-            </InputLabel>
-            <OutlinedInput
-              required
-              value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
-              inputlabelprops={{ shrink: Boolean(firstName) || undefined }}
-              id="firstName"
-              type="text"
-              label="First Name"
-              sx={{
-                fontSize: "16px",
-                "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-                  borderColor: "#46a358", // Default border color
-                },
-              }}
-            />
-          </FormControl>
-
-          <FormControl variant="outlined">
-            <InputLabel
-              htmlFor="LastName"
-              sx={{
-                fontSize: "16px",
-                "&.Mui-focused": { color: "#46a358" },
-                "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-                  borderColor: "#46a358",
-                },
-              }}
-            >
-              Last Name
-            </InputLabel>
-            <OutlinedInput
-              required
-              value={lastName}
-              onChange={(e) => setLastName(e.target.value)}
-              inputlabelprops={{ shrink: Boolean(lastName) || undefined }}
-              id="lastName"
-              type="text"
-              label="Last Name"
-              sx={{
-                fontSize: "16px",
-                "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-                  borderColor: "#46a358",
-                },
-              }}
-            />
-          </FormControl>
-
-          <FormControl variant="outlined">
-            <InputLabel
-              htmlFor="email"
-              sx={{
-                fontSize: "16px",
-                "&.Mui-focused": { color: "#46a358" },
-                "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-                  borderColor: "#46a358",
-                },
-              }}
-            >
-              Email Address
-            </InputLabel>
-            <OutlinedInput
-              value={email}
-              inputlabelprops={{
-                shrink: Boolean(email) || undefined,
-              }}
-              id="email"
-              type="email"
-              label="Email Address"
-              disabled={true}
-              sx={{
-                fontSize: "16px",
-                "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-                  borderColor: "#46a358",
-                },
-              }}
-              slotProps={{
-                input: {
-                  readOnly: true,
-                },
-              }}
-            />
-          </FormControl>
-
-          <FormControl variant="outlined">
-            <InputLabel
-              htmlFor="phone"
-              sx={{
-                fontSize: "16px",
-                "&.Mui-focused": { color: "#46a358" },
-                "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-                  borderColor: "#46a358",
-                },
-              }}
-            >
-              Phone Number
-            </InputLabel>
-            <OutlinedInput
-              required
-              value={phoneNumber}
-              onChange={(e) => setPhoneNumber(e.target.value)}
-              inputlabelprops={{ shrink: Boolean(phoneNumber) || undefined }}
-              id="phone"
-              type="text"
-              label="Phone Number"
-              sx={{
-                fontSize: "16px",
-                "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-                  borderColor: "#46a358", // Default border color
-                },
-              }}
-            />
-          </FormControl>
-
-          <div className="relative">
-            <span className="absolute -top-5 left-4 block bg-white px-2">
-              Avatar
-            </span>
-            <input
-              className="text-md block w-full cursor-pointer rounded-sm border border-gray-400 bg-white px-2 py-4 text-gray-900 focus:outline-none"
-              type="file"
-              onChange={(e) => setAvatar(e.target.files[0])}
-            />
-          </div>
+    <div className="mx-auto w-full px-4 py-8 sm:px-6 lg:px-8">
+      <div className="overflow-hidden rounded-2xl bg-white shadow-lg">
+        <div className="border-b border-gray-200 bg-gradient-to-r from-cyan-500 to-blue-500 p-8 sm:p-10">
+          <h2 className="text-3xl font-bold text-white sm:text-4xl">
+            Edit Profile
+          </h2>
+          <p className="mt-2 text-lg text-cyan-100">
+            Update your personal information
+          </p>
         </div>
+
+        <Formik
+          initialValues={initialValues}
+          validationSchema={profileSchema}
+          onSubmit={handleSubmit}
+        >
+          {({ errors, touched, setFieldValue }) => (
+            <Form className="space-y-10 p-8 sm:p-10">
+              <div className="grid gap-8 sm:grid-cols-2">
+                <FormControl variant="outlined" className="w-full">
+                  <InputLabel
+                    htmlFor="firstName"
+                    sx={{
+                      fontSize: "18px",
+                      "&.Mui-focused": { color: "#0ea5e9" },
+                    }}
+                  >
+                    First Name
+                  </InputLabel>
+                  <Field
+                    as={OutlinedInput}
+                    id="firstName"
+                    name="firstName"
+                    type="text"
+                    label="First Name"
+                    sx={{
+                      fontSize: "18px",
+                      "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+                        borderColor: "#0ea5e9",
+                      },
+                      "&:hover .MuiOutlinedInput-notchedOutline": {
+                        borderColor: "#0ea5e9",
+                      },
+                    }}
+                  />
+                  {errors.firstName && touched.firstName && (
+                    <p className="mt-1 text-sm text-red-600">
+                      {errors.firstName}
+                    </p>
+                  )}
+                </FormControl>
+
+                <FormControl variant="outlined" className="w-full">
+                  <InputLabel
+                    htmlFor="lastName"
+                    sx={{
+                      fontSize: "18px",
+                      "&.Mui-focused": { color: "#0ea5e9" },
+                    }}
+                  >
+                    Last Name
+                  </InputLabel>
+                  <Field
+                    as={OutlinedInput}
+                    id="lastName"
+                    name="lastName"
+                    type="text"
+                    label="Last Name"
+                    sx={{
+                      fontSize: "18px",
+                      "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+                        borderColor: "#0ea5e9",
+                      },
+                      "&:hover .MuiOutlinedInput-notchedOutline": {
+                        borderColor: "#0ea5e9",
+                      },
+                    }}
+                  />
+                  {errors.lastName && touched.lastName && (
+                    <p className="mt-1 text-sm text-red-600">
+                      {errors.lastName}
+                    </p>
+                  )}
+                </FormControl>
+
+                <FormControl variant="outlined" className="w-full">
+                  <InputLabel
+                    htmlFor="email"
+                    sx={{
+                      fontSize: "18px",
+                      "&.Mui-focused": { color: "#0ea5e9" },
+                    }}
+                  >
+                    Email Address
+                  </InputLabel>
+                  <Field
+                    as={OutlinedInput}
+                    id="email"
+                    name="email"
+                    type="email"
+                    label="Email Address"
+                    disabled={true}
+                    sx={{
+                      fontSize: "18px",
+                      "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+                        borderColor: "#0ea5e9",
+                      },
+                      "&:hover .MuiOutlinedInput-notchedOutline": {
+                        borderColor: "#0ea5e9",
+                      },
+                      "&.Mui-disabled": {
+                        backgroundColor: "#f8fafc",
+                      },
+                    }}
+                  />
+                </FormControl>
+
+                <FormControl variant="outlined" className="w-full">
+                  <InputLabel
+                    htmlFor="phone"
+                    sx={{
+                      fontSize: "18px",
+                      "&.Mui-focused": { color: "#0ea5e9" },
+                    }}
+                  >
+                    Phone Number
+                  </InputLabel>
+                  <Field
+                    as={OutlinedInput}
+                    id="phone"
+                    name="phone"
+                    type="text"
+                    label="Phone Number"
+                    sx={{
+                      fontSize: "18px",
+                      "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+                        borderColor: "#0ea5e9",
+                      },
+                      "&:hover .MuiOutlinedInput-notchedOutline": {
+                        borderColor: "#0ea5e9",
+                      },
+                    }}
+                  />
+                  {errors.phone && touched.phone && (
+                    <p className="mt-1 text-sm text-red-600">{errors.phone}</p>
+                  )}
+                </FormControl>
+              </div>
+
+              <div className="space-y-4">
+                <label className="block text-lg font-medium text-gray-700">
+                  Profile Picture
+                </label>
+                <div className="relative">
+                  <input
+                    className="block w-full cursor-pointer rounded-lg border border-gray-300 bg-white px-4 py-3 text-base text-gray-900 transition-colors hover:border-cyan-500 focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 focus:outline-none"
+                    type="file"
+                    accept="image/*"
+                    onChange={(e) => setFieldValue("avatar", e.target.files[0])}
+                  />
+                  <p className="mt-2 text-base text-gray-500">
+                    PNG, JPG or JPEG
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex flex-col gap-4 sm:flex-row sm:justify-end">
+                <button
+                  type="button"
+                  onClick={() => navigate("/user/profile")}
+                  className="rounded-lg border border-gray-300 bg-white px-8 py-3 text-base font-medium text-gray-700 transition-colors hover:bg-gray-50 focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 focus:outline-none"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  disabled={isUpdating}
+                  className="flex items-center justify-center rounded-lg bg-gradient-to-r from-cyan-500 to-blue-500 px-8 py-3 text-base font-medium text-white transition-all hover:from-cyan-600 hover:to-blue-600 focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 focus:outline-none disabled:cursor-not-allowed disabled:opacity-70"
+                >
+                  {isUpdating ? <LoaderMini /> : "Save Changes"}
+                </button>
+              </div>
+            </Form>
+          )}
+        </Formik>
       </div>
-      <button
-        type="submit"
-        className="flex cursor-pointer items-center gap-2 rounded-md bg-gradient-to-r from-cyan-600 to-blue-600 px-3 py-1 font-semibold text-white md:px-4 md:py-2"
-      >
-        {isUpdating ? <LoaderMini /> : "Save Changes"}
-      </button>
-    </form>
+    </div>
   );
 }

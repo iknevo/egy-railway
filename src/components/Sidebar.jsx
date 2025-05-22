@@ -1,10 +1,6 @@
 import { useState } from "react";
-import { FaCalendarCheck, FaUser } from "react-icons/fa";
-import {
-  FaCircleQuestion,
-  FaLocationDot,
-  FaPenToSquare,
-} from "react-icons/fa6";
+import { FaCalendarCheck, FaUser, FaUserEdit } from "react-icons/fa";
+import { FaCircleQuestion, FaLocationDot } from "react-icons/fa6";
 import { LuSettings } from "react-icons/lu";
 import { RiLockPasswordFill } from "react-icons/ri";
 import { Link, useLocation } from "react-router";
@@ -23,7 +19,7 @@ const navItems = [
   {
     name: "Edit Profile",
     path: "/user/editProfile",
-    icon: <FaPenToSquare className="text-lg" />,
+    icon: <FaUserEdit className="text-lg" />,
   },
   {
     name: "Update Password",
@@ -31,14 +27,14 @@ const navItems = [
     icon: <RiLockPasswordFill className="text-lg" />,
   },
   {
-    name: "Find Trains",
-    path: "/trains",
-    icon: <FaLocationDot className="text-lg" />,
-  },
-  {
     name: "My Bookings",
     path: "/reservations",
     icon: <FaCalendarCheck className="text-lg" />,
+  },
+  {
+    name: "Find Trains",
+    path: "/trains",
+    icon: <FaLocationDot className="text-lg" />,
   },
   {
     name: "Help & Support",
@@ -47,7 +43,12 @@ const navItems = [
   },
 ];
 export default function Sidebar() {
-  const { user, isLoading: isLoadingUser } = useUser();
+  const {
+    user,
+    user: { user_metadata },
+    isLoading: isLoadingUser,
+  } = useUser();
+  const avatarUrl = user_metadata?.avatar_url || defaultUser;
   const { data: reservations, isLoading: isLoadingReservations } =
     useUserReservations(user.id);
   const [isOpen, setIsOpen] = useState(false);
@@ -139,7 +140,7 @@ export default function Sidebar() {
                 <div className="h-full w-full overflow-hidden rounded-full bg-white">
                   <img
                     className="h-full w-full"
-                    src={user.user_metadata.avatar_url || defaultUser}
+                    src={avatarUrl}
                     alt="user's avatar"
                   />
                 </div>
@@ -153,7 +154,10 @@ export default function Sidebar() {
               </h4>
             </div>
             <div className="ml-auto">
-              <Link to="/profile" className="rounded-full p-1.5 text-gray-600">
+              <Link
+                to="/user/profile"
+                className="rounded-full p-1.5 text-gray-600"
+              >
                 <LuSettings />
               </Link>
             </div>
