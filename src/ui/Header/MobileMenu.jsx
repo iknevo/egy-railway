@@ -7,7 +7,7 @@ const mobileMenuLinks = [
   { title: "Home", to: "/home" },
   { title: "Find Trains", to: "/trains" },
   { title: "My Bookings", to: "/reservations" },
-  { title: "My Profile", to: "/profile" },
+  { title: "My Profile", to: "/user/profile" },
 ];
 
 export default function MobileMenu({ isActive }) {
