@@ -5,9 +5,8 @@ import {
   InputLabel,
   OutlinedInput,
 } from "@mui/material";
-import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
-
 import { useState } from "react";
+import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import LoaderMini from "./../../ui/LoaderMini.jsx";
 import { useSignup } from "./useSignUp.jsx";
 
@@ -20,10 +19,6 @@ export default function SignUpForm({ onCloseModal }) {
 
   function handleClickShowPassword() {
     setShowPassword((show) => !show);
-  }
-
-  function handleResetPassword(e) {
-    e.preventDefault();
   }
 
   function handleSignup(e) {
@@ -133,13 +128,6 @@ export default function SignUpForm({ onCloseModal }) {
           label="Password"
         />
       </FormControl>
-      <button
-        onClick={handleResetPassword}
-        className="cursor-pointer self-end text-blue-800"
-      >
-        Forgot Password?
-      </button>
-
       <button className="flex cursor-pointer items-center justify-center rounded-md bg-gradient-to-r from-cyan-600 to-blue-600 px-4 py-2 font-semibold text-white">
         {isPending ? <LoaderMini /> : "Signup"}
       </button>

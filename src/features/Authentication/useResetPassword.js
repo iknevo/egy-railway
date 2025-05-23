@@ -2,11 +2,11 @@ import { useMutation } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { resetPassword as resetPasswordApi } from "../../services/apiAuth";
 
-export function useResetPassword(email) {
+export function useResetPassword() {
   const { mutate: resetPassword, isPending } = useMutation({
-    mutationFn: () => resetPasswordApi(email),
+    mutationFn: (email) => resetPasswordApi(email),
     onSuccess: () => {
-      toast.success("Email sent!");
+      toast.success("Password reset email sent! Please check your inbox.");
     },
     onError: (error) => {
       toast.error(error.message);

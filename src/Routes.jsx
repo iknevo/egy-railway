@@ -1,6 +1,7 @@
 import { createBrowserRouter, Navigate } from "react-router";
 import LoginForm from "./features/Authentication/LoginForm";
 import OAuthCallback from "./features/Authentication/OAuthCallback";
+import ResetPassword from "./features/Authentication/ResetPassword";
 import EditProfile from "./features/profile/EditProfile";
 import Profile from "./features/profile/Profile";
 import ChangePassword from "./features/profile/UpdatePassword";
@@ -79,6 +80,10 @@ const router = createBrowserRouter([
   {
     path: "auth/callback",
     element: <OAuthCallback />,
+  },
+  {
+    path: "auth/reset-password",
+    element: <ResetPassword />,
   },
   { path: "login", element: <LoginForm /> },
   { path: "*", element: <NotFoundPage /> },

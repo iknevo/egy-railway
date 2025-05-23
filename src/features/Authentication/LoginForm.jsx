@@ -18,7 +18,7 @@ export default function LoginForm({ onCloseModal }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const { resetPassword } = useResetPassword();
+  const { resetPassword, isPending: isResettingPassword } = useResetPassword();
 
   function handleClickShowPassword() {
     setShowPassword((show) => !show);
@@ -27,8 +27,11 @@ export default function LoginForm({ onCloseModal }) {
   function handleResetPassword(e) {
     e.preventDefault();
     if (!email) {
-      console.log(email);
       toast.error("Please enter your email first!");
+      return;
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      toast.error("Please enter a valid email address!");
       return;
     }
     resetPassword(email);
@@ -115,9 +118,17 @@ export default function LoginForm({ onCloseModal }) {
       </FormControl>
       <button
         onClick={handleResetPassword}
-        className="cursor-pointer self-end text-blue-800"
+        disabled={isResettingPassword}
+        className="flex cursor-pointer items-center justify-end gap-2 text-blue-800 disabled:cursor-not-allowed disabled:opacity-70"
       >
-        Forgot Password?
+        {isResettingPassword ? (
+          <>
+            <LoaderMini />
+            Sending reset email...
+          </>
+        ) : (
+          "Forgot Password?"
+        )}
       </button>
 
       <button className="flex cursor-pointer items-center justify-center rounded-md bg-gradient-to-r from-cyan-600 to-blue-600 px-4 py-2 font-semibold text-white">
