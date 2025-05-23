@@ -33,7 +33,7 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link to="/profile" className="hover:text-cyan-400">
+                <Link to="/user/profile" className="hover:text-cyan-400">
                   Profile
                 </Link>
               </li>
@@ -44,19 +44,19 @@ export default function Footer() {
             <h3 className="mb-4 text-lg font-semibold">Support</h3>
             <ul className="space-y-2 text-gray-300">
               <li>
-                <a href="#" className="hover:text-cyan-400">
+                <Link to="/help" className="hover:text-cyan-400">
                   Help Center
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="hover:text-cyan-400">
+                <Link to="/help" className="hover:text-cyan-400">
                   FAQs
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="hover:text-cyan-400">
+                <Link to="/help" className="hover:text-cyan-400">
                   Contact Us
-                </a>
+                </Link>
               </li>
               <li>
                 <a href="#" className="hover:text-cyan-400">

@@ -1,3 +1,4 @@
+import { isAfter } from "date-fns";
 import { useState } from "react";
 import { FaCalendarCheck, FaUser, FaUserEdit } from "react-icons/fa";
 import { FaCircleQuestion, FaLocationDot } from "react-icons/fa6";
@@ -9,6 +10,7 @@ import { useUser } from "../features/Authentication/useUser";
 import { useUserReservations } from "../features/reservations/useUserReservations";
 import Loader from "../ui/Loader";
 import LoaderMini from "../ui/LoaderMini";
+import SidebarReservation from "./SidebarReservation";
 
 const navItems = [
   {
@@ -51,6 +53,10 @@ export default function Sidebar() {
   const avatarUrl = user_metadata?.avatar_url || defaultUser;
   const { data: reservations, isLoading: isLoadingReservations } =
     useUserReservations(user.id);
+
+  const upcomingReservations = reservations.filter((reservation) =>
+    isAfter(new Date(reservation.date), new Date()),
+  );
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
   const toggleSidebar = () => {
@@ -169,51 +175,18 @@ export default function Sidebar() {
           <h4 className="mb-3 text-xs font-semibold text-gray-500 uppercase">
             Upcoming Trip
           </h4>
-          <div className="rounded-lg border border-cyan-100 bg-gradient-to-b from-cyan-50 to-white p-3">
-            <div className="flex items-start justify-between">
-              <div>
-                <div className="text-xs font-medium text-cyan-800">
-                  Cairo → Alexandria
-                </div>
-                <div className="text-xs text-gray-500">Booking #EGR-12345</div>
-              </div>
-              <span className="rounded-full bg-cyan-100 px-2 py-0.5 text-xs text-cyan-800">
-                Tomorrow
-              </span>
+          {upcomingReservations.length === 0 && (
+            <div className="mt-4 text-center text-xs text-gray-500">
+              You have no upcoming trips.
             </div>
-
-            <div className="mt-3 flex">
-              <div className="mr-3 flex h-8 w-8 items-center justify-center rounded-full bg-cyan-100 text-cyan-600">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-4 w-4"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-              </div>
-              <div>
-                <div className="text-xs font-medium">Departure: 09:00 AM</div>
-                <div className="text-xs text-gray-500">
-                  Platform 3, Car 5, Seat 42A
-                </div>
-              </div>
-            </div>
-
-            <div className="mt-3 text-center">
-              <Link
-                to="/reservations/EGR-12345"
-                className="inline-block rounded-md bg-cyan-600 px-3 py-1.5 text-xs font-medium text-white transition-colors hover:bg-cyan-700"
-              >
-                View Details
-              </Link>
-            </div>
-          </div>
+          )}
+          {upcomingReservations.length > 0 &&
+            upcomingReservations.map((reservation) => (
+              <SidebarReservation
+                reservation={reservation}
+                key={reservation.id}
+              />
+            ))}
         </div>
 
         {/* Sidebar Navigation */}

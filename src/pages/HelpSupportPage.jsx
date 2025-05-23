@@ -1,8 +1,8 @@
+import { Field, Form, Formik } from "formik";
 import { motion } from "framer-motion";
 import React, { useState } from "react";
-import { StaggerContainer, StaggerItem } from "../components/MotionWrapper";
-import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
+import { StaggerContainer, StaggerItem } from "../components/MotionWrapper";
 
 const contactSchema = Yup.object().shape({
   name: Yup.string().required("Name is required"),
@@ -476,7 +476,7 @@ const HelpSupportPage = () => {
         )}
 
         <StaggerItem>
-          <div className="mx-auto mt-12 max-w-3xl rounded-2xl bg-gradient-to-r from-cyan-500 via-blue-500 to-indigo-500 p-8 text-center text-white shadow-lg">
+          <div className="mx-auto mt-12 max-w-4xl rounded-2xl bg-gradient-to-r from-cyan-500 via-blue-500 to-indigo-500 p-8 text-center text-white shadow-lg">
             <div className="mb-6 flex justify-center">
               <div className="rounded-full bg-white/20 p-3">
                 <svg

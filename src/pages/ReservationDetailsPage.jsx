@@ -43,9 +43,21 @@ export default function ReservationDetailsPage() {
     <div className="mx-auto p-4">
       <Link
         to="/reservations"
-        className="mb-4 inline-block text-cyan-600 hover:text-cyan-800"
+        className="mb-4 flex items-center text-cyan-600 hover:text-cyan-800"
       >
-        &larr; Back to My Reservations
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="mr-2 h-5 w-5"
+          viewBox="0 0 20 20"
+          fill="currentColor"
+        >
+          <path
+            fillRule="evenodd"
+            d="M9.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L7.414 9H15a1 1 0 110 2H7.414l2.293 2.293a1 1 0 010 1.414z"
+            clipRule="evenodd"
+          />
+        </svg>
+        Back to My Reservations
       </Link>
 
       <div className="mx-auto max-w-3xl">
