@@ -51,10 +51,10 @@ export default function Sidebar() {
     isLoading: isLoadingUser,
   } = useUser();
   const avatarUrl = user_metadata?.avatar_url || defaultUser;
-  const { data: reservations, isLoading: isLoadingReservations } =
+  const { data: reservations = [], isLoading: isLoadingReservations } =
     useUserReservations(user.id);
 
-  const upcomingReservations = reservations.filter((reservation) =>
+  const upcomingReservations = reservations?.filter((reservation) =>
     isAfter(new Date(reservation.date), new Date()),
   );
   const [isOpen, setIsOpen] = useState(false);

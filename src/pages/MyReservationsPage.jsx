@@ -11,11 +11,11 @@ export default function MyReservationsPage() {
   const { data: reservations = [], isLoading: isLoadingReservations } =
     useUserReservations(user?.id);
 
-  const upcomingReservations = reservations.filter((reservation) =>
+  const upcomingReservations = reservations?.filter((reservation) =>
     isAfter(new Date(reservation.date), new Date()),
   );
 
-  const pastReservations = reservations.filter(
+  const pastReservations = reservations?.filter(
     (reservation) => !isAfter(new Date(reservation.date), new Date()),
   );
 
