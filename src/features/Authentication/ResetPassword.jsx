@@ -73,7 +73,10 @@ export default function ResetPassword() {
             handleSubmit,
             isSubmitting,
           }) => (
-            <form onSubmit={handleSubmit} className="space-y-6 p-8 sm:p-10">
+            <form
+              onSubmit={handleSubmit}
+              className="flex flex-col gap-6 p-8 sm:p-10"
+            >
               <FormControl
                 variant="outlined"
                 className="w-full"
