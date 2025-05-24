@@ -17,7 +17,7 @@ export default function User() {
 
   return (
     <motion.div
-      className="flex items-center gap-2"
+      className="flex items-center gap-1.5 sm:gap-2"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5, delay: 0.1 }}
@@ -28,7 +28,7 @@ export default function User() {
       {user && (
         <Link
           to="/user"
-          className="group hidden h-10 w-10 overflow-hidden rounded-full bg-blue-100 p-0.5 text-cyan-600 transition-all duration-300 hover:bg-blue-200 md:block"
+          className="group hidden h-8 w-8 overflow-hidden rounded-full bg-blue-100 p-0.5 text-cyan-600 transition-all duration-300 hover:bg-blue-200 sm:h-9 sm:w-9 md:block md:h-10 md:w-10"
         >
           <div className="h-full w-full overflow-hidden rounded-full bg-white">
             <svg
@@ -52,13 +52,13 @@ export default function User() {
       {/* Mobile menu button */}
       <motion.button
         onClick={handleToggle}
-        className="ml-2 rounded-md p-2 text-gray-700 hover:bg-gray-100 md:hidden"
+        className="ml-1.5 rounded-md p-1.5 text-gray-700 hover:bg-gray-100 sm:ml-2 sm:p-2 md:hidden"
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.95 }}
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          className="h-6 w-6"
+          className="h-5 w-5 sm:h-6 sm:w-6"
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"

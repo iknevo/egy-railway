@@ -16,8 +16,8 @@ export default function Header() {
     <header
       className={`sticky top-0 z-9999 w-full bg-white/80 shadow-md backdrop-blur-2xl transition-all duration-300`}
     >
-      <div className="mx-auto px-6">
-        <div className="flex h-16 items-center justify-between">
+      <div className="mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex h-14 items-center justify-between sm:h-16">
           <Logo />
           <DesktopNav isActive={isActive} />
           <User />

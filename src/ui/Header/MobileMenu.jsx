@@ -51,12 +51,12 @@ export default function MobileMenu({ isActive }) {
       initial="closed"
       animate={mobileMenuOpen ? "open" : "closed"}
     >
-      <motion.div className="space-y-1 pt-2 pb-5">
+      <motion.div className="space-y-0.5 border-t border-gray-100 pt-2 pb-4 sm:space-y-1 sm:pt-3 sm:pb-5">
         {mobileMenuLinks.map((item) => (
           <motion.div key={item.title} variants={itemVariants}>
             <Link
               to={item.to}
-              className={`block rounded-md px-3 py-2 ${isActive(item.to)}`}
+              className={`block rounded-md px-3 py-2 text-sm sm:text-base ${isActive(item.to)}`}
               onClick={handleCloseMenu}
             >
               {item.title}
