@@ -9,6 +9,7 @@ import ConfirmDelete from "../ui/ConfirmDelete";
 import Loader from "../ui/Loader";
 import Modal from "../ui/Modal";
 import { formatToEGP } from "../utils/helpers";
+import DownloadTicket from "../components/DownloadTicket";
 
 export default function ReservationDetailsPage() {
   const navigate = useNavigate();
@@ -262,9 +263,7 @@ export default function ReservationDetailsPage() {
 
         {isUpcoming && (
           <div className="flex justify-center space-x-4">
-            <button className="cursor-pointer rounded-md bg-cyan-600 px-6 py-2 text-white hover:bg-cyan-700 focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 focus:outline-none">
-              Download Ticket
-            </button>
+            <DownloadTicket reservation={reservation} train={train} />
 
             <Modal>
               <Modal.Open opens="confirm-delete">
@@ -280,9 +279,6 @@ export default function ReservationDetailsPage() {
                 />
               </Modal.Window>
             </Modal>
-            {/* <button className="cursor-pointer rounded-md border border-red-300 px-6 py-2 text-red-700 hover:bg-red-50 focus:ring-2 focus:ring-red-500 focus:ring-offset-2 focus:outline-none">
-              Cancel Booking
-            </button> */}
           </div>
         )}
       </div>
