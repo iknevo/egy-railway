@@ -1,6 +1,6 @@
 import { Field, Form, Formik } from "formik";
 import { motion } from "framer-motion";
-import React, { useState } from "react";
+import { useState } from "react";
 import * as Yup from "yup";
 import { StaggerContainer, StaggerItem } from "../components/MotionWrapper";
 
@@ -14,122 +14,122 @@ const contactSchema = Yup.object().shape({
   terms: Yup.boolean().oneOf([true], "You must accept the terms"),
 });
 
-const HelpSupportPage = () => {
+// FAQ data
+const faqCategories = [
+  { id: "general", name: "General" },
+  { id: "booking", name: "Booking & Reservations" },
+  { id: "payment", name: "Payment & Refunds" },
+  { id: "travel", name: "Travel Experience" },
+  { id: "loyalty", name: "Loyalty Program" },
+];
+
+const faqs = {
+  general: [
+    {
+      id: "general-1",
+      question: "What is EgyRailway?",
+      answer:
+        "EgyRailway is Egypt's national railway booking platform, providing convenient online booking for train travel throughout Egypt. Our service allows you to search for trains, book tickets, manage reservations, and access travel information all in one place.",
+    },
+    {
+      id: "general-2",
+      question: "How do I create an account?",
+      answer:
+        "To create an account, click on the 'Sign Up' button on the homepage. Fill in your personal details, create a password, and verify your email address. Once your account is created, you can login and access all features of EgyRailway including booking tickets and managing your profile.",
+    },
+    {
+      id: "general-3",
+      question: "Is there a mobile app available?",
+      answer:
+        "Yes, EgyRailway is available as a mobile app for both iOS and Android devices. You can download it from the App Store or Google Play Store to access all the features of our platform on your mobile device.",
+    },
+  ],
+  booking: [
+    {
+      id: "booking-1",
+      question: "How far in advance can I book tickets?",
+      answer:
+        "You can book tickets up to 120 days (4 months) in advance for most routes. For special seasonal trains or holiday periods, booking windows may vary. We recommend booking early for popular routes and peak travel times to secure your preferred seats.",
+    },
+    {
+      id: "booking-2",
+      question: "Can I book tickets for someone else?",
+      answer:
+        "Yes, you can book tickets for family members or friends. When booking, you'll need to provide the passenger's full name, age, and ID information as it appears on their official identification document which will be checked during travel.",
+    },
+    {
+      id: "booking-3",
+      question: "How do I cancel or modify my booking?",
+      answer:
+        "To cancel or modify a booking, go to 'My Reservations' in your account, select the booking you wish to change, and follow the prompts to cancel or modify. Please note that cancellation fees may apply depending on how close to the departure date you make the change.",
+    },
+  ],
+  payment: [
+    {
+      id: "payment-1",
+      question: "What payment methods are accepted?",
+      answer:
+        "We accept various payment methods including credit/debit cards (Visa, Mastercard, American Express), mobile wallets, direct bank transfers, and Fawry payments at authorized outlets throughout Egypt.",
+    },
+    {
+      id: "payment-2",
+      question: "How do refunds work?",
+      answer:
+        "Refunds are processed based on our cancellation policy. Cancellations made more than 48 hours before departure typically receive a full refund. For cancellations between 24-48 hours before departure, a 25% fee applies. Cancellations less than 24 hours before departure may be subject to a 50% fee. Refunds are typically processed within 7-14 business days.",
+    },
+    {
+      id: "payment-3",
+      question: "Is my payment information secure?",
+      answer:
+        "Yes, we use industry-standard encryption and security protocols to protect your payment information. We comply with PCI DSS standards and do not store your complete credit card information on our servers.",
+    },
+  ],
+  travel: [
+    {
+      id: "travel-1",
+      question: "What types of train services are available?",
+      answer:
+        "EgyRailway offers several classes of service including First Class (air-conditioned with comfortable seating), Second Class (air-conditioned with standard seating), and Economy Class. We also operate special Express trains and Sleeper services on longer routes.",
+    },
+    {
+      id: "travel-2",
+      question: "What amenities are available on the trains?",
+      answer:
+        "Amenities vary by train class but generally include air conditioning, comfortable seating, restrooms, and food service on longer routes. First Class offers additional amenities such as power outlets, more spacious seating, and premium food options.",
+    },
+    {
+      id: "travel-3",
+      question: "How early should I arrive at the station?",
+      answer:
+        "We recommend arriving at the station at least 30 minutes before your scheduled departure time. For peak travel periods or major stations, consider arriving 45-60 minutes early to allow time for security checks and finding your platform.",
+    },
+  ],
+  loyalty: [
+    {
+      id: "loyalty-1",
+      question: "How does the loyalty program work?",
+      answer:
+        "Our loyalty program rewards frequent travelers with points for every journey. You earn 10 points per Egyptian Pound spent on tickets. These points can be redeemed for free tickets, upgrades, or other rewards through your account.",
+    },
+    {
+      id: "loyalty-2",
+      question: "What are the tier levels and benefits?",
+      answer:
+        "We offer three tier levels: Silver, Gold, and Platinum. Benefits increase with each tier and include perks such as priority booking, discounts, lounge access (Platinum), free seat selection, and bonus points on bookings.",
+    },
+    {
+      id: "loyalty-3",
+      question: "How long are my loyalty points valid?",
+      answer:
+        "Loyalty points are valid for 24 months from the date they are earned. To prevent points from expiring, you need to take at least one journey within a 12-month period.",
+    },
+  ],
+};
+
+export default function HelpSupportPage() {
   const [activeTab, setActiveTab] = useState("faq");
   const [activeCategory, setActiveCategory] = useState("general");
   const [expandedFaqs, setExpandedFaqs] = useState([]);
-
-  // FAQ data
-  const faqCategories = [
-    { id: "general", name: "General" },
-    { id: "booking", name: "Booking & Reservations" },
-    { id: "payment", name: "Payment & Refunds" },
-    { id: "travel", name: "Travel Experience" },
-    { id: "loyalty", name: "Loyalty Program" },
-  ];
-
-  const faqs = {
-    general: [
-      {
-        id: "general-1",
-        question: "What is EgyRailway?",
-        answer:
-          "EgyRailway is Egypt's national railway booking platform, providing convenient online booking for train travel throughout Egypt. Our service allows you to search for trains, book tickets, manage reservations, and access travel information all in one place.",
-      },
-      {
-        id: "general-2",
-        question: "How do I create an account?",
-        answer:
-          "To create an account, click on the 'Sign Up' button on the homepage. Fill in your personal details, create a password, and verify your email address. Once your account is created, you can login and access all features of EgyRailway including booking tickets and managing your profile.",
-      },
-      {
-        id: "general-3",
-        question: "Is there a mobile app available?",
-        answer:
-          "Yes, EgyRailway is available as a mobile app for both iOS and Android devices. You can download it from the App Store or Google Play Store to access all the features of our platform on your mobile device.",
-      },
-    ],
-    booking: [
-      {
-        id: "booking-1",
-        question: "How far in advance can I book tickets?",
-        answer:
-          "You can book tickets up to 120 days (4 months) in advance for most routes. For special seasonal trains or holiday periods, booking windows may vary. We recommend booking early for popular routes and peak travel times to secure your preferred seats.",
-      },
-      {
-        id: "booking-2",
-        question: "Can I book tickets for someone else?",
-        answer:
-          "Yes, you can book tickets for family members or friends. When booking, you'll need to provide the passenger's full name, age, and ID information as it appears on their official identification document which will be checked during travel.",
-      },
-      {
-        id: "booking-3",
-        question: "How do I cancel or modify my booking?",
-        answer:
-          "To cancel or modify a booking, go to 'My Reservations' in your account, select the booking you wish to change, and follow the prompts to cancel or modify. Please note that cancellation fees may apply depending on how close to the departure date you make the change.",
-      },
-    ],
-    payment: [
-      {
-        id: "payment-1",
-        question: "What payment methods are accepted?",
-        answer:
-          "We accept various payment methods including credit/debit cards (Visa, Mastercard, American Express), mobile wallets, direct bank transfers, and Fawry payments at authorized outlets throughout Egypt.",
-      },
-      {
-        id: "payment-2",
-        question: "How do refunds work?",
-        answer:
-          "Refunds are processed based on our cancellation policy. Cancellations made more than 48 hours before departure typically receive a full refund. For cancellations between 24-48 hours before departure, a 25% fee applies. Cancellations less than 24 hours before departure may be subject to a 50% fee. Refunds are typically processed within 7-14 business days.",
-      },
-      {
-        id: "payment-3",
-        question: "Is my payment information secure?",
-        answer:
-          "Yes, we use industry-standard encryption and security protocols to protect your payment information. We comply with PCI DSS standards and do not store your complete credit card information on our servers.",
-      },
-    ],
-    travel: [
-      {
-        id: "travel-1",
-        question: "What types of train services are available?",
-        answer:
-          "EgyRailway offers several classes of service including First Class (air-conditioned with comfortable seating), Second Class (air-conditioned with standard seating), and Economy Class. We also operate special Express trains and Sleeper services on longer routes.",
-      },
-      {
-        id: "travel-2",
-        question: "What amenities are available on the trains?",
-        answer:
-          "Amenities vary by train class but generally include air conditioning, comfortable seating, restrooms, and food service on longer routes. First Class offers additional amenities such as power outlets, more spacious seating, and premium food options.",
-      },
-      {
-        id: "travel-3",
-        question: "How early should I arrive at the station?",
-        answer:
-          "We recommend arriving at the station at least 30 minutes before your scheduled departure time. For peak travel periods or major stations, consider arriving 45-60 minutes early to allow time for security checks and finding your platform.",
-      },
-    ],
-    loyalty: [
-      {
-        id: "loyalty-1",
-        question: "How does the loyalty program work?",
-        answer:
-          "Our loyalty program rewards frequent travelers with points for every journey. You earn 10 points per Egyptian Pound spent on tickets. These points can be redeemed for free tickets, upgrades, or other rewards through your account.",
-      },
-      {
-        id: "loyalty-2",
-        question: "What are the tier levels and benefits?",
-        answer:
-          "We offer three tier levels: Silver, Gold, and Platinum. Benefits increase with each tier and include perks such as priority booking, discounts, lounge access (Platinum), free seat selection, and bonus points on bookings.",
-      },
-      {
-        id: "loyalty-3",
-        question: "How long are my loyalty points valid?",
-        answer:
-          "Loyalty points are valid for 24 months from the date they are earned. To prevent points from expiring, you need to take at least one journey within a 12-month period.",
-      },
-    ],
-  };
 
   const toggleFaq = (id) => {
     setExpandedFaqs((prev) => (prev.includes(id) ? [] : [id]));
@@ -524,6 +524,4 @@ const HelpSupportPage = () => {
       </StaggerContainer>
     </div>
   );
-};
-
-export default HelpSupportPage;
+}

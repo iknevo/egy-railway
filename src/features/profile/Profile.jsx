@@ -1,7 +1,7 @@
+import { Avatar } from "@mui/material";
 import { FaSignOutAlt, FaUserEdit } from "react-icons/fa";
 import { RiLockPasswordFill } from "react-icons/ri";
 import { useNavigate } from "react-router";
-import { defaultUser } from "../../assets";
 import Loader from "../../ui/Loader";
 import LoaderMini from "../../ui/LoaderMini";
 import { useLogout } from "../Authentication/useLogout";
@@ -13,7 +13,7 @@ export default function Profile() {
     isLoading,
   } = useUser();
 
-  const avatarUrl = user_metadata?.avatar_url || defaultUser;
+  const avatarUrl = user_metadata?.avatar_url;
   const { logout, isPending: isLoggingOut } = useLogout();
   const navigate = useNavigate();
 
@@ -34,13 +34,11 @@ export default function Profile() {
 
         <div className="p-8 sm:p-10">
           <div className="mb-8 flex items-center gap-6">
-            <div className="h-24 w-24 overflow-hidden rounded-full bg-gradient-to-r from-cyan-500 to-blue-500">
-              <img
-                src={avatarUrl}
-                alt="Profile"
-                className="h-full w-full object-cover"
-              />
-            </div>
+            <Avatar
+              alt={user_metadata.full_name}
+              src={avatarUrl}
+              sx={{ width: 100, height: 100 }}
+            />
             <div>
               <h3 className="text-2xl font-semibold text-gray-900">
                 {user_metadata.full_name}

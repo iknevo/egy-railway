@@ -3,11 +3,9 @@ import { motion } from "framer-motion";
 const pageVariants = {
   initial: {
     opacity: 0,
-    // y: 15,
   },
   animate: {
     opacity: 1,
-    // y: 0,
     transition: {
       duration: 0.4,
       ease: [0.22, 1, 0.36, 1],
@@ -15,7 +13,6 @@ const pageVariants = {
   },
   exit: {
     opacity: 0,
-    // y: -15,
     transition: {
       duration: 0.3,
       ease: [0.22, 1, 0.36, 1],
@@ -23,7 +20,6 @@ const pageVariants = {
   },
 };
 
-// Staggered children animations
 const containerVariants = {
   initial: {
     opacity: 0,
@@ -51,7 +47,6 @@ const MotionWrapper = ({ children }) => {
   );
 };
 
-// Export named components for more animation options
 export const StaggerContainer = ({ children, delay = 0, className = "" }) => (
   <motion.div
     variants={containerVariants}
@@ -64,7 +59,6 @@ export const StaggerContainer = ({ children, delay = 0, className = "" }) => (
   </motion.div>
 );
 
-// Item for stagger animations
 export const StaggerItem = ({ children, className = "", delay = 0 }) => (
   <motion.div
     variants={{
@@ -85,7 +79,6 @@ export const StaggerItem = ({ children, className = "", delay = 0 }) => (
   </motion.div>
 );
 
-// Fade in animation component
 export const FadeIn = ({ children, delay = 0, className = "" }) => (
   <motion.div
     initial={{ opacity: 0 }}

@@ -2,7 +2,6 @@ import { FaLock } from "react-icons/fa";
 import { HiOutlineHome, HiOutlineLogin } from "react-icons/hi";
 import { Link } from "react-router";
 import Auth from "../features/Authentication/Auth";
-import LoginButton from "../features/Authentication/LoginButton";
 import { useUser } from "../features/Authentication/useUser";
 import Loader from "../ui/Loader";
 import Modal from "../ui/Modal";
@@ -19,8 +18,8 @@ function UnauthorizedMessage() {
             Access Restricted
           </h2>
           <p className="text-center text-base text-gray-600 sm:text-lg">
-            This content is only available to registered users. Please sign in
-            to continue.
+            This content is only available to registered users. Please log in to
+            continue.
           </p>
         </div>
 

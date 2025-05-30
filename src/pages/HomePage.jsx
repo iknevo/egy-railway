@@ -1,6 +1,17 @@
 import { motion } from "framer-motion";
 import { useRef } from "react";
 import { Link } from "react-router";
+import PopularTrains from "../features/trains/PopularTrains";
+
+// Animation variants
+const fadeInUp = {
+  initial: { opacity: 0, y: 20 },
+  animate: { opacity: 1, y: 0, transition: { duration: 0.6 } },
+};
+
+const staggerContainer = {
+  animate: { transition: { staggerChildren: 0.1 } },
+};
 
 export default function HomePage() {
   const featuresRef = useRef(null);
@@ -13,56 +24,6 @@ export default function HomePage() {
         behavior: "smooth",
       });
     }
-  };
-
-  // Sample popular routes data
-  const popularRoutes = [
-    {
-      id: 1,
-      from: "Cairo",
-      to: "Alexandria",
-      price: 45,
-      duration: "2h 30m",
-      image:
-        "https://images.unsplash.com/photo-1544815521-80841127c00f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=80",
-    },
-    {
-      id: 2,
-      from: "Cairo",
-      to: "Luxor",
-      price: 120,
-      duration: "8h 45m",
-      image:
-        "https://images.unsplash.com/photo-1544815521-80841127c00f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=80",
-    },
-    {
-      id: 3,
-      from: "Alexandria",
-      to: "Aswan",
-      price: 150,
-      duration: "10h 15m",
-      image:
-        "https://images.unsplash.com/photo-1544815521-80841127c00f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=80",
-    },
-    {
-      id: 4,
-      from: "Hurghada",
-      to: "Cairo",
-      price: 85,
-      duration: "6h 10m",
-      image:
-        "https://images.unsplash.com/photo-1544815521-80841127c00f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=80",
-    },
-  ];
-
-  // Animation variants
-  const fadeInUp = {
-    initial: { opacity: 0, y: 20 },
-    animate: { opacity: 1, y: 0, transition: { duration: 0.6 } },
-  };
-
-  const staggerContainer = {
-    animate: { transition: { staggerChildren: 0.1 } },
   };
 
   return (
@@ -354,7 +315,7 @@ export default function HomePage() {
               TRAVEL WITH EASE
             </span>
             <h2 className="mt-4 text-4xl font-bold text-gray-900 md:text-5xl">
-              Popular Routes
+              Popular Trains
             </h2>
             <p className="mx-auto mt-6 max-w-2xl text-lg text-gray-600">
               Discover Egypt's most traveled train routes and top destinations.
@@ -362,7 +323,7 @@ export default function HomePage() {
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
+          {/* <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
             {popularRoutes.map((route, index) => (
               <motion.div
                 key={route.id}
@@ -426,7 +387,8 @@ export default function HomePage() {
                 </div>
               </motion.div>
             ))}
-          </div>
+          </div> */}
+          <PopularTrains />
 
           <motion.div
             className="mt-16 text-center"

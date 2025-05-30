@@ -1,3 +1,4 @@
+import { Avatar } from "@mui/material";
 import { isAfter } from "date-fns";
 import { useState } from "react";
 import { FaCalendarCheck, FaUser, FaUserEdit } from "react-icons/fa";
@@ -5,7 +6,6 @@ import { FaCircleQuestion, FaLocationDot } from "react-icons/fa6";
 import { LuSettings } from "react-icons/lu";
 import { RiLockPasswordFill } from "react-icons/ri";
 import { Link, useLocation } from "react-router";
-import { defaultUser } from "../assets";
 import { useUser } from "../features/Authentication/useUser";
 import { useUserReservations } from "../features/reservations/useUserReservations";
 import Loader from "../ui/Loader";
@@ -50,7 +50,7 @@ export default function Sidebar() {
     user: { user_metadata },
     isLoading: isLoadingUser,
   } = useUser();
-  const avatarUrl = user_metadata?.avatar_url || defaultUser;
+  const avatarUrl = user_metadata?.avatar_url;
   const { data: reservations = [], isLoading: isLoadingReservations } =
     useUserReservations(user.id);
 
@@ -142,16 +142,11 @@ export default function Sidebar() {
         <div className="border-b border-gray-200 px-4 py-5 md:py-0">
           <div className="flex items-center">
             <div className="relative mr-3">
-              <div className="h-10 w-10">
-                <div className="h-full w-full overflow-hidden rounded-full bg-white">
-                  <img
-                    className="h-full w-full"
-                    src={avatarUrl}
-                    alt="user's avatar"
-                  />
-                </div>
-              </div>
-
+              <Avatar
+                alt={user_metadata.full_name}
+                src={avatarUrl}
+                sx={{ width: 45, height: 45 }}
+              />
               <div className="absolute -right-1 -bottom-1 h-4 w-4 rounded-full border-2 border-white bg-green-500"></div>
             </div>
             <div>

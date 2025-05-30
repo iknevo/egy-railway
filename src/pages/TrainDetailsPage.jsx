@@ -41,7 +41,7 @@ export default function TrainDetailsPage() {
               clipRule="evenodd"
             />
           </svg>
-          Back to search results
+          Back to search
         </Link>
 
         <div className="overflow-hidden rounded-xl bg-white shadow-lg">
