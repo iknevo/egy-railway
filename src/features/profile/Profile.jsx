@@ -34,16 +34,20 @@ export default function Profile() {
 
         <div className="p-8 sm:p-10">
           <div className="mb-8 flex items-center gap-6">
-            <Avatar
-              alt={user_metadata.full_name}
-              src={avatarUrl}
-              sx={{ width: 100, height: 100 }}
-            />
+            <div className="h-16 w-16 overflow-hidden rounded-full md:h-24 md:w-24">
+              <Avatar
+                alt={user_metadata.full_name}
+                src={avatarUrl}
+                sx={{ width: `100%`, height: `100%` }}
+              />
+            </div>
             <div>
-              <h3 className="text-2xl font-semibold text-gray-900">
+              <h3 className="text-lg font-semibold text-gray-900 md:text-2xl">
                 {user_metadata.full_name}
               </h3>
-              <p className="text-lg text-gray-600">{user_metadata?.email}</p>
+              <p className="text-base text-gray-600 md:text-lg">
+                {user_metadata?.email}
+              </p>
             </div>
           </div>
 
