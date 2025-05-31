@@ -6,7 +6,6 @@ import MobileMenu from "./MobileMenu";
 
 export default function Header() {
   const location = useLocation();
-  // const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   function isActive(path) {
     return location.pathname.startsWith(path)

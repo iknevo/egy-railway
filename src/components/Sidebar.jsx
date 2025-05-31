@@ -111,7 +111,7 @@ export default function Sidebar() {
       {isOpen && (
         <div
           onClick={toggleSidebar}
-          className="fixed inset-0 z-30 bg-gray-900/50 backdrop-blur-sm md:hidden"
+          className="fixed inset-0 z-30 bg-gray-900/10 backdrop-blur-md md:hidden"
         ></div>
       )}
 

@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useState } from "react";
 
 const MenuContext = createContext();
 
@@ -15,12 +15,5 @@ function MenuProvider({ children }) {
     </MenuContext.Provider>
   );
 }
-function useMenu() {
-  const context = useContext(MenuContext);
-  if (context === undefined) {
-    throw new Error("MenuContext was used outside of the MenuProdiver");
-  }
-  return context;
-}
 
-export { MenuProvider, useMenu };
+export { MenuContext, MenuProvider };

@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router";
-import { useMenu } from "../../context/MenuContext";
+import { useMenu } from "../../context/useMenu";
 import LoaderMini from "../../ui/LoaderMini";
 import LoginButton from "./LoginButton";
 import { useUser } from "./useUser";

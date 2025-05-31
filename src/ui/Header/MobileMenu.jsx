@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router";
-import { useMenu } from "../../context/MenuContext";
+import { useMenu } from "../../context/useMenu";
 
 const mobileMenuLinks = [
   { title: "Home", to: "/home" },
