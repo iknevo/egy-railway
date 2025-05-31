@@ -1,7 +1,6 @@
 import { motion } from "framer-motion";
-import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router";
-import { toggle } from "../../state/slices/headerSlice";
+import { useMenu } from "../../context/MenuContext";
 
 const mobileMenuLinks = [
   { title: "Home", to: "/home" },
@@ -11,11 +10,9 @@ const mobileMenuLinks = [
 ];
 
 export default function MobileMenu({ isActive }) {
-  const mobileMenuOpen = useSelector((state) => state.header.mobileMenuOpen);
-  const dispatch = useDispatch();
-
+  const { menuOpen, toggleMenu } = useMenu();
   function handleCloseMenu() {
-    dispatch(toggle());
+    toggleMenu();
   }
 
   const menuVariants = {
@@ -49,7 +46,7 @@ export default function MobileMenu({ isActive }) {
       className="overflow-hidden md:hidden"
       variants={menuVariants}
       initial="closed"
-      animate={mobileMenuOpen ? "open" : "closed"}
+      animate={menuOpen ? "open" : "closed"}
     >
       <motion.div className="space-y-0.5 border-t border-gray-100 pt-2 pb-4 sm:space-y-1 sm:pt-3 sm:pb-5">
         {mobileMenuLinks.map((item) => (

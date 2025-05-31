@@ -1,18 +1,16 @@
 import { motion } from "framer-motion";
-import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router";
-import { toggle } from "../../state/slices/headerSlice";
+import { useMenu } from "../../context/MenuContext";
 import LoaderMini from "../../ui/LoaderMini";
 import LoginButton from "./LoginButton";
 import { useUser } from "./useUser";
 
 export default function User() {
-  const mobileMenuOpen = useSelector((state) => state.header.mobileMenuOpen);
-  const dispatch = useDispatch();
   const { user, isLoading } = useUser();
+  const { menuOpen, toggleMenu } = useMenu();
 
   function handleToggle() {
-    dispatch(toggle());
+    toggleMenu();
   }
 
   return (
@@ -63,7 +61,7 @@ export default function User() {
           viewBox="0 0 24 24"
           stroke="currentColor"
         >
-          {mobileMenuOpen ? (
+          {menuOpen ? (
             <path
               strokeLinecap="round"
               strokeLinejoin="round"
