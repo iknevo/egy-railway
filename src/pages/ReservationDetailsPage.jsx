@@ -1,6 +1,7 @@
 import { useQueryClient } from "@tanstack/react-query";
 import { format, isAfter } from "date-fns";
 import { Link, useNavigate, useParams } from "react-router";
+import DownloadTicket from "../components/DownloadTicket";
 import { useUser } from "../features/Authentication/useUser";
 import { useDeleteReservation } from "../features/reservations/useDeleteReservation";
 import { useReservation } from "../features/reservations/useReservation";
@@ -9,7 +10,6 @@ import ConfirmDelete from "../ui/ConfirmDelete";
 import Loader from "../ui/Loader";
 import Modal from "../ui/Modal";
 import { formatToEGP } from "../utils/helpers";
-import DownloadTicket from "../components/DownloadTicket";
 
 export default function ReservationDetailsPage() {
   const navigate = useNavigate();
@@ -246,8 +246,7 @@ export default function ReservationDetailsPage() {
             </div>
 
             <div className="rounded-lg bg-white p-6 shadow-md">
-              <h2 className="mb-4 text-lg font-semibold">Ticket Details</h2>
-
+              <h2 className="mb-2 text-lg font-semibold">Ticket Details</h2>
               <div>
                 <div className="mb-1 text-sm text-gray-600">Payment</div>
                 <div className="font-medium">
