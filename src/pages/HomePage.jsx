@@ -279,7 +279,7 @@ export default function HomePage() {
               onClick={() => scrollToSection(routesRef)}
               className="group inline-flex cursor-pointer items-center gap-2 text-cyan-600 transition-all duration-300 hover:text-cyan-800"
             >
-              <span className="text-lg font-medium">View popular routes</span>
+              <span className="text-lg font-medium">View popular trains</span>
               <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-cyan-100 transition-all duration-300 group-hover:bg-cyan-200">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -401,7 +401,7 @@ export default function HomePage() {
               to="/trains"
               className="group inline-flex items-center gap-2 rounded-full bg-cyan-50 px-8 py-4 text-lg font-medium text-cyan-600 transition-all duration-300 hover:bg-cyan-100"
             >
-              <span>View all routes</span>
+              <span>Book other trains</span>
               <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-cyan-100 transition-all duration-300 group-hover:bg-cyan-200">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
