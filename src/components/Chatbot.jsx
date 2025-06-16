@@ -1,5 +1,6 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
+import toast from "react-hot-toast";
 import { IoIosSend, IoMdTrash } from "react-icons/io";
 import { IoClose } from "react-icons/io5";
 import { RiRobot2Fill } from "react-icons/ri";
@@ -48,6 +49,10 @@ const Chatbot = ({ isOpen, onClose }) => {
             content: data.data.answer,
           },
         ]);
+      },
+      onError: (error) => {
+        console.error(error);
+        toast.error(error.message);
       },
     });
   };
