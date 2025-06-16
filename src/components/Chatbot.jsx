@@ -15,6 +15,8 @@ const Chatbot = ({ isOpen, onClose }) => {
   ]);
   const [inputValue, setInputValue] = useState("");
   const [isTyping, setIsTyping] = useState(false);
+  const [error, setError] = useState(null);
+  const [lastMessage, setLastMessage] = useState(null);
   const messagesEndRef = useRef(null);
   const { mutate: sendMessage, isPending } = useQueryMutation("query");
 
@@ -30,18 +32,18 @@ const Chatbot = ({ isOpen, onClose }) => {
     setIsTyping(isPending);
   }, [isPending]);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (!inputValue.trim().length) return;
-
-    setMessages((prev) => [...prev, { type: "user", content: inputValue }]);
-    setInputValue("");
-    setIsTyping(isPending);
+  const handleRetry = () => {
+    if (!lastMessage) return;
+    setError(null);
+    setIsTyping(true);
     const messageSent = {
-      question: inputValue,
+      question: lastMessage,
     };
     sendMessage(messageSent, {
       onSuccess: (data) => {
+        if (!data?.data?.answer) {
+          throw new Error("Invalid response from server");
+        }
         setMessages((prev) => [
           ...prev,
           {
@@ -49,10 +51,63 @@ const Chatbot = ({ isOpen, onClose }) => {
             content: data.data.answer,
           },
         ]);
+        setLastMessage(null);
       },
       onError: (error) => {
-        console.error(error);
-        toast.error(error.message);
+        console.error("Chat error:", error);
+        setError(error.message);
+        setMessages((prev) => [
+          ...prev,
+          {
+            type: "bot",
+            content:
+              "I apologize, but I'm having trouble processing your request. Please try again later.",
+          },
+        ]);
+      },
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!inputValue.trim().length) {
+      toast.error("Please enter a message");
+      return;
+    }
+
+    setError(null);
+    setMessages((prev) => [...prev, { type: "user", content: inputValue }]);
+    setLastMessage(inputValue);
+    setInputValue("");
+    setIsTyping(true);
+    const messageSent = {
+      question: inputValue,
+    };
+    sendMessage(messageSent, {
+      onSuccess: (data) => {
+        if (!data?.data?.answer) {
+          throw new Error("Invalid response from server");
+        }
+        setMessages((prev) => [
+          ...prev,
+          {
+            type: "bot",
+            content: data.data.answer,
+          },
+        ]);
+        setLastMessage(null);
+      },
+      onError: (error) => {
+        console.error("Chat error:", error);
+        setError(error.message);
+        setMessages((prev) => [
+          ...prev,
+          {
+            type: "bot",
+            content:
+              "I apologize, but I'm having trouble processing your request. Please try again later.",
+          },
+        ]);
       },
     });
   };
@@ -64,6 +119,8 @@ const Chatbot = ({ isOpen, onClose }) => {
         content: "Hello! How can I help you today?",
       },
     ]);
+    setError(null);
+    setLastMessage(null);
   };
 
   return (
@@ -143,6 +200,25 @@ const Chatbot = ({ isOpen, onClose }) => {
                   </div>
                 </motion.div>
               )}
+              {error && (
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="flex flex-col space-y-2"
+                >
+                  <div className="max-w-[80%] rounded-lg bg-red-100 px-4 py-2 text-center text-red-600">
+                    {error}
+                  </div>
+                  {lastMessage && (
+                    <button
+                      onClick={handleRetry}
+                      className="max-w-[80%] cursor-pointer rounded-lg bg-gradient-to-r from-cyan-500 to-blue-500 px-4 py-2 text-sm text-white hover:opacity-90"
+                    >
+                      Try Again
+                    </button>
+                  )}
+                </motion.div>
+              )}
               <div ref={messagesEndRef} />
             </div>
           </div>
@@ -159,10 +235,14 @@ const Chatbot = ({ isOpen, onClose }) => {
                 onChange={(e) => setInputValue(e.target.value)}
                 placeholder="Type your message..."
                 className="flex-1 rounded-lg border border-gray-300 px-4 py-2 focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 focus:outline-none"
+                disabled={isPending}
               />
               <button
                 type="submit"
-                className="cursor-pointer rounded-lg bg-gradient-to-r from-cyan-500 to-blue-500 px-4 py-2 text-white hover:opacity-90"
+                disabled={isPending}
+                className={`cursor-pointer rounded-lg bg-gradient-to-r from-cyan-500 to-blue-500 px-4 py-2 text-white hover:opacity-90 ${
+                  isPending ? "cursor-not-allowed opacity-50" : ""
+                }`}
               >
                 <IoIosSend className="h-5 w-5" />
               </button>
