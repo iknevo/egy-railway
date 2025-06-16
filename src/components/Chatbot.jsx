@@ -1,6 +1,9 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { IoIosSend, IoMdTrash } from "react-icons/io";
+import { IoClose } from "react-icons/io5";
+import { RiRobot2Fill } from "react-icons/ri";
+import { useQueryMutation } from "../lib/useQueryMutation";
 
 const Chatbot = ({ isOpen, onClose }) => {
   const [messages, setMessages] = useState([
@@ -12,6 +15,7 @@ const Chatbot = ({ isOpen, onClose }) => {
   const [inputValue, setInputValue] = useState("");
   const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef(null);
+  const { mutate: sendMessage, isPending } = useQueryMutation("query");
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -21,29 +25,31 @@ const Chatbot = ({ isOpen, onClose }) => {
     scrollToBottom();
   }, [messages, isTyping]);
 
+  useEffect(() => {
+    setIsTyping(isPending);
+  }, [isPending]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!inputValue.trim()) return;
+    if (!inputValue.trim().length) return;
 
-    // Add user message
     setMessages((prev) => [...prev, { type: "user", content: inputValue }]);
     setInputValue("");
-
-    // Show typing indicator
-    setIsTyping(true);
-
-    // Simulate bot response (replace with actual API call)
-    setTimeout(() => {
-      setIsTyping(false);
-      setMessages((prev) => [
-        ...prev,
-        {
-          type: "bot",
-          content:
-            "Thank you for your message. Our team will get back to you shortly.",
-        },
-      ]);
-    }, 2000);
+    setIsTyping(isPending);
+    const messageSent = {
+      question: inputValue,
+    };
+    sendMessage(messageSent, {
+      onSuccess: (data) => {
+        setMessages((prev) => [
+          ...prev,
+          {
+            type: "bot",
+            content: data.data.answer,
+          },
+        ]);
+      },
+    });
   };
 
   const handleClearChat = () => {
@@ -68,52 +74,28 @@ const Chatbot = ({ isOpen, onClose }) => {
           <div className="flex items-center justify-between rounded-t-xl bg-gradient-to-r from-cyan-500 via-blue-500 to-indigo-500 px-6 py-4">
             <div className="flex items-center space-x-3">
               <div className="h-10 w-10 rounded-full bg-white/20 p-2">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6 text-white"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"
-                  />
-                </svg>
+                <RiRobot2Fill className="h-6 w-6 text-white" />
               </div>
               <div>
-                <h3 className="text-lg font-semibold text-white">Live Chat</h3>
-                <p className="text-sm text-white/80">We're here to help</p>
+                <h3 className="text-lg font-semibold text-white">
+                  EgyRailway bot
+                </h3>
+                <p className="text-sm text-white/80">I'm here to help</p>
               </div>
             </div>
             <div className="flex items-center space-x-2">
               <button
                 onClick={handleClearChat}
-                className="rounded-full p-1 text-white hover:bg-white/20"
+                className="cursor-pointer rounded-full p-1 text-white hover:bg-white/20"
                 title="Clear chat"
               >
                 <IoMdTrash className="h-5 w-5" />
               </button>
               <button
                 onClick={onClose}
-                className="rounded-full p-1 text-white hover:bg-white/20"
+                className="cursor-pointer rounded-full p-1 text-white hover:bg-white/20"
               >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M6 18L18 6M6 6l12 12"
-                  />
-                </svg>
+                <IoClose className="h-6 w-6" />
               </button>
             </div>
           </div>
@@ -126,14 +108,16 @@ const Chatbot = ({ isOpen, onClose }) => {
                   key={index}
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className={`flex ${message.type === "user" ? "justify-end" : "justify-start"
-                    }`}
+                  className={`flex ${
+                    message.type === "user" ? "justify-end" : "justify-start"
+                  }`}
                 >
                   <div
-                    className={`max-w-[80%] rounded-2xl px-4 py-2 ${message.type === "user"
-                      ? "bg-gradient-to-r from-cyan-500 to-blue-500 text-white"
-                      : "bg-gray-100 text-gray-800"
-                      }`}
+                    className={`max-w-[80%] rounded-2xl px-4 py-2 ${
+                      message.type === "user"
+                        ? "bg-gradient-to-r from-cyan-500 to-blue-500 text-white"
+                        : "bg-gray-100 text-gray-800"
+                    }`}
                   >
                     {message.content}
                   </div>
@@ -145,7 +129,7 @@ const Chatbot = ({ isOpen, onClose }) => {
                   animate={{ opacity: 1, y: 0 }}
                   className="flex justify-start"
                 >
-                  <div className="max-w-[80%] rounded-2xl bg-gray-100 px-4 py-2">
+                  <div className="max-w-[80%] rounded-full bg-gray-100 p-3">
                     <div className="flex space-x-2">
                       <div className="h-2 w-2 animate-bounce rounded-full bg-gray-400 [animation-delay:-0.3s]"></div>
                       <div className="h-2 w-2 animate-bounce rounded-full bg-gray-400 [animation-delay:-0.15s]"></div>
@@ -173,7 +157,7 @@ const Chatbot = ({ isOpen, onClose }) => {
               />
               <button
                 type="submit"
-                className="rounded-lg bg-gradient-to-r from-cyan-500 to-blue-500 px-4 py-2 text-white hover:opacity-90"
+                className="cursor-pointer rounded-lg bg-gradient-to-r from-cyan-500 to-blue-500 px-4 py-2 text-white hover:opacity-90"
               >
                 <IoIosSend className="h-5 w-5" />
               </button>

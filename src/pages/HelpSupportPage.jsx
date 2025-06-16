@@ -1,6 +1,7 @@
 import { Field, Form, Formik } from "formik";
 import { motion } from "framer-motion";
 import { useState } from "react";
+import { RiRobot2Fill } from "react-icons/ri";
 import * as Yup from "yup";
 import Chatbot from "../components/Chatbot";
 import { StaggerContainer, StaggerItem } from "../components/MotionWrapper";
@@ -159,7 +160,7 @@ export default function HelpSupportPage() {
         <StaggerItem>
           <div className="mb-8 flex justify-center border-b border-gray-200">
             <button
-              className={`mr-4 border-b-2 px-6 py-3 text-lg font-medium transition-colors ${
+              className={`mr-4 cursor-pointer border-b-2 px-6 py-3 text-lg font-medium transition-colors ${
                 activeTab === "faq"
                   ? "border-cyan-600 text-cyan-600"
                   : "border-transparent text-gray-500 hover:text-gray-700"
@@ -169,7 +170,7 @@ export default function HelpSupportPage() {
               Frequently Asked Questions
             </button>
             <button
-              className={`mr-4 border-b-2 px-6 py-3 text-lg font-medium transition-colors ${
+              className={`mr-4 cursor-pointer border-b-2 px-6 py-3 text-lg font-medium transition-colors ${
                 activeTab === "contact"
                   ? "border-cyan-600 text-cyan-600"
                   : "border-transparent text-gray-500 hover:text-gray-700"
@@ -188,7 +189,7 @@ export default function HelpSupportPage() {
                 {faqCategories.map((category) => (
                   <button
                     key={category.id}
-                    className={`rounded-full px-6 py-2.5 text-sm font-medium transition-all ${
+                    className={`cursor-pointer rounded-full px-6 py-2.5 text-sm font-medium transition-all ${
                       activeCategory === category.id
                         ? "bg-gradient-to-r from-cyan-500 to-blue-500 text-white shadow-lg"
                         : "bg-gray-100 text-gray-600 hover:bg-gray-200"
@@ -212,7 +213,7 @@ export default function HelpSupportPage() {
                     transition={{ duration: 0.3 }}
                   >
                     <button
-                      className="flex w-full items-center justify-between px-6 py-4 text-left font-medium text-gray-800 focus:outline-none"
+                      className="flex w-full cursor-pointer items-center justify-between px-6 py-4 text-left font-medium text-gray-800 focus:outline-none"
                       onClick={() => toggleFaq(faq.id)}
                     >
                       <span className="text-lg">{faq.question}</span>
@@ -501,28 +502,15 @@ export default function HelpSupportPage() {
               Need Immediate Assistance?
             </h3>
             <p className="mb-6 text-lg text-white/90">
-              Our support team is available 24/7 for urgent issues related to
-              your bookings.
+              Our chat bot is available 24/7 for any question related to trains
+              and available routes.
             </p>
             <button
               className="inline-flex cursor-pointer items-center rounded-full bg-white px-6 py-2.5 text-base font-medium text-cyan-600 shadow-md transition-all hover:bg-gray-100 focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-cyan-500 focus:outline-none"
               onClick={() => setIsChatOpen((open) => !open)}
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="mr-2 h-5 w-5"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
-                />
-              </svg>
-              Start Live Chat Now
+              <RiRobot2Fill className="mr-2 h-6 w-6" />
+              <span>Chat Now</span>
             </button>
           </div>
         </StaggerItem>
