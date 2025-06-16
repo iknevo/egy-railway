@@ -1,6 +1,6 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
-import { IoIosSend } from "react-icons/io";
+import { IoIosSend, IoMdTrash } from "react-icons/io";
 
 const Chatbot = ({ isOpen, onClose }) => {
   const [messages, setMessages] = useState([
@@ -46,6 +46,15 @@ const Chatbot = ({ isOpen, onClose }) => {
     }, 2000);
   };
 
+  const handleClearChat = () => {
+    setMessages([
+      {
+        type: "bot",
+        content: "Hello! How can I help you today?",
+      },
+    ]);
+  };
+
   return (
     <AnimatePresence>
       {isOpen && (
@@ -79,25 +88,34 @@ const Chatbot = ({ isOpen, onClose }) => {
                 <p className="text-sm text-white/80">We're here to help</p>
               </div>
             </div>
-            <button
-              onClick={onClose}
-              className="rounded-full p-1 text-white hover:bg-white/20"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
+            <div className="flex items-center space-x-2">
+              <button
+                onClick={handleClearChat}
+                className="rounded-full p-1 text-white hover:bg-white/20"
+                title="Clear chat"
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              </svg>
-            </button>
+                <IoMdTrash className="h-5 w-5" />
+              </button>
+              <button
+                onClick={onClose}
+                className="rounded-full p-1 text-white hover:bg-white/20"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-6 w-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
+              </button>
+            </div>
           </div>
 
           {/* Chat messages */}
@@ -108,16 +126,14 @@ const Chatbot = ({ isOpen, onClose }) => {
                   key={index}
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className={`flex ${
-                    message.type === "user" ? "justify-end" : "justify-start"
-                  }`}
+                  className={`flex ${message.type === "user" ? "justify-end" : "justify-start"
+                    }`}
                 >
                   <div
-                    className={`max-w-[80%] rounded-2xl px-4 py-2 ${
-                      message.type === "user"
-                        ? "bg-gradient-to-r from-cyan-500 to-blue-500 text-white"
-                        : "bg-gray-100 text-gray-800"
-                    }`}
+                    className={`max-w-[80%] rounded-2xl px-4 py-2 ${message.type === "user"
+                      ? "bg-gradient-to-r from-cyan-500 to-blue-500 text-white"
+                      : "bg-gray-100 text-gray-800"
+                      }`}
                   >
                     {message.content}
                   </div>
