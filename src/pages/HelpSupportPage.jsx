@@ -2,6 +2,7 @@ import { Field, Form, Formik } from "formik";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import * as Yup from "yup";
+import Chatbot from "../components/Chatbot";
 import { StaggerContainer, StaggerItem } from "../components/MotionWrapper";
 
 const contactSchema = Yup.object().shape({
@@ -130,6 +131,7 @@ export default function HelpSupportPage() {
   const [activeTab, setActiveTab] = useState("faq");
   const [activeCategory, setActiveCategory] = useState("general");
   const [expandedFaqs, setExpandedFaqs] = useState([]);
+  const [isChatOpen, setIsChatOpen] = useState(false);
 
   const toggleFaq = (id) => {
     setExpandedFaqs((prev) => (prev.includes(id) ? [] : [id]));
@@ -502,7 +504,10 @@ export default function HelpSupportPage() {
               Our support team is available 24/7 for urgent issues related to
               your bookings.
             </p>
-            <button className="inline-flex items-center rounded-full bg-white px-6 py-2.5 text-base font-medium text-cyan-600 shadow-md transition-all hover:bg-gray-100 focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-cyan-500 focus:outline-none">
+            <button
+              className="inline-flex cursor-pointer items-center rounded-full bg-white px-6 py-2.5 text-base font-medium text-cyan-600 shadow-md transition-all hover:bg-gray-100 focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-cyan-500 focus:outline-none"
+              onClick={() => setIsChatOpen((open) => !open)}
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="mr-2 h-5 w-5"
@@ -522,6 +527,8 @@ export default function HelpSupportPage() {
           </div>
         </StaggerItem>
       </StaggerContainer>
+
+      <Chatbot isOpen={isChatOpen} onClose={() => setIsChatOpen(false)} />
     </div>
   );
 }
