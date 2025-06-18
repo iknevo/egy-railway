@@ -1,6 +1,8 @@
 import { motion } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useState } from "react";
+import { RiRobot2Fill } from "react-icons/ri";
 import { Link } from "react-router";
+import Chatbot from "../components/Chatbot";
 import PopularTrains from "../features/trains/PopularTrains";
 
 // Animation variants
@@ -16,6 +18,7 @@ const staggerContainer = {
 export default function HomePage() {
   const featuresRef = useRef(null);
   const routesRef = useRef(null);
+  const [isChatbotOpen, setIsChatbotOpen] = useState(false);
 
   const scrollToSection = (ref) => {
     if (ref && ref.current) {
@@ -489,6 +492,25 @@ export default function HomePage() {
 
         <div className="absolute top-0 right-0 left-0 h-24 bg-gradient-to-b from-white to-transparent"></div>
       </section>
+
+      {/* Floating Chatbot Button */}
+      {/* <button
+        onClick={() => setIsChatbotOpen(true)}
+        className="fixed bottom-6 right-6 z-50 flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-r from-cyan-500 to-blue-600 shadow-lg hover:scale-110 transition-transform duration-200 focus:outline-none"
+        aria-label="Open Chatbot"
+        style={{ boxShadow: "0 4px 24px rgba(0,0,0,0.18)" }}
+      >
+        <RiRobot2Fill className="h-8 w-8 text-white" />
+      </button> */}
+            <button
+              className="fixed bottom-8 right-8 z-50 flex text-white  items-center justify-center rounded-full bg-gradient-to-r from-cyan-500 to-blue-600 hover:scale-110  duration-200 focus:outline-none  cursor-pointer  bg-white px-6 py-2.5 text-base font-medium shadow-md transition-all hover:bg-gray-100 focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-cyan-500"
+              onClick={() => setIsChatbotOpen((open) => !open)}
+            >
+              <RiRobot2Fill className="mr-2 h-6 w-6" />
+              <span>Chat Now</span>
+            </button>
+      {/* Chatbot Modal */}
+      <Chatbot isOpen={isChatbotOpen} onClose={() => setIsChatbotOpen(false)} />
     </div>
   );
 }
