@@ -1,3 +1,4 @@
+import { RESULTS_PER_PAGE } from "../utils/constants";
 import supabase from "./supabase";
 
 export async function getAllTrains() {
@@ -18,17 +19,24 @@ export async function getPopularTrains() {
   return data;
 }
 
-export async function getTrains({ trainFrom, trainTo }) {
-  const { data, error } = await supabase
+export async function getTrains({ trainFrom, trainTo, page, filter }) {
+  let query = supabase
     .from("trains")
-    .select("*")
+    .select("*", { count: "exact" })
     .eq("trainFrom", trainFrom)
     .eq("trainTo", trainTo);
+  if (filter) query = query.eq(filter.field, filter.value);
+  if (page) {
+    const from = (page - 1) * RESULTS_PER_PAGE;
+    const to = from + RESULTS_PER_PAGE - 1;
+    query = query.range(from, to);
+  }
+  const { data, error, count } = await query;
   if (error) {
     console.error(error);
     throw new Error(error.message);
   }
-  return data;
+  return { data, count };
 }
 
 export async function getTrainById(id) {
