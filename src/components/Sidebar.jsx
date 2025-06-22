@@ -241,9 +241,14 @@ export default function Sidebar() {
             <p className="text-sm text-gray-600">
               Contact our support team for assistance with your travel needs.
             </p>
-            <button className="mt-2 w-full rounded-md bg-cyan-600 px-3 py-2 text-sm font-medium text-white hover:bg-cyan-700">
-              Contact Support
-            </button>
+            <Link to="/help">
+              <button
+                to="/help"
+                className="mt-2 w-full cursor-pointer rounded-md bg-cyan-600 px-3 py-2 text-sm font-medium text-white hover:bg-cyan-700"
+              >
+                Contact Support
+              </button>
+            </Link>
           </div>
         </div>
       </aside>
