@@ -38,11 +38,13 @@ export async function signup({ full_name, email, password }) {
   return data;
 }
 
-export async function googleLogin() {
+export async function googleLogin({ redirectTo } = {}) {
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: "google",
     options: {
-      redirectTo: `${window.location.origin}/auth/callback`,
+      redirectTo: redirectTo
+        ? `${window.location.origin}/auth/callback?redirectTo=${redirectTo}`
+        : `${window.location.origin}/auth/callback`,
     },
   });
   if (error) {
@@ -52,11 +54,13 @@ export async function googleLogin() {
   return data;
 }
 
-export async function facebookLogin() {
+export async function facebookLogin({ redirectTo } = {}) {
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: "facebook",
     options: {
-      redirectTo: `${window.location.origin}/auth/callback`,
+      redirectTo: redirectTo
+        ? `${window.location.origin}/auth/callback?redirectTo=${redirectTo}`
+        : `${window.location.origin}/auth/callback`,
     },
   });
   if (error) {
