@@ -1,4 +1,4 @@
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
 import { IoIosSend, IoMdTrash } from "react-icons/io";

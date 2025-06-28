@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import { useRef, useState } from "react";
 import { RiRobot2Fill } from "react-icons/ri";
 import { Link } from "react-router";
@@ -502,13 +502,13 @@ export default function HomePage() {
       >
         <RiRobot2Fill className="h-8 w-8 text-white" />
       </button> */}
-            <button
-              className="fixed bottom-8 right-8 z-50 flex text-white  items-center justify-center rounded-full bg-gradient-to-r from-cyan-500 to-blue-600 hover:scale-110  duration-200 focus:outline-none  cursor-pointer  bg-white px-6 py-2.5 text-base font-medium shadow-md transition-all hover:bg-gray-100 focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-cyan-500"
-              onClick={() => setIsChatbotOpen((open) => !open)}
-            >
-              <RiRobot2Fill className="mr-2 h-6 w-6" />
-              <span>Chat Now</span>
-            </button>
+      <button
+        className="fixed right-8 bottom-8 z-50 flex cursor-pointer items-center justify-center rounded-full bg-white bg-gradient-to-r from-cyan-500 to-blue-600 px-6 py-2.5 text-base font-medium text-white shadow-md transition-all duration-200 hover:scale-110 hover:bg-gray-100 focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-cyan-500 focus:outline-none"
+        onClick={() => setIsChatbotOpen((open) => !open)}
+      >
+        <RiRobot2Fill className="mr-2 h-6 w-6" />
+        <span>Chat Now</span>
+      </button>
       {/* Chatbot Modal */}
       <Chatbot isOpen={isChatbotOpen} onClose={() => setIsChatbotOpen(false)} />
     </div>

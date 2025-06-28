@@ -1,5 +1,5 @@
 import { Field, Form, Formik } from "formik";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import { useState } from "react";
 import { RiRobot2Fill } from "react-icons/ri";
 import * as Yup from "yup";

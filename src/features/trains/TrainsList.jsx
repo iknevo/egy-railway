@@ -6,7 +6,7 @@ import { useTrains } from "./useTrains";
 
 export default function TrainsList({ fromStation, toStation, search }) {
   const {
-    data: trains,
+    data: trains = [],
     count,
     isLoading: isLoadingTrains,
   } = useTrains({
@@ -17,7 +17,7 @@ export default function TrainsList({ fromStation, toStation, search }) {
 
   if (isLoadingTrains) return <Loader />;
 
-  if (!trains?.length && (fromStation || toStation || search))
+  if (!trains?.length && fromStation && toStation && search)
     return (
       <>
         <div className="mt-6 flex flex-col gap-3 sm:gap-4 md:mt-8 md:flex-row md:items-center md:justify-between">
@@ -48,10 +48,10 @@ export default function TrainsList({ fromStation, toStation, search }) {
 
   return (
     <div className="mt-4 sm:mt-6 md:mt-8">
-      {!trains && (
+      {!trains.length && (
         <>
           <div className="flex flex-col gap-3 sm:gap-4 md:flex-row md:items-center md:justify-between">
-            <h2 className="text-center text-lg font-semibold text-gray-900 sm:text-xl md:text-left md:text-2xl">
+            {/* <h2 className="text-center text-lg font-semibold text-gray-900 sm:text-xl md:text-left md:text-2xl">
               Available Trains <span className="text-cyan-600">(0)</span>
             </h2>
             <div className="flex justify-center md:justify-end">
@@ -63,7 +63,7 @@ export default function TrainsList({ fromStation, toStation, search }) {
                   { value: "Sleeper", label: "SLEEPER" },
                 ]}
               />
-            </div>
+            </div> */}
           </div>
           <div className="overflow-hidden rounded-xl bg-white p-4 text-center shadow-lg sm:p-6 md:p-8">
             <h2 className="text-lg font-semibold text-gray-900 sm:text-xl md:text-2xl">
@@ -75,7 +75,7 @@ export default function TrainsList({ fromStation, toStation, search }) {
           </div>
         </>
       )}
-      {trains && (
+      {trains.length > 0 && (
         <div className="space-y-4 sm:space-y-6">
           <div className="flex flex-col gap-3 sm:gap-4 md:flex-row md:items-center md:justify-between">
             <h2 className="text-center text-lg font-semibold text-gray-900 sm:text-xl md:text-left md:text-2xl">

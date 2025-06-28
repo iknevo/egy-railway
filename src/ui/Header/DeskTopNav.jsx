@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import { NavLink } from "react-router";
 
 const navLinks = [
@@ -10,21 +10,22 @@ const navLinks = [
 export default function DesktopNav({ isActive }) {
   return (
     <motion.nav
-      className="hidden md:flex"
+      className="hidden self-stretch md:flex"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5, delay: 0.1 }}
     >
-      <ul className="flex space-x-1">
+      <ul className="flex items-stretch space-x-1">
         {navLinks.map((item) => (
           <motion.li
             key={item.title}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 1 }}
+            className="flex items-center"
           >
             <NavLink
               to={item.to}
-              className={`rounded-md px-3 py-2 transition-colors duration-200 ${isActive(item.to)}`}
+              className={`rounded-md px-3 py-2 transition-all duration-200 ${isActive(item.to)}`}
             >
               {item.title}
             </NavLink>
