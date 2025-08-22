@@ -2,6 +2,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Toaster } from "react-hot-toast";
 import { RouterProvider } from "react-router";
+import { Signature } from "./components/Signature";
 import router from "./Routes";
 import "./styles/index.css";
 
@@ -37,6 +38,7 @@ export default function App() {
           },
         }}
       />
+      <Signature />
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   );
